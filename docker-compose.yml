@@ -7,8 +7,11 @@ services:
         UID: ${UID}
         GID: ${GID}
     user: "${UID}:${GID}"
+    ports:
+      - "5173:5173"
     volumes:
       - ./src:/var/www/html
+      #- node_modules:/var/www/html/node_modules
     environment:
       - DB_HOST=db
       - DB_PORT=3306
@@ -43,3 +46,4 @@ services:
 
 volumes:
   db_data:
+  #node_modules:

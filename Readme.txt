@@ -27,6 +27,14 @@ DB_PASSWORD=laravelpass
 // Провалиться в контейнер с Ларкой и накатить миграции, и выйти
 docker compose exec app bash
 php artisan migrate
-exit
 
-// открыть в браузере проект: http://localhost:8080/
+// В контейнера с приложением устанавливаем бутстрап
+npm install bootstrap
+
+// Запуск режима разработки фронта: Vite с hot reload
+npm run dev
+// Должна окрываться страница http://localhost:5173/
+
+// Открыть в браузере проект: http://localhost:8080/
+
+// Если нужно провалиться в контейнер с приложением: docker compose exec -it app bash
