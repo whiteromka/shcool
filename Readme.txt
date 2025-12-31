@@ -9,27 +9,28 @@ git clone git@github.com:whiteromka/shcool.git
 printf "UID=%s\nGID=%s\n" "$(id -u)" "$(id -g)" > .env
 
 // Прописать в .env
-# ========= Docker =========
+
 UID=1000
 GID=1000
-# ========= App =========
 APP_NAME=Laravel
 APP_ENV=local
 APP_KEY=base64:ZQ/re0PAL++HOgecVtZkJKZqtBWS6Fu+xKSyf9T3TFU=
 APP_DEBUG=true
 APP_URL=http://localhost:8080
-# ========= Database =========
 DB_CONNECTION=mysql
 DB_HOST=db
 DB_PORT=3306
 DB_DATABASE=db
-DB_USERNAME=rom123
-DB_PASSWORD=rom123
-MYSQL_ROOT_PASSWORD=rom123
-#====
+DB_USERNAME=? # заменить на настоящий
+DB_PASSWORD=? # заменить на настоящий
+MYSQL_ROOT_PASSWORD=? # заменить на настоящий
 CACHE_STORE=database
 SESSION_DRIVER=database
 QUEUE_CONNECTION=database
+#   на случай если возникнет ошибка с БД, раскоментировать эти строки
+#   CACHE_STORE=file
+#   SESSION_DRIVER=file
+#   QUEUE_CONNECTION=sync
 
 // Собираем окружение
 docker compose build --no-cache
@@ -53,3 +54,9 @@ npm run dev
 // Открыть в браузере проект: http://localhost:8080/
 
 // Если нужно провалиться в контейнер с приложением: docker compose exec -it app bash
+
+=============
+
+docker compose exec app php artisan optimize:clear  // чистка кэша
+docker compose exec app php artisan key:generate // генерация ключа
+docker compose exec app php artisan migrate // миграции
