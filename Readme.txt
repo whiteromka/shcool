@@ -1,15 +1,10 @@
-Склонировать через git:
-git clone git@github.com:whiteromka/shcool.git
-
 Для windows проект разворачивать внутри WSL например: ~/dev/<папка_с_проектом>
 
-В папке с проектом выполнить команды:
+Склонировать через git:
+git clone git@github.com:whiteromka/shcool.git
+cd shcool
 
-// Сгенерировать .env для докера командой ниже
-printf "UID=%s\nGID=%s\n" "$(id -u)" "$(id -g)" > .env
-
-// Прописать в .env
-
+// Создать в корне .env с такими настройками:
 UID=1000
 GID=1000
 APP_NAME=Laravel
@@ -32,6 +27,10 @@ QUEUE_CONNECTION=database
 #   SESSION_DRIVER=file
 #   QUEUE_CONNECTION=sync
 
+Выполнить команды:
+id -u  # эту цифру вписать в .env в значение для UID
+id -g  # эту цифру вписать в .env в значение для GID
+
 // Собираем окружение
 docker compose build --no-cache
 
@@ -42,7 +41,7 @@ docker compose up -d
 docker compose exec app bash
 composer install
 php artisan migrate // если будет ошибка подождать 20 сек и повторить
-                  проверка подключения:  mysql -h db -u rom123 -p --ssl=0
+                  проверка подключения:  mysql -h db -u <DB_USERNAME> -p --ssl=0
 
 // В контейнере с приложением устанавливаем бутстрап
 npm install
@@ -53,10 +52,11 @@ npm run dev
 
 // Открыть в браузере проект: http://localhost:8080/
 
-// Если нужно провалиться в контейнер с приложением: docker compose exec -it app bash
-
+// Готово!
 =============
 
+Прочие команды:
+docker compose exec -it app bash // провалиться в контейнер с приложением
 docker compose exec app php artisan optimize:clear  // чистка кэша
 docker compose exec app php artisan key:generate // генерация ключа
 docker compose exec app php artisan migrate // миграции
