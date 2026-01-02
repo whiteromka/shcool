@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="container">
-        <h1>1111</h1>
+        <h1>1111223</h1>
         <div class="row">
             <div class="col-sm-6">
                 qqqq
