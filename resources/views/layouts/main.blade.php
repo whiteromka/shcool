@@ -8,8 +8,7 @@
 {{--    <link href="{{ asset('bootstrap/bootstrap.min.css') }}" rel="stylesheet">--}}
 </head>
 <body>
-<div class="container">
-    <p>11</p>
+<div class="container-fluid bgd mh-800">
     @yield('content')
 </div>
 {{--<script src="{{ asset('bootstrap/bootstrap.min.js') }}"></script>--}}

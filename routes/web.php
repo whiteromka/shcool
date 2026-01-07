@@ -8,3 +8,4 @@ Route::get('/', function () {
 });
 
 Route::get('/user/index', [UserController::class, 'index'])->name('user.index');
+Route::get('/user/test', [UserController::class, 'test'])->name('user.test');

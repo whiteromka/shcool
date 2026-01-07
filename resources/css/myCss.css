@@ -1,4 +1,175 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Tektur:wght@400..900&display=swap');
+* {
+    color: #cacaca;
+    font-family: "Tektur", sans-serif;
+    font-optical-sizing: auto;
+    /*font-weight: 100;*/
+    font-style: normal;
+    font-variation-settings:
+        "wdth" 100;
+}
+:root {
+    --с-grey0: #cacaca;
+    --с-grey1: #aaaaaa;
+    --с-grey2: #7b7b7b;
+
+    --size: 30px;       /* диаметр внешнего круга */
+    --thickness: 1px;   /* толщина кольца */
+    --gap-deg: 44deg;    /* угол недорисованного сегмента (15%) */
+}
+.mh-800 {min-height: 800px;}
+.bgd {background: #252933;}
+
+.orange {color: orange}
+.red {color: red}
+.br {border: 2px solid red;}
+.line { border-bottom: 1px solid #c6c6c6}
+
+/*---- item ----*/
+.item {}
+.item .item-head {
+    font-weight: bold;
+    font-size: 13px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid #c6c6c6;
+    padding: 5px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+.item .item-body {
+    background: #1a3e54;
+    border: 1px solid #8e8e8e;
+}
+/*---- item body-top ----*/
+.body-top { background: #122e3d;}
+.body-top .item-name {
+    font-size: 42px;
+    text-transform: uppercase;
+    color: #f4cb7f;
+    text-shadow: 0 0 10px orange;
+}
+.body-top .item-status span:nth-child(1) {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+.status-boxes .box {
+    width: 10px;
+    height: 10px;
+    margin-left: 1px;
+    background-color: red;
+}
+.status-boxes .box-yellow {
+    background-color: yellow;
+    box-shadow: 0 0 5px yellow;
+}
+.status-boxes .box-orange {background-color: orange;}
+.body-top .item-status span:nth-child(3) {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 10px;
+}
+/*---- item body-middle ----*/
+.body-middle {
+    position: relative;
+    padding: 4px;
+    border-top: 1px dashed #8e8e8e;
+    border-bottom: 1px dashed #8e8e8e;
+    min-height: 350px;
+}
+.brackets {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    pointer-events: none; /* не взаимодействуют с контентом */
+}
+.brackets-tl {
+    top: 0;
+    left: 0;
+    border-top: 2px solid var(--с-grey0);
+    border-left: 2px solid var(--с-grey0);
+}
+.brackets-tr {
+    top: 0;
+    right: 0;
+    border-top: 2px solid var(--с-grey0);
+    border-right: 2px solid var(--с-grey0);
+}
+.brackets-bl {
+    bottom: 0;
+    left: 0;
+    border-bottom: 2px solid var(--с-grey0);
+    border-left: 2px solid var(--с-grey0);
+}
+.brackets-br {
+    bottom: 0;
+    right: 0;
+    border-bottom: 2px solid var(--с-grey0);
+    border-right: 2px solid var(--с-grey0);
+}
+/*---- item body-bottom ----*/
+.body-bottom {
+    background: #122e3d;
+    padding: 4px;
+}
+.body-bottom .loader {
+    position: relative;
+    height: 4px;
+    background: #a8a4a4;
+    width: 100%;
+    margin-bottom: 2px;
+}
+.inloader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 10%;
+    background: red;
+}
+.inl-1 {
+    position: absolute;
+    top: 0;
+    left: 50px;
+    height: 100%;
+    width: 25%;
+    background: yellow;
+}
+
+
+
+
+
+.circle {
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    background:
+        conic-gradient(
+            #3498db 0deg calc(360deg - var(--gap-deg)),
+            transparent calc(360deg - var(--gap-deg)) 360deg
+        );
+    -webkit-mask:
+        radial-gradient(
+            circle,
+            transparent calc(80% - var(--thickness)),
+            black calc(80% - var(--thickness))
+        );
+    mask:
+        radial-gradient(
+            circle,
+            transparent calc(60% - var(--thickness)),
+            black calc(60% - var(--thickness))
+        );
+}
+
+
+
+
+
+.wrap-hex-div {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -6,7 +177,6 @@ body {
     background: #e2e2ea;
     font-family: Arial, sans-serif;
 }
-
 .hex-div {
     width: 300px;
     height: 150px;
