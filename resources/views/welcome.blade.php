@@ -59,6 +59,8 @@
         @if (Route::has('login'))
             <div class="h-14.5 hidden lg:block"></div>
         @endif
-        <?php phpinfo()?>
+
+        <p>Войти через <a href="https://oauth.yandex.ru/authorize?response_type=code&client_id={{ $yandexClientId }}">Yandex</a> </p>
+
     </body>
 </html>
