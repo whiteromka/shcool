@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 class YandexAuthService
 {
     public function __construct(
-        private readonly YandexOAuthClient $yaClient
+        private readonly YandexOAuthClientInterface $yaClient
     ) {}
 
     public function authenticate(string $code): void

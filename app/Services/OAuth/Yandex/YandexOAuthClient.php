@@ -7,7 +7,7 @@ use RuntimeException;
 use App\DTO\OAuth\Yandex\YandexTokenDTO;
 use App\DTO\OAuth\Yandex\YandexUserDTO;
 
-class YandexOAuthClient
+class YandexOAuthClient implements YandexOAuthClientInterface
 {
     public function exchangeCodeForToken(string $code): YandexTokenDTO
     {
