@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Oauth\YandexController;
+use App\Http\Controllers\TestController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
@@ -27,3 +28,5 @@ Route::get('/dashboard', function () {
 })->middleware('auth');
 
 Route::get('/yandex/verification-code',  [YandexController::class, 'verificationCode'])->name('yandex.verificationCode');
+
+Route::get('/test/test',  [TestController::class, 'test'])->name('test.test');
