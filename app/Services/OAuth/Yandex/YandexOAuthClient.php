@@ -4,8 +4,6 @@ namespace App\Services\OAuth\Yandex;
 
 use Illuminate\Support\Facades\Http;
 use RuntimeException;
-use App\DTO\OAuth\Yandex\YandexTokenDTO;
-use App\DTO\OAuth\Yandex\YandexUserDTO;
 
 class YandexOAuthClient implements YandexOAuthClientInterface
 {

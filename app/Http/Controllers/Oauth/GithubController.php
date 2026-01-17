@@ -3,9 +3,16 @@
 namespace App\Http\Controllers\Oauth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\OAuth\VerificationCodeRequest;
 use App\Models\OauthAccount;
 use App\Models\User;
+use App\Services\OAuth\AuthService;
+use App\Services\OAuth\Github\GithubAuthService;
+use Exception;
+use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -14,11 +21,20 @@ use Illuminate\Support\Str;
 
 class GithubController extends Controller
 {
+    /**
+     * url: http://localhost:8080/github/verification-code
+     */
+    public function verificationCode(VerificationCodeRequest $request, GithubAuthService $authService): Redirector|RedirectResponse
+    {
+        $authService->authenticate($request->getCode());
+        return redirect('/')->with('success', 'Вы успешно зарегистрировались и вошли в систему');
+    }
+
     /** ToDo для студентов
      * url: http://localhost:8080/github/verification-code
      * url: http://localhost:8080/github/verification-code?code=4a2c3e8c53ea48927172
      */
-    public function verificationCode(Request $request)
+    public function verificationCode2(Request $request)
     {
         // Получаем код из адресной строки
         $code = $request->get('code');
@@ -26,20 +42,37 @@ class GithubController extends Controller
             abort(400, 'Code обязательный параметр');
         }
 
-        // Отправляем код и данные приложения в github для получения токенов
-        $response = Http::asForm()
-            ->withHeaders(['Accept' => 'application/json'])
-            ->post('https://github.com/login/oauth/access_token', [
-            'code'          => $code,
-            'redirect_uri'  => config('services.github.redirect_uri'),
-            'client_id'     => config('services.github.client_id'),
-            'client_secret' => config('services.github.client_secret'),
-        ]);
+        try {
+            // Отправляем код и данные приложения в github для получения токенов
+            $response = Http::asForm()
+                ->withHeaders(['Accept' => 'application/json'])
+                ->timeout(30)
+                ->retry(3, 1000)
+                ->post('https://github.com/login/oauth/access_token', [
+                    'code'          => $code,
+                    'redirect_uri'  => config('services.github.redirect_uri'),
+                    'client_id'     => config('services.github.client_id'),
+                    'client_secret' => config('services.github.client_secret'),
+                ]);
 
-        if ($response->failed()) {
-            logger()->error('Github OAuth ошибка сервиса', $response->json());
-            abort(500, 'Github OAuth ошибка сервиса');
+            if ($response->failed()) {
+                logger()->error('Github OAuth ошибка сервиса', $response->json());
+                abort(500, 'Github OAuth ошибка сервиса');
+            }
+        } catch (ConnectionException $e) {
+            logger()->error('Github OAuth ошибка подключения', [
+                'message' => $e->getMessage(),
+                'code' => $e->getCode(),
+            ]);
+            abort(503, 'Временно невозможно подключиться к сервису авторизации. Пожалуйста, попробуйте позже.');
+        } catch (Exception $e) {
+            logger()->error('Github OAuth неожиданная ошибка', [
+                'message' => $e->getMessage(),
+                'class' => get_class($e),
+            ]);
+            abort(500, 'Произошла ошибка при авторизации');
         }
+
 
         $data = $response->json();
         $token = $data['access_token'];

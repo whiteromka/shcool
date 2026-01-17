@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DTO\OAuth\Yandex;
+namespace App\Services\OAuth\Yandex;
 
 use RuntimeException;
 
