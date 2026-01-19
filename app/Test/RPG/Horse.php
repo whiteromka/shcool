@@ -6,6 +6,6 @@ class Horse
 {
     public function walk(): void
     {
-        echo "walking...\n";
+        echo "walking..." . "<br>";
     }
 }

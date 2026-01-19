@@ -6,6 +6,6 @@ class FastHorse extends Horse
 {
     public function fastGallop(): void
     {
-        echo "Fast horse gallop\n";
+        echo "Fast horse gallop"  . "<br>";
     }
 }

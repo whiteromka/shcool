@@ -4,9 +4,9 @@ namespace App\Test\RPG;
 
 class Rider
 {
-    private FastHorse $horse;
+    private Horse $horse;
 
-    public function setHorse(FastHorse $horse): void
+    public function setHorse(Horse $horse): void
     {
         $this->horse = $horse;
     }
@@ -17,9 +17,12 @@ class Rider
      */
     public function ride(string $rideMode = "walk"): void
     {
-        if ($rideMode === "gallop") {
+        // Если режим gallop      и  лошадь       является    FastHorse
+        if ($rideMode === "gallop" && $this->horse instanceof FastHorse) {
             $this->horse->fastGallop();
+        } else {
+            // Тут если обычная лошадь или если режим walk или если всадник хочет gallop, но у него обычная лошадь то
+            $this->horse->walk();
         }
-        $this->horse->walk();
     }
 }
