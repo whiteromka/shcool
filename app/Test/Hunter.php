@@ -15,7 +15,7 @@ class Hunter
     {
         $this->gun = $g;
     }
-
+    //check push
     public function shoot(): void
     {
         $this->gun->shoot();
