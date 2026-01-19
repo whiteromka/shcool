@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Test\Gun;
 use App\Test\Hunter;
+use App\Test\RPG\FastHorse;
+use App\Test\RPG\Horse;
+use App\Test\RPG\Rider;
 use App\Test\Usr;
 use Illuminate\Http\Request;
 
@@ -191,8 +194,18 @@ class TestController extends Controller
         $hunter->shoot();
         $g = $hunter->getGun();
         dd($g);
-        die;
 
+    }
+
+    public function rpgGame()
+    {
+        $horse = new Horse();
+        $fastHorse = new FastHorse();
+        $rider = new Rider();
+
+        $rider->setHorse($fastHorse);
+        $rider->ride();
+        $rider->ride("gallop");
 
     }
 }
