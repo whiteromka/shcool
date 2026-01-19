@@ -27,8 +27,9 @@ use Illuminate\Support\Carbon;
  */
 class OauthAccount extends Model
 {
-    const YANDEX = 'Yandex';
-    const GITHUB = 'Github';
+    const string YANDEX = 'Yandex';
+    const string GITHUB = 'Github';
+    const string GOOGLE = 'Google';
 
     protected $table = 'oauth_accounts';
 

@@ -1,3 +1,4 @@
+@php use App\Models\User; @endphp
 @extends('layouts.main')
 @section('content')
     <style>
@@ -38,7 +39,7 @@
         <div class="h-14.5 hidden lg:block"></div>
     @endif
 
-    <p>Войти через <a href="https://oauth.yandex.ru/authorize?response_type=code&client_id={{ $yandexClientId }}">Yandex</a> </p>
+    <p>Войти через <a href="https://oauth.yandex.ru/authorize?response_type=code&client_id={{ $yandexClientId }}">Yandex</a></p>
 
     <?php
     $redirectUri = 'http://localhost:8080/github/verification-code';
@@ -50,15 +51,34 @@
         </a>
     </p>
 
-    @auth
-    <p>{{ Auth::user()->name }}</p>
-    <p>Email: {{ Auth::user()->email }}</p>
+    <p>Войти через
+        <a href="{{ route('login.google') }}">
+            Google
+        </a>
+    </p>
 
-    <br>
-    <form method="POST" action="/logout">
-        @csrf
-        <button class="btn btn-danger">Logout</button>
-    </form>
+
+    <?php
+    /** @var User $u */
+//    $u = Auth::user();
+//    $account = $u->oauthAccounts->first();
+//    if ($account) {
+//        $accessToken = $account->access_token;
+//        $refreshToken = $account->refresh_token;
+//        dd($accessToken, $refreshToken);
+//    }
+
+ ?>
+
+    @auth
+        <p>{{ Auth::user()->name }}</p>
+        <p>Email: {{ Auth::user()->email }}</p>
+
+        <br>
+        <form method="POST" action="/logout">
+            @csrf
+            <button class="btn btn-danger">Logout</button>
+        </form>
     @endauth
 @endsection
 

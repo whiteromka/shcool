@@ -27,6 +27,7 @@ class YandexAuthService implements OAuthServiceInterface
                 'name'      => $yandexUser->firstName,
                 'last_name' => $yandexUser->lastName,
                 'password'  => Hash::make(Str::random(32)),
+                'password_verified' => 0,
             ]
         );
 

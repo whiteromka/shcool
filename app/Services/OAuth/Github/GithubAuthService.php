@@ -27,6 +27,7 @@ class GithubAuthService implements OAuthServiceInterface
                 'name'      => $oauthUserDTO->firstName,
                 'last_name' => $oauthUserDTO->lastName,
                 'password'  => Hash::make(Str::random(32)),
+                'password_verified' => 0,
             ]
         );
 

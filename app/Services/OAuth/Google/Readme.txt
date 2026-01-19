@@ -1,0 +1,1 @@
+Реализация через Laravel\Socialite

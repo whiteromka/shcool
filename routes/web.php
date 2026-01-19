@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Oauth\GithubController;
+use App\Http\Controllers\Oauth\GoogleController;
 use App\Http\Controllers\Oauth\YandexController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\UserController;
@@ -34,6 +35,10 @@ Route::get('/dashboard', function () {
 // OAuth Login services
 Route::get('/yandex/verification-code',  [YandexController::class, 'verificationCode'])->name('yandex.verificationCode');
 Route::get('/github/verification-code',  [GithubController::class, 'verificationCode'])->name('github.verificationCode');
+
+Route::get('/login/google', [GoogleController::class, 'redirectToGoogle'])->name('login.google');
+Route::get('/google/verification-code', [GoogleController::class, 'verificationCode']);
+
 
 Route::get('/test/test',  [TestController::class, 'test'])->name('test.test');
 Route::get('/test/test2',  [TestController::class, 'test2'])->name('test.test2');

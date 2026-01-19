@@ -17,8 +17,12 @@ use Illuminate\Support\Carbon;
  * @property string $name
  * @property string $last_name
  * @property string $email
+ * @property string $phone
+ * @property string $telegram
+ * @property string $username
  * @property Carbon|null $email_verified_at
  * @property string $password
+ * @property int $password_verified
  * @property string|null $remember_token
  * @property Carbon $created_at
  * @property Carbon $updated_at
@@ -40,6 +44,10 @@ class User extends Authenticatable
         'last_name',
         'email',
         'password',
+        'phone',
+        'telegram',
+        'password_verified',
+        'username'
     ];
 
     /**
