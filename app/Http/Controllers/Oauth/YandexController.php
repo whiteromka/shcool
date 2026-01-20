@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Oauth;
 
+use App\Enums\OAuthProvider;
 use App\Http\Controllers\Controller;
 use App\Models\OauthAccount;
 use App\Models\User;
@@ -108,7 +109,7 @@ class YandexController extends Controller
         // Сохраняем или обновляем запись
         OauthAccount::query()->updateOrCreate(
             [
-                'provider'          => OauthAccount::YANDEX,
+                'provider' => OAuthProvider::YANDEX->value,
                 'provider_user_id'  => $yandexUser['id'],
             ],
             [

@@ -2,50 +2,33 @@
 
 namespace App\Services\OAuth\Github;
 
-use App\Models\OauthAccount;
-use App\Models\User;
+use App\Enums\OAuthProvider;
 use App\Services\OAuth\OAuthClientInterface;
 use App\Services\OAuth\OAuthServiceInterface;
+use App\Services\OauthAccountService;
+use App\Services\UserService;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 class GithubAuthService implements OAuthServiceInterface
 {
     public function __construct(
-        private readonly OAuthClientInterface $oauthClient
+        private readonly OAuthClientInterface $oauthClient,
+        private readonly UserService $userService,
+        private readonly OauthAccountService $oauthAccountService,
     ) {}
 
     public function authenticate(string $code): void
     {
         $oauthTokensDTO = $this->oauthClient->exchangeCodeForToken($code);
-        $oauthUserDTO = $this->oauthClient->fetchUser($oauthTokensDTO->accessToken);
+        $oauthUserDTO = $this->oauthClient->fetchUser($oauthTokensDTO->access_token);
+        $user = $this->userService->findOrCreateByEmail($oauthUserDTO);
 
-        $user = User::query()->firstOrCreate(
-            ['email' => $oauthUserDTO->email],
-            [
-                'name'      => $oauthUserDTO->firstName,
-                'last_name' => $oauthUserDTO->lastName,
-                'password'  => Hash::make(Str::random(32)),
-                'password_verified' => 0,
-            ]
-        );
-
-        OauthAccount::query()->updateOrCreate(
-            [
-                'provider'         => OauthAccount::GITHUB,
-                'provider_user_id' => $oauthUserDTO->id,
-            ],
-            [
-                'user_id'       => $user->id,
-                'access_token'  => $oauthTokensDTO->accessToken,
-                'refresh_token' => $oauthTokensDTO->refreshToken,
-                'expires_at'    => $oauthTokensDTO->expiresAt,
-                'refresh_token_expires_at' => $oauthTokensDTO->refreshTokenExpiresAt,
-                'token_type'    => $oauthTokensDTO->tokenType,
-                'scope'         => $oauthTokensDTO->scope,
-                'raw_response'  => $oauthTokensDTO->raw, // ToDo collect($tokens->raw)->except(['access_token', 'refresh_token'])->toArray(),
-            ]
+        $attributes = $oauthTokensDTO->attributes();
+        $attributes['user_id'] = $user->id;
+        $this->oauthAccountService->updateOrCreate(
+            OAuthProvider::GITHUB->value,
+            $oauthUserDTO->id,
+            $attributes
         );
 
         Auth::login($user);

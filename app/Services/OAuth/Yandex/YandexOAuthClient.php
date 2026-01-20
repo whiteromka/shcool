@@ -2,6 +2,7 @@
 
 namespace App\Services\OAuth\Yandex;
 
+use App\Enums\OAuthProvider;
 use App\Services\OAuth\OAuthClientInterface;
 use App\Services\OAuth\OAuthTokensDTO;
 use App\Services\OAuth\OAuthUserDTO;
@@ -45,6 +46,6 @@ class YandexOAuthClient implements OAuthClientInterface
             throw new RuntimeException('Yandex OAuth неудачный запрос информации о пользователе');
         }
 
-        return OAuthUserDTO::fromArray($response->json());
+        return OAuthUserDTO::fromArray($response->json(), OAuthProvider::YANDEX->value);
     }
 }

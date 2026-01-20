@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Oauth;
 
+use App\Enums\OAuthProvider;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OAuth\VerificationCodeRequest;
 use App\Models\OauthAccount;
@@ -133,18 +134,18 @@ class GithubController extends Controller
         // Сохраняем или обновляем запись
         OauthAccount::query()->updateOrCreate(
             [
-                'provider'          => OauthAccount::GITHUB,
-                'provider_user_id'  => $githubUser['id'],
+                'provider' => OAuthProvider::GITHUB,
+                'provider_user_id' => $githubUser['id'],
             ],
             [
-                'user_id'       => $user->id,
-                'access_token'  => $data['access_token'],
-                'refresh_token' => $data['refresh_token'] ?? null,
-                'expires_at'    => $data['expires_in'] ? Carbon::now()->addSeconds($data['expires_in']) : null,
+                'user_id' => $user->id,
+                'access_token' => $data['access_token'],
+                'refresh_token'=> $data['refresh_token'] ?? null,
+                'expires_at' => $data['expires_in'] ? Carbon::now()->addSeconds($data['expires_in']) : null,
                 'refresh_token_expires_at' => $data['refresh_token_expires_in'] ? Carbon::now()->addSeconds($data['refresh_token_expires_in']) : null,
-                'token_type'    => $data['token_type'] ?? null,
-                'scope'         => $data['scope'] ?? null,
-                'raw_response'  => collect($data)->toArray()//->except(['access_token', 'refresh_token']),
+                'token_type' => $data['token_type'] ?? null,
+                'scope' => $data['scope'] ?? null,
+                'raw_response' => collect($data)->toArray()
             ]
         );
 

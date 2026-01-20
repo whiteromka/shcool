@@ -27,10 +27,6 @@ use Illuminate\Support\Carbon;
  */
 class OauthAccount extends Model
 {
-    const string YANDEX = 'Yandex';
-    const string GITHUB = 'Github';
-    const string GOOGLE = 'Google';
-
     protected $table = 'oauth_accounts';
 
     protected $fillable = [
@@ -57,16 +53,7 @@ class OauthAccount extends Model
      */
     public function isExpired(): bool
     {
-        return $this->expires_at !== null // phpstrom ругается на expires_at
-            && $this->expires_at->isPast();
-    }
-
-    /**
-     * Scope для конкретного провайдера
-     */
-    public function scopeProvider($query, string $provider)
-    {
-        return $query->where('provider', $provider);
+        return $this->expires_at !== null && $this->expires_at->isPast();
     }
 
     /**

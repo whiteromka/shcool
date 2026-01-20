@@ -8,13 +8,13 @@ use RuntimeException;
 class OAuthTokensDTO
 {
     public function __construct(
-        public readonly string $accessToken,
-        public readonly ?string $refreshToken,
-        public readonly ?Carbon $expiresAt,
-        public readonly ?Carbon $refreshTokenExpiresAt,
-        public readonly ?string $tokenType,
+        public readonly string $access_token,
+        public readonly ?string $refresh_token,
+        public readonly ?Carbon $expires_at,
+        public readonly ?Carbon $refresh_token_expires_at,
+        public readonly ?string $token_type,
         public readonly ?string $scope,
-        public readonly array $raw
+        public readonly ?array $raw_response
     ) {}
 
     /**
@@ -34,13 +34,18 @@ class OAuthTokensDTO
         $refreshTokenExpiresAt = is_numeric($refreshTokenExpiresIn) ? now()->addSeconds((int)$refreshTokenExpiresIn) : null;
 
         return new self(
-            accessToken: $data['access_token'],
-            refreshToken: $data['refresh_token'] ?? null,
-            expiresAt: $expiresAt,
-            refreshTokenExpiresAt: $refreshTokenExpiresAt,
-            tokenType: $data['token_type'] ?? null,
+            access_token: $data['access_token'],
+            refresh_token: $data['refresh_token'] ?? null,
+            expires_at: $expiresAt,
+            refresh_token_expires_at: $refreshTokenExpiresAt,
+            token_type: $data['token_type'] ?? null,
             scope: $data['scope'] ?? null,
-            raw: $data
+            raw_response: $data
         );
+    }
+
+    public function attributes(): array
+    {
+        return get_object_vars($this);
     }
 }

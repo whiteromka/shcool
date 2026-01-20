@@ -2,49 +2,35 @@
 
 namespace App\Services\OAuth\Yandex;
 
-use App\Models\OauthAccount;
-use App\Models\User;
+use App\Enums\OAuthProvider;
 use App\Services\OAuth\OAuthClientInterface;
 use App\Services\OAuth\OAuthServiceInterface;
+use App\Services\OauthAccountService;
+use App\Services\UserService;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 class YandexAuthService implements OAuthServiceInterface
 {
     public function __construct(
-        private readonly OAuthClientInterface $yaClient
+        private readonly OAuthClientInterface $oauthClient,
+        private readonly UserService $userService,
+        private readonly OauthAccountService $oauthAccountService,
     ) {}
 
     public function authenticate(string $code): void
     {
-        $tokens = $this->yaClient->exchangeCodeForToken($code);
-        $yandexUser = $this->yaClient->fetchUser($tokens->accessToken);
+        $oauthTokensDTO = $this->oauthClient->exchangeCodeForToken($code);
+        $oauthUserDTO = $this->oauthClient->fetchUser($oauthTokensDTO->access_token);
 
-        $user = User::query()->firstOrCreate(
-            ['email' => $yandexUser->email],
-            [
-                'name'      => $yandexUser->firstName,
-                'last_name' => $yandexUser->lastName,
-                'password'  => Hash::make(Str::random(32)),
-                'password_verified' => 0,
-            ]
-        );
+        $user = $this->userService->findOrCreateByEmail($oauthUserDTO);
 
-        OauthAccount::query()->updateOrCreate(
-            [
-                'provider'         => OauthAccount::YANDEX,
-                'provider_user_id' => $yandexUser->id,
-            ],
-            [
-                'user_id'       => $user->id,
-                'access_token'  => $tokens->accessToken,
-                'refresh_token' => $tokens->refreshToken,
-                'expires_at'    => $tokens->expiresAt,
-                'token_type'    => $tokens->tokenType,
-                'scope'         => $tokens->scope,
-                'raw_response'  => $tokens->raw, // ToDo collect($tokens->raw)->except(['access_token', 'refresh_token'])->toArray(),
-            ]
+        $attributes = $oauthTokensDTO->attributes();
+        $attributes['user_id'] = $user->id;
+
+        $this->oauthAccountService->updateOrCreate(
+            OAuthProvider::YANDEX->value,
+            $oauthUserDTO->id,
+            $attributes
         );
 
         Auth::login($user);

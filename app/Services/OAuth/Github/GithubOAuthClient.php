@@ -2,6 +2,7 @@
 
 namespace App\Services\OAuth\Github;
 
+use App\Enums\OAuthProvider;
 use App\Services\OAuth\OAuthClientInterface;
 use App\Services\OAuth\OAuthTokensDTO;
 use App\Services\OAuth\OAuthUserDTO;
@@ -38,13 +39,14 @@ class GithubOAuthClient implements OAuthClientInterface
         $email = $this->fetchUserEmail($accessToken);
         $userData = $this->fetchDataUser($accessToken);
 
-        return new OAuthUserDTO(
-            $userData['id'],
-            $email,
-            $userData['name'],
-            null,
-            $userData['raw']
-        );
+        $data = [
+            'id' => $userData['id'],
+            'email' => $email,
+            'name' => $userData['name'],
+            'last_name' => null,
+            'username' => null
+        ];
+        return OAuthUserDTO::fromArray($data, OAuthProvider::GITHUB->value);
     }
 
     /**

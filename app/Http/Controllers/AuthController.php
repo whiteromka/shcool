@@ -4,48 +4,53 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
-use App\Models\User;
+use App\Repositories\UserRepository;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function showLogin()
+    public function __construct(
+        private readonly UserRepository $userRepository
+    ) {}
+
+    public function showLogin(): Factory|View
     {
         return view('auth.login');
     }
 
-    public function showRegister()
+    public function showRegister(): Factory|View
     {
         return view('auth.register');
     }
 
-    public function login(LoginRequest $request)
+    public function login(LoginRequest $request): RedirectResponse
     {
-        if (! Auth::attempt($request->credentials())) {
+        if (!Auth::attempt($request->credentials())) {
             return back()->withErrors([
                 'email' => 'Неверный email или пароль',
             ]);
         }
-
         $request->session()->regenerate();
 
-        return redirect()->intended('/dashboard');
+        return redirect('/');
     }
 
-    public function register(RegisterRequest $request)
+    public function register(RegisterRequest $request): Redirector|RedirectResponse
     {
-        $user = User::create($request->credentials());
+        $user = $this->userRepository->create($request->credentials());
         Auth::login($user);
 
-        return redirect('/dashboard');
+        return redirect('/');
     }
 
-    public function logout(Request $request)
+    public function logout(Request $request): Redirector|RedirectResponse
     {
         Auth::logout();
-
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 

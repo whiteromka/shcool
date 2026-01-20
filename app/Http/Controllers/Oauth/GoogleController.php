@@ -3,15 +3,17 @@
 namespace App\Http\Controllers\Oauth;
 
 use App\Http\Controllers\Controller;
-use App\Models\OauthAccount;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+use App\Services\OAuth\Google\GoogleAuthService;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 use Laravel\Socialite\Facades\Socialite;
 
 class GoogleController extends Controller
 {
+    public function __construct(
+        private readonly GoogleAuthService $googleAuthService
+    ) {}
+
     /**
      * Перенаправление на Google для авторизации
      */
@@ -23,55 +25,12 @@ class GoogleController extends Controller
     /**
      * Обработка callback от Google
      */
-    public function verificationCode()
+    public function verificationCode(): Redirector|RedirectResponse
     {
-        $googleUser = Socialite::driver('google')->user();
-        $user = $this->findOrCreateUser($googleUser);
-        Auth::login($user, true);
-        return redirect()->intended('/');
-    }
+        /** @var \Laravel\Socialite\Two\User $socialiteUser */
+        $socialiteUser = Socialite::driver('google')->user();
+        $this->googleAuthService->authenticate($socialiteUser);
 
-    /**
-     * Поиск существующего пользователя или создание нового
-     */
-    private function findOrCreateUser(\Laravel\Socialite\Two\User $googleUser)
-    {
-        $nameParts = explode(' ', $googleUser->getName(), 2);
-        $name = $nameParts[0];
-        $lastName = $nameParts[1] ?? null;
-        $email = $googleUser->getEmail();
-        $googleId = $googleUser->getId();
-
-        // Ищем пользователя по email и создаем его если его нет
-        $user = User::query()->firstOrCreate(
-            ['email' => $email],
-            [
-                'name' => $name,
-                'last_name' => $lastName,
-                'password' => Hash::make(Str::random(32)),
-                'password_verified' => 0,
-                'email_verified_at' => now(),
-            ]
-        );
-
-        $expiresIn = $googleUser->expiresIn ?? null;
-        $expiresAt = is_numeric($expiresIn) ? now()->addSeconds((int)$expiresIn) : null;
-        OauthAccount::query()->updateOrCreate(
-            [
-                'provider' => OauthAccount::GOOGLE,
-                'provider_user_id' => $googleId,
-            ],
-            [
-                'user_id' => $user->id,
-                'access_token' => $googleUser->token,
-                'refresh_token' => $googleUser->refreshToken,
-                'expires_at' => $expiresAt,
-                'token_type' => null,
-                'scope' => implode('; ', $googleUser->approvedScopes),
-                'raw_response' => [],
-            ]
-        );
-
-        return $user;
+        return redirect('/')->with('success', 'Ура! Вы успешно зарегистрировались и вошли в систему');
     }
 }

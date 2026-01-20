@@ -13,6 +13,9 @@ return new class extends Migration
             $table->boolean('password_verified')->after('password');
             $table->string('phone')->nullable()->unique()->after('email');
             $table->string('telegram')->nullable()->unique()->after('phone');
+
+            $table->dropColumn('email_verified_at');
+            $table->boolean('email_verified')->nullable()->after('email');
         });
     }
 
@@ -23,6 +26,9 @@ return new class extends Migration
             $table->dropColumn('password_verified');
             $table->dropColumn('phone');
             $table->dropColumn('telegram');
+
+            $table->timestamp('email_verified_at')->nullable()->after('email');
+            $table->dropColumn('email_verified');
         });
     }
 };

@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Services\PasswordGeneratorService;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Hash;
 
 class RegisterRequest extends FormRequest
 {
@@ -18,18 +18,21 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'     => ['required', 'string', 'max:255'],
-            'email'    => ['required', 'email', 'unique:users'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'unique:users'],
             'password' => ['required', 'confirmed', 'min:3'],
+            'password_verified' => ['required', 'integer'],
         ];
     }
 
     public function credentials(): array
     {
+        $password = (new PasswordGeneratorService())->hash($this->input('password'));
         return [
-            'name'     => $this->input('name'),
-            'email'    => $this->input('email'),
-            'password' => Hash::make($this->input('password')),
+            'name' => $this->input('name'),
+            'email' => $this->input('email'),
+            'password' => $password,
+            'password_verified' => $this->input('password_verified'),
         ];
     }
 }

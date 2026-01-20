@@ -5,7 +5,7 @@
     <h3>Register</h3>
 
     {{-- Ошибки валидации --}}
-    @if ($errors->any())
+    @if (isset($errors) && $errors->any())
         <div class="alert alert-danger">
             <ul class="mb-0">
                 @foreach ($errors->all() as $error)
@@ -18,11 +18,13 @@
     <form method="POST" action="{{ url('/register') }}">
         @csrf
 
+        <input type="hidden" name="password_verified" value="1">
+
         <div class="mb-3">
-            <input class="form-control @error('name') is-invalid @enderror" 
-                   name="name" 
-                   placeholder="Name" 
-                   value="{{ old('name') }}" 
+            <input class="form-control @error('name') is-invalid @enderror"
+                   name="name"
+                   placeholder="Name"
+                   value="{{ old('name') }}"
                    required>
             @error('name')
                 <div class="invalid-feedback">{{ $message }}</div>
@@ -30,10 +32,10 @@
         </div>
 
         <div class="mb-3">
-            <input class="form-control @error('email') is-invalid @enderror" 
-                   name="email" 
-                   placeholder="Email" 
-                   value="{{ old('email') }}" 
+            <input class="form-control @error('email') is-invalid @enderror"
+                   name="email"
+                   placeholder="Email"
+                   value="{{ old('email') }}"
                    required>
             @error('email')
                 <div class="invalid-feedback">{{ $message }}</div>
@@ -41,10 +43,10 @@
         </div>
 
         <div class="mb-3">
-            <input class="form-control @error('password') is-invalid @enderror" 
-                   name="password" 
-                   type="password" 
-                   placeholder="Password" 
+            <input class="form-control @error('password') is-invalid @enderror"
+                   name="password"
+                   type="password"
+                   placeholder="Password"
                    required>
             @error('password')
                 <div class="invalid-feedback">{{ $message }}</div>
@@ -52,10 +54,10 @@
         </div>
 
         <div class="mb-3">
-            <input class="form-control @error('password_confirmation') is-invalid @enderror" 
-                   name="password_confirmation" 
-                   type="password" 
-                   placeholder="Confirm password" 
+            <input class="form-control @error('password_confirmation') is-invalid @enderror"
+                   name="password_confirmation"
+                   type="password"
+                   placeholder="Confirm password"
                    required>
             @error('password_confirmation')
                 <div class="invalid-feedback">{{ $message }}</div>
