@@ -2,10 +2,10 @@
 
 namespace App\Test\RPG;
 
-class Horse
+class Horse extends Mount
 {
-    public function walk(): void
+    public function trot(): void
     {
-        echo "walking..." . "<br>";
+        echo "trotting..." . "<br>";
     }
 }

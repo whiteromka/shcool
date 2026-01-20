@@ -203,9 +203,15 @@ class TestController extends Controller
         $fastHorse = new FastHorse();
         $rider = new Rider();
 
-        $rider->setHorse($fastHorse);
+        $rider->setMount($horse);
         $rider->ride();
         $rider->ride("gallop");
+        $rider->ride("trot");
+
+        $rider->setMount($fastHorse);
+        $rider->ride();
+        $rider->ride("gallop");
+        $rider->ride("trot");
 
     }
 }
