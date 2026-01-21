@@ -8,6 +8,9 @@ use App\Test\RPG\FastHorse;
 use App\Test\RPG\Horse;
 use App\Test\RPG\Mount;
 use App\Test\RPG\Rider;
+use App\Test\RPG3\Axe;
+use App\Test\RPG3\Orc;
+use App\Test\RPG3\ThrowingSpear;
 use App\Test\Usr;
 use Illuminate\Http\Request;
 
@@ -217,8 +220,16 @@ class TestController extends Controller
         //$m = new Mount();
         //$m->showInfo();
 
-        $h = new Horse();
-        $h->showInfo();
+//        $h = new Horse();
+//        $h->showInfo();
+
+        $axe = new Axe(19);
+        $orc = new Orc("Thrall", 35, $axe);
+        $orc->attack();
+        $thSpear = new ThrowingSpear(13);
+        $orc->setWeapon($thSpear);
+        $orc->attack();
+
 
     }
 }

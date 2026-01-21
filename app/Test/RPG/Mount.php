@@ -2,7 +2,7 @@
 
 namespace App\Test\RPG;
 
-class Mount
+abstract class Mount
 {
     private $speed = 1;
 
@@ -17,4 +17,6 @@ class Mount
     {
         echo "speed = $this->speed and age = $this->age <br>";
     }
+
+    public abstract function makeSound(): void;
 }

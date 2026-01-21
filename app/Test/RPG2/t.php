@@ -39,6 +39,39 @@ class Mage extends Warrior
     }
 }
 
+class Barbarian
+{
+    private int $damage;
+    private string $name;
+
+    public function setDamage(int $damage): void
+    {
+        $this->damage = $damage;
+    }
+
+    public function setName(int $name): void
+    {
+        $this->name = $name;
+    }
+}
+
+class BigBarbarian
+{
+    private int $damage;
+    private string $name;
+
+    public function __construct(int $damage, string $name)
+    {
+        $this->damage = $damage;
+        $this->name = $name;
+    }
+}
+
+$bigBarb = new BigBarbarian(15, "Biba");
+
+$barb = new Barbarian();
+$barb->setDamage(10);
+$barb->setName("Boba");
 
 $knight = new Knight("Арагорн");
 $archer = new Archer("Леголас");

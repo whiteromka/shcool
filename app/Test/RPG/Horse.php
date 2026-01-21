@@ -8,4 +8,9 @@ class Horse extends Mount
     {
         echo "trotting..." . "<br>";
     }
+
+    public function makeSound(): void
+    {
+        echo "neigh" . "<br>";
+    }
 }
