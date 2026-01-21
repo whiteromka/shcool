@@ -6,6 +6,7 @@ use App\Test\Gun;
 use App\Test\Hunter;
 use App\Test\RPG\FastHorse;
 use App\Test\RPG\Horse;
+use App\Test\RPG\Mount;
 use App\Test\RPG\Rider;
 use App\Test\Usr;
 use Illuminate\Http\Request;
@@ -199,19 +200,25 @@ class TestController extends Controller
 
     public function rpgGame()
     {
-        $horse = new Horse();
-        $fastHorse = new FastHorse();
-        $rider = new Rider();
+//        $horse = new Horse();
+//        $fastHorse = new FastHorse();
+//        $rider = new Rider();
+//
+//        $rider->setMount($horse);
+//        $rider->ride();
+//        $rider->ride("gallop");
+//        $rider->ride("trot");
+//
+//        $rider->setMount($fastHorse);
+//        $rider->ride();
+//        $rider->ride("gallop");
+//        $rider->ride("trot");
 
-        $rider->setMount($horse);
-        $rider->ride();
-        $rider->ride("gallop");
-        $rider->ride("trot");
+        //$m = new Mount();
+        //$m->showInfo();
 
-        $rider->setMount($fastHorse);
-        $rider->ride();
-        $rider->ride("gallop");
-        $rider->ride("trot");
+        $h = new Horse();
+        $h->showInfo();
 
     }
 }
