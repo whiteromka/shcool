@@ -11,6 +11,11 @@ use App\Test\RPG\Rider;
 use App\Test\RPG3\Axe;
 use App\Test\RPG3\Orc;
 use App\Test\RPG3\ThrowingSpear;
+use App\Test\SIMS\Chair;
+use App\Test\SIMS\CoffeeMachine;
+use App\Test\SIMS\Fridge;
+use App\Test\SIMS\Human;
+use App\Test\SIMS\Sink;
 use App\Test\Usr;
 use Illuminate\Http\Request;
 
@@ -223,13 +228,23 @@ class TestController extends Controller
 //        $h = new Horse();
 //        $h->showInfo();
 
-        $axe = new Axe(19);
-        $orc = new Orc("Thrall", 35, $axe);
-        $orc->attack();
-        $thSpear = new ThrowingSpear(13);
-        $orc->setWeapon($thSpear);
-        $orc->attack();
+//        $axe = new Axe(19);
+//        $orc = new Orc("Thrall", 35, $axe);
+//        $orc->attack();
+//        $thSpear = new ThrowingSpear(13);
+//        $orc->setWeapon($thSpear);
+//        $orc->attack();
 
-
+        $coffeeMachine = new CoffeeMachine("wood");
+        $human = new Human("Jerald", "male", $coffeeMachine);
+        $human->useFurniture();
+        $human->drinkCoffee();
+        $fridge = new Fridge("metal");
+        $human->setFurniture($fridge);
+        $human->useFurniture();
+        $human->eat();
+        $sink = new Sink("marble");
+        $human->setFurniture($sink);
+        $human->eat();
     }
 }
