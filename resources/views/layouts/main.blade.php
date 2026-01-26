@@ -62,11 +62,12 @@
             <div class="col-sm-6 col-md-4 col-lg-2 offset-md-1 offset-lg-3 ta-c mb-2">
                 <p style="margin-bottom: 2px;">LOADING: </p>
                 <div class="br-r" style="height: 7px;">
-                    <div class="js-main-loading-style" style="height: 7px; width: 0%; background: #7f7c7c"></div>
+                    <div class="js-main-loading-style" style="height: 7px; width: 0%; background: #08f5e1"></div>
                 </div>
             </div>
             {{-- Главный процент загрузки --}}
-            <div class="col-sm-6 col-md-4 col-lg-3 col-xxl-2 ta-c loading font-orbitron-slim js-cy-brackets" data-color="orange" data-type="bracket" >
+            <div class="col-sm-6 col-md-4 col-lg-3 col-xxl-2 ta-c loading font-orbitron-slim js-cy-brackets"
+                 data-color="orange" data-type="bracket">
                 <span class="clr-pink percent">
                     <span class="js-main-loading-percent">0</span>
                     <span>.00</span>
@@ -93,19 +94,95 @@
     <br>
     <br>
 
+    {{-- Обычный двойной Контейнер --}}
+    <div class="container">
+        <div class="row">
+            <div class="col-ms-12 col-lg-8">
+                <div class="cy-container">
+                    <div class="cy-block">
+                        <h2>12 3 3425 43t5 4</h2>
+                    </div>
+                    <div class="cy-block-body" style="height: 156px">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquid
+                            animi debitis delectus, deserunt dicta dolor doloremque ea excepturi expedita
+                            facilis inventore laudantium minus, nesciunt non pariatur, quas qui saepe!
+                        </p>
+                    </div>
+                    <a class="btn">
+                        <span class="btn__content">Get your copy now_</span>
+                        <span class="btn__glitch"></span>
+                        <span class="btn__label">r25</span>
+                    </a>
+                    <a class="btn btn--secondary">
+                        <span class="btn__content">Get your copy now_</span>
+                        <span class="btn__glitch"></span>
+                        <span class="btn__label">r25</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-lg-4">
+                <div class="cy-container">
+                    <div class="cy-block">
+                        <h2>12 3 3425</h2>
+                    </div>
+                    <div class="cy-block-body">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquid
+                            animi debitis delectus, deserunt dicta dolor doloremque ea excepturi expedita
+                            facilis inventore laudantium minus, nesciunt non pariatur, quas qui saepe!
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    {{-- Обычный двойной контейнер конец --}}
+    <br>
+    <br>
+    <br><br>
+
+
+    {{-- Контейнер network с технологиями начало--}}
+    <div class="container px-0">
+        <div class="row">
+            <div class="col-sm-12 col-md-7 col-lg-8">
+                <div class="br-t">
+                    <x-network></x-network>
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-5 col-lg-4">
+                <div class="cy-container">
+                    <div class="cy-block-p">
+                        <h2>12 3 3425</h2>
+                    </div>
+                    <div class="cy-block-body">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquid
+                            animi debitis delectus, deserunt dicta dolor doloremque ea excepturi expedita
+                            facilis inventore laudantium minus, nesciunt non pariatur, quas qui saepe!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {{-- Контейнер network с технологиями конец--}}
+
+
+
     {{-- Контейнер с перспективой начало --}}
     <div class="container">
         <div class="row">
             <div class="col-6">
                 <div class="scene">
                     <!-- 3D контейнер -->
-                    <div class="cube-container">
-                        <!-- Самый дальний куб (красный) -->
-                        <div class="cube far box200 br-r"></div>
-                        <!-- Средний куб (зеленый) -->
-                        <div class="cube middle box200 br-g"></div>
-                        <!-- Самый ближний куб (синий) -->
-                        <div class="cube near box200 br-b"></div>
+                    <div class="cube-container font-orbitron">
+                        <div class="cube far box200 br-r">NETWORK</div>
+                        <div class="cube middle box200 br-r">BACK</div>
+                        <div class="cube near box200 br-r">FRONT</div>
                     </div>
                 </div>
             </div>
@@ -120,6 +197,7 @@
             </div>
         </div>
     </div>
+    {{-- Контейнер с перспективой конец --}}
 
 </div>
 

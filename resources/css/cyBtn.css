@@ -79,25 +79,4 @@
     color: #00ffff !important;
 }
 
-/* Пример других стилей для демонстрации */
-.small {
-    font-size: 16px;
-    padding: 12px 30px;
-    min-width: 200px;
-}
-.large {
-    font-size: 24px;
-    padding: 22px 50px;
-    min-width: 400px;
-}
-.different-color {
-    color: #ff00ff !important;
-    box-shadow:
-        0 0 10px rgba(255, 0, 255, 0.5),
-        inset 0 0 10px rgba(255, 0, 255, 0.2);
-}
-.different-color:hover {
-    box-shadow:
-        0 0 20px rgba(255, 0, 255, 0.8),
-        inset 0 0 10px rgba(255, 0, 255, 0.2);
-}
+

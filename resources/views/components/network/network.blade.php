@@ -1,51 +1,218 @@
 <style>
-    #network {
+    .network-wrapper {
         position: relative;
-        font-family: 'Orbitron', monospace;
-        height: 600px;
-        border-radius: 14px;
+        height: 400px;
+    }
+    #network {
+        height: 100%;
+        box-shadow: inset 0 0 30px 0px rgba(69, 255, 224, 0.39); /* широкая внутренняя тень бирюзового цвета */
+        /*border-radius: 10px; !* по желанию, для плавных краев *!*/
+    }
+    .zoom-controls {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        pointer-events: auto;
+        gap: 6px;
+        /*gap: clamp(4px, 1vw, 10px);*/
+    }
+    .network-btn {
+        width: clamp(32px, 8vw, 40px);
+        height: clamp(32px, 8vw, 40px);
+        background: rgba(0,0,0,.7);
+        color: white;
+        border: 2px solid #45fff4;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+    .network-btn:hover {
+        background: yellow;
+        color:black;
     }
 </style>
 
-<div id="network"></div>
+<div class="network-wrapper">
+    <div id="network"></div>
+
+    <div class="zoom-controls">
+        <button class="network-btn" id="js-zoom-in">+</button>
+        <button class="network-btn" id="js-zoom-out">-</button>
+        <button class="network-btn" id="js-zoom-reset">⟳</button>
+        <button class="network-btn" id="js-freeze">❄</button>
+    </div>
+</div>
 
 <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
 <script>
-    let size = 24;
+    // Весь ваш существующий код остается без изменений
+    let size = 18;
     let colorBackground = "#fc0000";
     let colorBorder = "#45fff4";
-    let borderWidth = 5;
-    let fontSize = 43;
+    let borderWidth = 2;
+    let fontSize = 44;
     let fontColor = "#f9f9f9";
     let fontFace = "Orbitron, monospace"; // ToDo починить
 
-    const nodes = new vis.DataSet([
-        // Левая группа
-        { id: 1, label: "JavaScript", group: "left" },
-        { id: 2, label: "DOM", group: "left" },
-        { id: 3, label: "Async", group: "left" },
-        { id: 4, label: "Vue", group: "left" },
-        { id: 5, label: "React", group: "left" },
+    let eadge = {
+        defaultColor: "#898989",
+        highlightColor: "#5eead4",
+        Color: "#5eead4"
+    }
 
-        // Правая группа
-        { id: 6, label: "Node", group: "right" },
-        { id: 7, label: "Express", group: "right" },
-        { id: 8, label: "MongoDB", group: "right" },
-        { id: 9, label: "Redis", group: "right" },
-        { id: 10, label: "Docker", group: "right" }
+    const nodes = new vis.DataSet([
+        // Front группа
+        { id: 1, label: "JavaScript", group: "front" },
+        { id: 2, label: "HTML", group: "front" },
+        { id: 3, label: "CSS", group: "front" },
+        { id: '3a', label: "Bootstrap", group: "front" },
+        { id: 4, label: "Vue", group: "front" },
+        { id: 5, label: "Npm", group: "front" },
+        { id: 6, label: "TypeScrip", group: "front" },
+        { id: 7, label: "Directives", group: "front" },
+        { id: 8, label: "Reactivity", group: "front" },
+        { id: 9, label: "Events", group: "front" },
+        { id: '9a', label: "Pinia", group: "front" },
+
+
+        // Back группа
+        { id: 10, label: "PHP", group: "back" },
+        { id: 11, label: "OOP", group: "back" },
+        { id: 12, label: "Laravel", group: "back" },
+        { id: 13, label: "Symfony", group: "back" },
+        { id: 14, label: "Yii", group: "back" },
+        { id: 15, label: "Composer", group: "back" },
+        { id: 16, label: "API", group: "back" },
+        { id: 17, label: "Request", group: "back" },
+        // { id: 18, label: "Controllers", group: "back" },
+        // { id: 19, label: "Model Layer", group: "back" },
+        { id: 20, label: "Services", group: "back" },
+        // { id: 21, label: "Views", group: "back" },
+        { id: 22, label: "Auth", group: "back" },
+        { id: 23, label: "Queues", group: "back" },
+        { id: 24, label: "Tests", group: "back" },
+        { id: '24a', label: "PhpUnit", group: "back" },
+        { id: '24b', label: "Codeception", group: "back" },
+        // { id: 25, label: "Logging / Monitoring", group: "back" },
+        { id: 26, label: "Framework", group: "back" },
+        { id: 27, label: "Mvc", group: "back" },
+        { id: 28, label: "Components", group: "back" },
+        { id: 29, label: "Architecture", group: "back" },
+        { id: 30, label: "Domain", group: "back" },
+        { id: 31, label: "Application", group: "back" },
+        { id: 32, label: "Infrastructure", group: "back" },
+
+
+        // DB группа
+        { id: 200, label: "DB", group: "db" },
+        { id: '200a', label: "SQL", group: "db" },
+        { id: '200b', label: "Caches", group: "db" },
+        { id: '200c', label: "Brokers", group: "db" },
+        { id: '200d', label: "NoSql", group: "db" },
+        { id: '200d1', label: "Elasticsearch", group: "db" },
+        { id: 201, label: "MySQL", group: "db" },
+        { id: '201a', label: "SQLite", group: "db" },
+        { id: 202, label: "PostrgeSQL", group: "db" },
+        { id: 203, label: "Redis", group: "db" },
+        { id: 204, label: "Memcached", group: "db" },
+        { id: 205, label: "Apache Kafka", group: "db" },
+        { id: 206, label: "RabbitMQ", group: "db" },
+
+        // X группа
+        { id: 50, label: "Git", group: "x" },
+        { id: 51, label: "Docker Compose", group: "x" },
+
+        // Eng group
+        { id: 100, label: "English", group: "eng" },
+        { id: 101, label: "Grammar", group: "eng" },
+        { id: 102, label: "Times", group: "eng" },
+        { id: 103, label: "Past Simple", group: "eng" },
+        { id: 104, label: "Present Simple", group: "eng" },
     ]);
 
     const edges = new vis.DataSet([
+        // Front группа
         { from: 1, to: 2 },
         { from: 1, to: 3 },
-        { from: 2, to: 4 },
+        { from: 1, to: 4 },
         { from: 1, to: 5 },
-        { from: 5, to: 6 },
+        { from: 1, to: 6 },
+        { from: 2, to: 3 },
+        { from: 7, to: 4 },
+        { from: 8, to: 4 },
+        { from: 9, to: 4 },
+        { from: '9a', to: 4 },
+        { from: '3a', to: 2 },
+        { from: '3a', to: 3 },
 
-        { from: 6, to: 7 },
-        { from: 7, to: 8 },
-        { from: 8, to: 9 },
-        { from: 9, to: 10 }
+
+        // Back группа
+        { from: 10, to: 11 },
+        // { from: 10, to: 12 },
+        // { from: 10, to: 13 },
+        // { from: 10, to: 14 },
+        { from: 10, to: 15 },
+        { from: 12, to: 11 },
+        { from: 13, to: 11 },
+        { from: 14, to: 11 },
+        { from: 10, to: 26 },
+        { from: 11, to: 26 },
+        { from: 12, to: 26 },
+        { from: 13, to: 26 },
+        { from: 14, to: 26 },
+        //{ from: 26, to: 25 },
+        { from: 26, to: 16 },
+        { from: 26, to: 27 },
+        { from: 27, to: 18 },
+        { from: 27, to: 19 },
+        { from: 27, to: 21 },
+        { from: 26, to: 28 },
+        { from: 28, to: 23 },
+        { from: 28, to: 22 },
+        { from: 28, to: 17 },
+        { from: 28, to: 24 },
+        { from: 24, to: '24a' },
+        { from: 24, to: '24b' },
+        { from: 28, to: 20 },
+        { from: 26, to: 29 },
+        { from: 29, to: 30 },
+        { from: 29, to: 31 },
+        { from: 29, to: 32 },
+
+        // DB группа
+        { from: 200, to: 10 },
+        { from: 200, to: '200a' },
+        { from: 200, to: '200b' },
+        { from: 200, to: '200c' },
+        { from: '200a', to: 201 },
+        { from: '200a', to: '201a' },
+        { from: '200a', to: 202 },
+        { from: '200b', to: 203 },
+        { from: '200b', to: 204 },
+        { from: '200c', to: 205 },
+        { from: '200c', to: 206 },
+        { from: 200, to: '200d' },
+        { from: '200d', to: '200d1'},
+
+
+        // X группа
+        { from: 50, to: 1 },
+        { from: 51, to: 1 },
+        { from: 50, to: 10 },
+        { from: 51, to: 10 },
+        { from: 51, to: 200 },
+
+        // Eng group
+        { from: 100, to: 101 },
+        { from: 101, to: 102 },
+        { from: 102, to: 103 },
+        { from: 102, to: 104 },
+        { from: 100, to: 1 },
+        { from: 100, to: 10 },
+        { from: 100, to: 200 },
+
     ]);
 
     // Переменные для анимации гравитации
@@ -85,18 +252,27 @@
             }
         },
         edges: {
-            color: { color: "#334155", highlight: "#5eead4", hover: "#5eead4" },
+            color: { color: eadge.defaultColor, highlight: eadge.highlightColor, hover: eadge.Color },
             width: 1.2,
             selectionWidth: 5,
             hoverWidth: 3,
             smooth: { type: "continuous", roundness: 0.25 }
         },
         groups: {
-            left: {
-                color: { background: "#fc0000", border: "#45fff4", highlight: { background: "#ffffff", border: "#ffffff" } }
+            front: {
+                color: { background: "#4d0000", border: "#e70000", highlight: { background: "#ffffff", border: "#ffffff" } }
             },
-            right: {
-                color: { background: "#00ffb3", border: "#00cc99", highlight: { background: "#ffffff", border: "#ffffff" } }
+            back: {
+                color: { background: "#034453", border: "#00acea", highlight: { background: "#ffffff", border: "#ffffff" } }
+            },
+            db: {
+                color: { background: "#000000", border: "#3a0ecc", highlight: { background: "#ffffff", border: "#ffffff" } }
+            },
+            x: {
+                color: { background: "#025444", border: "#14cca1", highlight: { background: "#ffffff", border: "#ffffff" } }
+            },
+            eng: {
+                color: { background: "#39067c", border: "#8109c7", highlight: { background: "#ffffff", border: "#ffffff" } }
             }
         },
         interaction: { hover: true, zoomSpeed: 0.6 }
@@ -109,285 +285,47 @@
         options
     );
 
-    // Функции для управления гравитацией
-    function updateGravity() {
-        currentGravity += gravityIncrement;
-
-        network.setOptions({
-            physics: {
-                forceAtlas2Based: {
-                    centralGravity: currentGravity
-                }
-            }
+    document.getElementById('js-zoom-in').onclick = () => {
+        network.moveTo({
+            scale: network.getScale() * 1.2,
+            animation: { duration: 300 }
         });
-
-        updateGravityDisplay();
-        console.log(`centralGravity обновлен: ${currentGravity.toFixed(3)}`);
-    }
-
-    function startGravityAnimation() {
-        if (isAnimating) return;
-
-        isAnimating = true;
-        if (animationInterval) {
-            clearInterval(animationInterval);
-        }
-
-        animationInterval = setInterval(updateGravity, 100);
-        updateControlButtons();
-        console.log("Анимация гравитации запущена");
-    }
-
-    function stopGravityAnimation() {
-        if (!isAnimating) return;
-
-        isAnimating = false;
-        if (animationInterval) {
-            clearInterval(animationInterval);
-            animationInterval = null;
-        }
-
-        updateControlButtons();
-        console.log("Анимация гравитации остановлена");
-    }
-
-    function resetGravity() {
-        stopGravityAnimation();
-        currentGravity = 0.001;
-
-        network.setOptions({
-            physics: {
-                forceAtlas2Based: {
-                    centralGravity: currentGravity
-                }
-            }
+    };
+    document.getElementById('js-zoom-out').onclick = () => {
+        network.moveTo({
+            scale: network.getScale() * 0.8,
+            animation: {duration: 300}
         });
+    };
 
-        updateGravityDisplay();
-        updateControlButtons();
-        console.log("centralGravity сброшен: 0.001");
-    }
+    document.getElementById('js-zoom-reset').onclick = () => {
+        // Просто перерисовать сеть без изменения позиций и масштаба
+        network.stabilize();
+    };
 
-    function updateGravityDisplay() {
-        const gravityValue = document.getElementById('gravityValue');
-        if (gravityValue) {
-            gravityValue.textContent = currentGravity.toFixed(3);
+    document.getElementById('js-freeze').onclick = () => {
+        const btn = document.getElementById('js-freeze');
+        network.physics.physicsEnabled = !network.physics.physicsEnabled;
+
+        if (!network.physics.physicsEnabled) {
+            btn.style.backgroundColor = 'yellow';
+            btn.style.color = 'black';
+        } else {
+            btn.style.backgroundColor = 'transparent';
+            btn.style.color = 'white';
         }
-    }
-
-    function updateControlButtons() {
-        const startBtn = document.getElementById('startBtn');
-        const stopBtn = document.getElementById('stopBtn');
-
-        if (startBtn && stopBtn) {
-            if (isAnimating) {
-                startBtn.disabled = true;
-                startBtn.style.opacity = '0.6';
-                stopBtn.disabled = false;
-                stopBtn.style.opacity = '1';
-            } else {
-                startBtn.disabled = false;
-                startBtn.style.opacity = '1';
-                stopBtn.disabled = true;
-                stopBtn.style.opacity = '0.6';
-            }
-        }
-    }
-
-    // Создаем панель управления
-    // function createControlPanel() {
-    //     const container = document.getElementById('network').parentNode;
-    //
-    //     const controlPanel = document.createElement('div');
-    //     controlPanel.id = 'gravityControlPanel';
-    //     controlPanel.style.cssText = `
-    //         position: absolute;
-    //         top: 10px;
-    //         left: 10px;
-    //         background: rgba(2, 6, 23, 0.85);
-    //         padding: 20px;
-    //         border-radius: 12px;
-    //         color: white;
-    //         font-family: 'Segoe UI', Arial, sans-serif;
-    //         z-index: 1000;
-    //         backdrop-filter: blur(10px);
-    //         border: 1px solid rgba(69, 255, 244, 0.3);
-    //         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-    //         min-width: 280px;
-    //     `;
-    //
-    //     controlPanel.innerHTML = `
-    //         <h3 style="margin-top: 0; margin-bottom: 15px; color: #45fff4; font-size: 18px; font-weight: 600;">
-    //            Грави тест
-    //         </h3>
-    //
-    //         <div style="margin-bottom: 20px;">
-    //             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-    //                 <span style="color: #f9f9f9; font-size: 14px;">Текущее значение:</span>
-    //                 <span id="gravityValue" style="color: #00ffb3; font-size: 24px; font-weight: bold; font-family: 'Orbitron', monospace;">
-    //                     ${currentGravity.toFixed(3)}
-    //                 </span>
-    //             </div>
-    //             <div style="background: rgba(255, 255, 255, 0.1); height: 4px; border-radius: 2px; margin: 10px 0;">
-    //                 <div id="gravityBar" style="background: linear-gradient(90deg, #fc0000, #45fff4); height: 100%; width: ${(currentGravity / 2) * 100}%; border-radius: 2px;"></div>
-    //             </div>
-    //             <div style="color: #94a3b8; font-size: 12px; text-align: right;">
-    //                 Шаг увеличения: ${gravityIncrement}
-    //             </div>
-    //         </div>
-    //
-    //         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
-    //             <button id="startBtn" style="padding: 12px; background: linear-gradient(135deg, #00ffb3, #00cc99);
-    //                 border: none; border-radius: 8px; color: #020617; font-weight: bold; cursor: pointer;
-    //                 font-size: 14px; transition: all 0.3s;">
-    //                 ▶ Старт
-    //             </button>
-    //             <button id="stopBtn" style="padding: 12px; background: linear-gradient(135deg, #fc0000, #cc0000);
-    //                 border: none; border-radius: 8px; color: white; font-weight: bold; cursor: pointer;
-    //                 font-size: 14px; transition: all 0.3s;" disabled>
-    //                 ⏸ Стоп
-    //             </button>
-    //         </div>
-    //
-    //         <div style="display: flex; gap: 10px;">
-    //             <button id="resetBtn" style="flex: 1; padding: 12px; background: rgba(69, 255, 244, 0.1);
-    //                 border: 1px solid rgba(69, 255, 244, 0.3); border-radius: 8px; color: #45fff4;
-    //                 font-weight: bold; cursor: pointer; font-size: 14px; transition: all 0.3s;">
-    //                 Сброс
-    //             </button>
-    //             <button id="infoBtn" style="width: 40px; padding: 12px; background: rgba(255, 255, 255, 0.1);
-    //                 border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; color: white;
-    //                 cursor: pointer; font-size: 14px; transition: all 0.3s;">
-    //                 ℹ
-    //             </button>
-    //         </div>
-    //
-    //         <div id="infoPanel" style="margin-top: 15px; padding: 12px; background: rgba(0, 0, 0, 0.3);
-    //             border-radius: 6px; font-size: 12px; color: #94a3b8; display: none; border-left: 3px solid #45fff4;">
-    //             <strong>Эффекты centralGravity:</strong><br>
-    //             • < 0.1: Слабая гравитация, узлы свободны<br>
-    //             • 0.1-0.5: Умеренное притяжение<br>
-    //             • > 0.5: Сильное притяжение к центру
-    //         </div>
-    //     `;
-    //
-    //     container.appendChild(controlPanel);
-    //
-    //     // Добавляем обработчики кнопок
-    //     document.getElementById('startBtn').addEventListener('click', startGravityAnimation);
-    //     document.getElementById('stopBtn').addEventListener('click', stopGravityAnimation);
-    //     document.getElementById('resetBtn').addEventListener('click', resetGravity);
-    //     document.getElementById('infoBtn').addEventListener('click', function() {
-    //         const infoPanel = document.getElementById('infoPanel');
-    //         infoPanel.style.display = infoPanel.style.display === 'none' ? 'block' : 'none';
-    //     });
-    //
-    //     updateControlButtons();
-    // }
-
-    // Обновляем индикатор гравитации
-    function updateGravityBar() {
-        const gravityBar = document.getElementById('gravityBar');
-        if (gravityBar) {
-            const widthPercent = Math.min((currentGravity / 2) * 100, 100);
-            gravityBar.style.width = `${widthPercent}%`;
-
-            // Меняем цвет в зависимости от значения
-            if (currentGravity < 0.5) {
-                gravityBar.style.background = 'linear-gradient(90deg, #fc0000, #45fff4)';
-            } else if (currentGravity < 1) {
-                gravityBar.style.background = 'linear-gradient(90deg, #45fff4, #00ffb3)';
-            } else {
-                gravityBar.style.background = 'linear-gradient(90deg, #00ffb3, #ffffff)';
-            }
-        }
-    }
-
-    // События сети
-    network.once("stabilizationIterationsDone", function () {
-        setTimeout(() => {
-            createControlPanel();
-            console.log("Сеть стабилизирована. Панель управления создана.");
-        }, 500);
-    });
-
-    network.on("afterDrawing", () => {
-        nodes.forEach(node => {
-            if (node.group === "left" && node.x > 0) {
-                nodes.update({ id: node.id, x: node.x - 300 });
-            }
-            if (node.group === "right" && node.x < 0) {
-                nodes.update({ id: node.id, x: node.x + 300 });
-            }
-        });
-    });
-
-    // Обновляем отображение гравитации
-    network.on('beforeDrawing', function() {
-        updateGravityDisplay();
-        updateGravityBar();
-    });
+    };
 
     network.on("click", function (params) {
         if (params.nodes.length > 0) {
-            const nodeId = params.nodes[0];
-            const node = nodes.get(nodeId);
-            console.log("Клик на узле:", node.id, node.label);
-
-            // Визуальная обратная связь при клике
-            network.selectNodes([nodeId]);
-            setTimeout(() => {
-                network.unselectAll();
-            }, 500);
+            const id = params.nodes[0];
+            console.log("ID:", id);
         }
     });
-
     network.on("dragStart", function (params) {
         if (params.nodes.length > 0) {
-            const nodeId = params.nodes[0];
-            const node = nodes.get(nodeId);
-            console.log(`Перетаскивание узла: ${node.label}`);
+            const id = params.nodes[0];
+            console.log("Перетаскиваем узел ID:", id);
         }
     });
-
-    // Добавляем стили для кнопок при наведении
-    document.addEventListener('DOMContentLoaded', function() {
-        const style = document.createElement('style');
-        style.textContent = `
-            #gravityControlPanel button:hover:not(:disabled) {
-                transform: translateY(-2px);
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            }
-
-            #gravityControlPanel button:active:not(:disabled) {
-                transform: translateY(0);
-            }
-
-            #gravityControlPanel button:disabled {
-                cursor: not-allowed;
-                opacity: 0.6;
-            }
-        `;
-        document.head.appendChild(style);
-    });
-
-    // Экспортируем функции для использования в консоли браузера
-    window.gravityControls = {
-        start: startGravityAnimation,
-        stop: stopGravityAnimation,
-        reset: resetGravity,
-        getCurrent: () => currentGravity,
-        setValue: (value) => {
-            currentGravity = value;
-            network.setOptions({
-                physics: {
-                    forceAtlas2Based: {
-                        centralGravity: currentGravity
-                    }
-                }
-            });
-            updateGravityDisplay();
-            updateGravityBar();
-        }
-    };
 </script>

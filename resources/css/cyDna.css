@@ -1,0 +1,23 @@
+.dna-wrapper {
+    height: 50px;
+    display: flex;
+    margin: 6px;
+}
+.dna-container {
+    display: flex;
+    width: 10px;
+    height: 50px;
+    position: relative;
+    margin-right: 10px;
+    /*border: 1px solid blue;*/
+}
+.dna {
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    background: rgba(246, 9, 9, 0.3);
+    border: 1px solid #c20a0a;
+    position: absolute;
+}
+.dna-top {top: 0px;}
+.dna-bottom {bottom: 0px;}

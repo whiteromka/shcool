@@ -209,6 +209,44 @@
 .loading span.percent {
     font-size: 33px;
 }
+.cy-container {
+
+}
+.cy-block-p {
+    background: #5b0ed6;
+    border-top: 1px solid #7436ff;
+    border-right: 1px solid #854cfe;
+    color: black;
+}
+.cy-block-t {
+    background: #19c0b0;
+    border-top: 1px solid #0fdbc7;
+    border-right: 1px solid #0fdbc7;
+    color: black;
+}
+.cy-block {
+    background: #bb2c46;
+    border-top: 1px solid #e15d74;
+    border-right: 1px solid #e15d74;
+    color: black;
+}
+.cy-block h2, .cy-block-t h2, .cy-block-p h2 {
+    text-align: center;
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    word-spacing: 0.5em;
+    padding-top: 10px;
+    margin-bottom: 0;
+}
+.cy-block-body {
+    padding: 10px;
+    background: rgba(255, 0, 0, 0.1);
+    border-right: 1px solid #e15d74;
+    /*background: transparent;*/
+}
+
 
 
 /*======  perspective test ======*/
@@ -218,16 +256,15 @@
 .box200 { width: 200px; height: 200px; }
 
 /* Границы */
-.br-r { border: 2px solid red; }
+.br-r { border: 2px solid red; } .br-r-d { border: 1px dashed red; }
 .br-g { border: 2px solid green; }
 .br-b { border: 2px solid blue; }
+.br-t { border: 2px solid turquoise; }
 
 /* 3D СЦЕНА */
 .scene {
-    perspective: 600px; /* Сила перспективы */
+    perspective: 800px; /* Сила перспективы */
     perspective-origin: center center;
-    width: 300px;
-    height: 300px;
     margin: 0 auto;
     position: relative;
 }
@@ -240,7 +277,7 @@
     top: 50%;
     left: 50%;
     transform-style: preserve-3d;
-    transform: translate(-50%, -50%) rotateX(-20deg) rotateY(-20deg);
+    transform: translate(-50%, -50%) rotateX(-10deg) rotateY(-20deg);
     transition: transform 0.5s ease;
 }
 
@@ -308,7 +345,7 @@
 
 /* Анимация для демонстрации */
 @keyframes rotate3d {
-    0% { transform: translate(-50%, -50%) rotateX(-20deg) rotateY(0deg); }
+    0% { transform: translate(-50%, -50%) rotateX(-0deg) rotateY(0deg); }
     100% { transform: translate(-50%, -50%) rotateX(-20deg) rotateY(360deg); }
 }
 
