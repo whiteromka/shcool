@@ -2,42 +2,21 @@
 
 namespace App\Test\Business\Warehouse;
 
-use App\Test\Business\ReporterInterface;
-use App\Test\Business\Report;
 use App\Test\Business\WorkerInterface;
 
-class WarehouseWorker implements ReporterInterface, WorkerInterface
+class WarehouseWorker implements WorkerInterface
 {
-    private function loadBoxes(): void
+    public function loadBoxes(): void
     {
-        echo "WarehouseWorker грузит коробки в грузовик" . "<br>";
-        // $isCan = $this->canNextBoxInTruck();
-        // if ($isCan) {
-        // грузим еще коробку
-        //}
+        echo "the worker is loading a truck" . "<br>";
     }
 
-//    public function canNextBoxInTruck(Box $box, $truck): bool
-//    {
-//        // Проверяем что можно запихать еще коробку в грузовик
-//    }
-
-    public function makeJob(): void
+    public function writeReport(): \App\Test\Business\ReportInterface
     {
-        $this->loadBoxes();
-        echo "WarehouseWorker делает свою работу" . "<br>";
+        echo "the truck is loaded" . "<br>";
+        $boxes = [];
+        $box1 = new Box("1", 1, [1, 2, 3]);
+        $boxes[] = $box1;
+        return new WarehouseReport(1, $boxes, "pdf");
     }
-
-    public function writeReport(): Report
-    {
-        echo "OfficeWorker пишет отчет" . "<br>";
-
-        $truckId = 123;
-        $boxes = [
-            new Box(1, 15, [1,2,2])
-        ];
-
-        return new WarehouseReport($truckId, $boxes, 'word');
-    }
-
 }
