@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Test\Business\Office\OfficeWorker;
 use App\Test\Business\System;
 use App\Test\Business\Warehouse\WarehouseWorker;
 use App\Test\Gun;
 use App\Test\Hunter;
+use App\Test\Notifications\EmailNotificator;
+use App\Test\Notifications\NotificationService;
 use App\Test\RPG\FastHorse;
 use App\Test\RPG\Horse;
 use App\Test\RPG\Mount;
@@ -259,5 +262,16 @@ class TestController extends Controller
         $system->run();
 
         die;
+    }
+
+    /**
+     * /test/notification
+     */
+    public function testNotification()
+    {
+        $emailNotificator = new EmailNotificator();
+        $notificationService = new NotificationService($emailNotificator);
+        $user = User::query()->find(1);
+        $notificationService->notify($user, "message");
     }
 }

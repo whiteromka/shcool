@@ -39,3 +39,4 @@ Route::get('/test/test',  [TestController::class, 'test'])->name('test.test');
 Route::get('/test/test2',  [TestController::class, 'test2'])->name('test.test2');
 Route::get('/test/rpg-game',  [TestController::class, 'rpgGame'])->name('test.rpgGame');
 Route::get('/test/business',  [TestController::class, 'business'])->name('test.business');
+Route::get('/test/notification',  [TestController::class, 'testNotification'])->name('test.testNotification');
