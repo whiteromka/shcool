@@ -18,7 +18,9 @@ use Illuminate\Support\Carbon;
  * @property string $last_name
  * @property string $email
  * @property string $phone
- * @property string $telegram
+ * @property string $telegram    // @rom_1989
+ * @property string $telegram_id // 121324321
+ * @property int $from_tgbot_unknown
  * @property string $username
  * @property Carbon|null $email_verified_at
  * @property string $password
@@ -26,6 +28,7 @@ use Illuminate\Support\Carbon;
  * @property string|null $remember_token
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * @property array $additional_data
  *
  * @property-read Collection|OauthAccount[] $oauthAccounts
  */
@@ -46,8 +49,11 @@ class User extends Authenticatable
         'password',
         'phone',
         'telegram',
+        'telegram_id',
         'password_verified',
-        'username'
+        'from_tgbot_unknown',
+        'username',
+        'additional_data'
     ];
 
     /**
@@ -58,6 +64,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        //'additional_data'
     ];
 
     /**
@@ -70,8 +77,13 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'additional_data' => 'array',
         ];
     }
+
+    protected $attributes = [
+        'additional_data' => '{}',
+    ];
 
     /**
      * Связь с OauthAccounts
