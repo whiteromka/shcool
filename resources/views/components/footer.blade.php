@@ -4,21 +4,21 @@
         <br>
     </div>
     <div class="row">
-        <div class="col-md-4 d-flex flex-column p-l-50">
+        <div class="col-md-4 d-flex flex-column align-items-end p-l-50">
             <p>Для студентов</p>
             <p><a href="">222 2 2 22 </a></p>
             <p><a href=""> 3 3 3  3333  3 3</a></p>
         </div>
         <div class="col-md-4 br-r_ d-f-c">
-            {{-- <canvas id="led"></canvas>--}}
+{{--             <canvas id="led"></canvas>--}}
             <br>
             <br>
             <br>
         </div>
         <div class="col-md-4 br-r_">
             <p>Для бизнеса:</p>
-            <p><a href="#">Разработка и автоматизация процессов</a></p>
-            <p><a href="#"> 3 3 3  3333  3 3</a></p>
+            <p><a href="#">Автоматизация бизнес процессов</a></p>
+            <p><a href="#">Разработка сайтов</a></p>
         </div>
     </div>
 </div>

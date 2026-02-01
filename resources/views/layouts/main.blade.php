@@ -29,6 +29,9 @@
     <br>
     <br>
 
+    <x-cyber.faq></x-cyber.faq>
+    <br>
+    <br>
 
     {{-- Обычный двойной Контейнер --}}
     <x-cyber.simple-double></x-cyber.simple-double>
@@ -54,7 +57,7 @@
     <br>
     <br>
 
-    <x-led.led></x-led.led>
+    <x-footer></x-footer>
 
 </div>
 

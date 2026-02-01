@@ -1,3 +1,10 @@
+<div class="container">
+    <h2 class="h2-common">
+        {{--        <span>0.01</span> <br>--}}
+        НАШИ КУРСЫ И МОДУЛИ
+    </h2>
+</div>
+
 <div class="container-fluid top-ark bg-purple px-0">
     <div class="streaks">
         <div class="streak-left streak-b"></div>

@@ -1,3 +1,10 @@
+<div class="container">
+    <h2 class="h2-common">
+{{--        <span>0.01</span> <br>--}}
+        Что мы предлагаем
+    </h2>
+</div>
+
 <div class="container-fluid top-ark bg-yellow px-0">
     <div class="streaks">
         <div class="streak-left streak-b"></div>
@@ -8,29 +15,30 @@
 </div>
 
 <div class="container-fluid bg-yellow px-0">
+
+    <x-cyber.matrix></x-cyber.matrix>
+
     <div class="container">
         <div class="row">
-            <br><br>
-        </div>
-        <div class="row">
             <?php $advantages = [
-                ['name' => 'Групповые занятия', 'descr' => 'Теория + практика'],
-                ['name' => 'Востребованные технологии' , 'descr' => '...'],
-                ['name' => 'Востребованные технологии' , 'descr' => '...'],
-//                ['name' => 'JS', 'descr' => 'Самый популярный язык программирования в мире'],
-//                ['name' => 'PHP', 'descr' => '75% всего интернета в мире работает на PHP. Один из наиболее востребованных язык программирования в СНГ'],
-//                ['name' => 'GameDev', 'descr' => 'lorem ...'],
-//                ['name' => 'English', 'descr' => 'Язык который стоит изучать каждому IT специалисту'],
-//                ['name' => 'Почти даром', 'descr' => 'lorem ...'],
-//                ['name' => "Но за ₽", 'descr' => 'lorem ...'],
+                ['name' => 'Пошаговое обучение','descr' => 'От простого к сложному. Все обучение разбито на модули'],
+                ['name' => 'Групповые занятия', 'descr' => 'Онлайн занятия с опытным <a href="#">специалистом</a>. В группе с вами студенты со схожим опытом'],
+                ['name' => 'Можно начать с нуля', 'descr' => 'Есть вступительные и модули для новичков совсем без опыта'],
+                ['name' => 'Наставники из индустрии', 'descr' => 'Преподаватели работают в IT-компаниях, а не только преподают'],
+                ['name' => 'Проверенные технологии' , 'descr' => '<b>JavaScript</b> и <b>PHP</b> - стабильно в топ-10 языков программирования'],
+                ['name' => 'Модульная система' , 'descr' => 'Выбирайте только нужные вам модули курса'],
+                ['name' => 'Проекты в портфолио', 'descr' => 'К концу некоторых модулей мы вместе напишем проект'],
+                ['name' => 'Code review', 'descr' => 'Проверка кода преподавателем с разбором ошибок'],
             ];?>
             @foreach($advantages as $advantage)
-            <div class="col-md-2">
+            <div class="col-md-6 col-lg-4 col-xl-3">
                 <div class="pos-r">
                     <div class="advantage">
-                        <span> {{ $advantage['name'] }} </span>
+                        <div class="js-cy-brackets" data-color="red">
+                            <span> {{ $advantage['name'] }} </span>
+                        </div>
                     </div>
-                    <p class="advantage-descr"> {{ $advantage['descr'] }} </p>
+                    <p class="advantage-descr p-lr-10"> {!! $advantage['descr'] !!}  </p>
                 </div>
             </div>
             @endforeach

@@ -209,6 +209,22 @@
 .loading span.percent {
     font-size: 33px;
 }
+.cy-ip {}
+.cy-ip span {
+    color: orange;
+    font-size: 22px;
+    background: rgba(123, 123, 123, 0.49);
+    padding:0px 4px;
+}
+.cy-text {
+    /*font-family: Arial, sans-serif;*/
+    font-optical-sizing: auto;
+    font-weight: 100;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
+    font-size: 22px;
+}
+
 .cy-container {
 
 }

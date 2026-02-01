@@ -59,11 +59,20 @@
 </div>
 
 <div class="container">
-    <h1 class="font-orbitron ta-r">01 .01 .01 1 1 .1</h1>
-    <p>Lorem ipsum dolor sit, amet consectetur, adipisicing elit. Placeat nemo ad fuga
-        velit commodi pariatur mollitia aliquam ipsam porro similique laboriosam
-        laudantium, a enim consequatur officiis aperiam distinctio? Est, officiis.
+
+
+{{--    <h1 class="font-orbitron ta-r">01 .01 .01 1 1 .1</h1>--}}
+    <h1 class="cy-ip font-orbitron ta-r">{{ $userIp }} <span>RU</span> </h1>
+    <br>
+    <br>
+    <br>
+    <p class="cy-text">"Живые" занятия и реальная настоящая поддержка менторов.
+        Вы не просто смотрите записи — вы участвуете в интерактивных вебинарах,
+        задаете вопросы в реальном времени и работаете вместе с группой под руководством опытных разработчиков.
+        Теория + практика. Каждую тему разбираем от основ до техник которые повсеместно используются в боевых проектах.
+        Закрепляем знания на практических задачах и мини-проектах.
     </p>
+    <br>
     <br>
     <br>
     <span class="js-cyber-text-animation cy-btn_ cy-char  p-lr-20 w-300 br-r d-block ta-c">

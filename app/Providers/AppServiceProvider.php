@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Helpers\IPFormatter;
 use App\Http\Controllers\Oauth\GithubController;
 use App\Http\Controllers\Oauth\YandexController;
 use App\Services\OAuth\Github\GithubAuthService;
@@ -10,6 +11,7 @@ use App\Services\OAuth\OAuthClientInterface;
 use App\Services\OAuth\OAuthServiceInterface;
 use App\Services\OAuth\Yandex\YandexAuthService;
 use App\Services\OAuth\Yandex\YandexOAuthClient;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -43,6 +45,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $userIp = IPFormatter::format($_SERVER['REMOTE_ADDR']);
+        View::share('userIp', $userIp);
     }
 }
