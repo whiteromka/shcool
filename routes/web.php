@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\LkController;
 use App\Http\Controllers\Oauth\GithubController;
 use App\Http\Controllers\Oauth\GoogleController;
 use App\Http\Controllers\Oauth\YandexController;
+use App\Http\Controllers\TelegramAuthController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\TgbotController;
 use App\Http\Controllers\UserController;
@@ -47,3 +49,10 @@ Route::get('/test/test2',  [TestController::class, 'test2'])->name('test.test2')
 // Tg
 Route::get('/test/tg', [TestController::class, 'tg'])->name('test.tg');
 Route::post('/tgbot/events', [TgbotController::class, 'events']);
+
+Route::get('/telegram-auth/auth', [TelegramAuthController::class, 'auth'])
+    ->name('telegram-auth.auth');
+
+// LK
+Route::get('/user/lk', [UserController::class, 'lk'])
+    ->name('user.lk');

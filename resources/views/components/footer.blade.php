@@ -10,7 +10,7 @@
             <p><a href=""> 3 3 3  3333  3 3</a></p>
         </div>
         <div class="col-md-4 br-r_ d-f-c">
-{{--             <canvas id="led"></canvas>--}}
+             <canvas id="led"></canvas>
             <br>
             <br>
             <br>

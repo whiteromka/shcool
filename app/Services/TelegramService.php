@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\User;
 use App\Repositories\UserRepository;
 use Exception;
 use Illuminate\Support\Facades\Http;
@@ -9,7 +10,6 @@ use Illuminate\Support\Facades\Log;
 
 class TelegramService
 {
-
     public function __construct(
         private readonly UserRepository $userRepository,
         private readonly EmailGeneratorService $emailGeneratorService,
@@ -34,8 +34,7 @@ class TelegramService
         // 1. Сохраняем в базу
         $this->createOrUpdateUser($telegramId, $telegramUsername, $firstName, $lastName);
 
-        // 2. Уведомляем себя (опционально)
-        // ...->notifyAdmin($telegramId, $telegramUsername);
+        // 2. ToDo Уведомляем себя (опционально)
 
         // 3. Отправляем ответ пользователю
         $name = $telegramUsername ? "@{$telegramUsername}" : $firstName;
@@ -91,14 +90,16 @@ class TelegramService
      * @param string $telegramUsername
      * @param string $firstName
      * @param string $lastName
+     * @return User|null
      */
-    private function createOrUpdateUser(
+    public function createOrUpdateUser(
         string $telegramId,
         string $telegramUsername,
         string $firstName,
         string $lastName
-    ): void
+    ): ?User
     {
+        $usr = null;
         try {
             // Поищем поль-ля в БД, обновим не заполненные данные
             $user = $this->userRepository->findWhere('telegram', $telegramUsername);
@@ -119,7 +120,7 @@ class TelegramService
                     $user->telegram_id = $telegramId;
                 }
                 $user->save();
-
+                $usr = $user;
             } else {
                 // Если поль-ля не нашлось в БД, сохранить данные как $from_tgbot_unknown = 1
                 $attributes['email'] = $this->emailGeneratorService->generateRandomEmail();
@@ -130,11 +131,11 @@ class TelegramService
                 $attributes['last_name'] = $lastName;
                 $attributes['from_tgbot_unknown'] = 1;
 
-                $this->userRepository->create($attributes);
+                $usr = $this->userRepository->create($attributes);
             }
         } catch (Exception $e) {
             Log::error('TelegramService::createOrUpdateUser(). ' . $e->getMessage());
         }
-
+        return $usr;
     }
 }

@@ -11,9 +11,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->validateCsrfTokens(except: [
-            'tgbot/events',
-        ]);
+        $middleware->validateCsrfTokens(except: ['tgbot/events',]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

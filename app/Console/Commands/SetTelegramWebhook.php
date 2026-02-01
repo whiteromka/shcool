@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Http;
 class SetTelegramWebhook extends Command
 {
     /** @var string Тестовый домен для работы с ТГ ботами на локалке */
-    private string $testDomain = 'https://4bc6b92b0954b9e9-85-172-168-90.serveousercontent.com';
+    private string $testDomain = 'https://08aa311df876691b-85-172-168-90.serveousercontent.com';
 
     protected $signature = 'telegram:set-webhook';
     protected $description = 'Установить вебхук для Telegram бота';

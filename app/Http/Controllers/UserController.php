@@ -15,4 +15,11 @@ class UserController extends Controller
     {
         return view('user.test');
     }
+
+    // /user/lk
+    public function lk()
+    {
+        echo 'user/lk';
+        die;
+    }
 }

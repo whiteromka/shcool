@@ -45,7 +45,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $userIp = IPFormatter::format($_SERVER['REMOTE_ADDR']);
+//        if (app()->environment('production')) {
+//            URL::forceScheme('https');
+//        }
+
+        $userIp = $_SERVER['REMOTE_ADDR'] ?? '127.01.0.1';
+        $userIp = IPFormatter::format($userIp);
         View::share('userIp', $userIp);
     }
 }
