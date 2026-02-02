@@ -18,13 +18,12 @@ class TgbotController extends Controller
     {
         $data = $request->all();
         Log::info('Telegram webhook/events:', $data);
-        // Обработка команды /start
+        // ToDo: Обработка команды /start
         // if (isset($data['message']['text']) && str_starts_with($data['message']['text'], '/start')) {
         //    return $this->handleStartCommand($data);
         // }
-        if (!empty($data['message']['text'])) {
-            $this->telegramService->sayHello($data);
-        }
-        return response()->json(['ok' => true]); // ToDo что тут отвечать ?
+
+        $this->telegramService->sayHello($data);
+        return response()->json(['ok' => true]);
     }
 }

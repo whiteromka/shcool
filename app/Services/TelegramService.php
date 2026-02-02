@@ -18,33 +18,29 @@ class TelegramService
     {}
 
     /**
-     * Приветственное сообщение
+     * Приветственное сообщение для пользователя написавшего тг боту
      */
     public function sayHello(array $data): void
     {
-        $telegramId = $data['message']['from']['id'] ?? '';
-        $telegramUsername = $data['message']['from']['username'] ?? '';
-        $firstName = $data['message']['from']['first_name'] ?? '';
-        $lastName = $data['message']['from']['last_name'] ?? '';
+        $attributes['telegram_id'] = data_get($data, 'message.from.id', '');
+        $attributes['telegram'] = data_get($data, 'message.from.username', '');
+        $attributes['name'] = data_get($data, 'message.from.first_name', '');
+        $attributes['last_name'] = data_get($data, 'message.from.last_name', '');
 
-        if (!$telegramId && !$telegramUsername) {
+        // Проверяем, достаточно ли данных для идентификации пользователя
+        if (empty($attributes['telegram_id']) && empty($attributes['telegram'])) {
             return;
         }
 
-        // 1. Сохраняем в базу
-        $this->createOrUpdateUser($telegramId, $telegramUsername, $firstName, $lastName);
+        // 1. Сохраняем или обновляем пользователя в БД
+        $this->createOrUpdateUser($attributes);
 
-        // 2. ToDo Уведомляем себя (опционально)
+        // 2. Формируем приветственное сообщение
+        $name = $attributes['telegram'] ? ('@' . $attributes['telegram']) : $attributes['name'];
+        $welcomeMessage = $this->buildWelcomeMessage($name,  $attributes['telegram_id']);
 
-        // 3. Отправляем ответ пользователю
-        $name = $telegramUsername ? "@{$telegramUsername}" : $firstName;
-        $message = "Привет, {$name}!\n\n";
-        $message .= "Ваш Telegram ID: <code>{$telegramId}</code>\n\n";
-        $message .= "Уведомлю Вас когда группа на курс на который Вы записаны собралась и когда откроется оплата курса!\n";
-        $message .= "Используйте эти команды если хотите что бы я что-то уточнил: ...(это опционально не уверен что это нужно) \n\n";
-        $message .= "ToDo: Когда придет время действительно уведомить пол-ля о том что оплата курса разблокирована и можно оплачивать.";
-
-        $this->sendToUser($telegramId, $message);
+        // 3. Отправляем сообщение пользователю
+        $this->sendTo($attributes['telegram_id'], $welcomeMessage);
     }
 
     /**
@@ -52,31 +48,19 @@ class TelegramService
      */
     public function sendToCommonChat(string $text): void
     {
-        $token = config('services.telegram.bot_token');
-        $chatId = config('services.telegram.chat_id'); // ID общего чата куда добавили бота
-        // $chatId = config('services.telegram.my_id'); // мой ID
-
-        try {
-            Http::post("https://api.telegram.org/bot{$token}/sendMessage", [
-                'chat_id' => $chatId,
-                'text' => $text,
-                'parse_mode' => 'HTML',
-            ]);
-        } catch (Exception $e) {
-            Log::error('Error TelegramService::sendMessage(). ' . $e->getMessage());
-        }
+        $commonChatId = config('services.telegram.chat_id'); // ID общего чата куда добавили бота
+        $this->sendTo($commonChatId, $text);
     }
 
     /**
-     * Отправить конкретному пользователю
+     * Отправить сообщение в чат
      */
-    public function sendToUser(string $userId, string $text): void
+    public function sendTo(string $chatId, string $text): void
     {
         $token = config('services.telegram.bot_token');
-
         try {
             Http::post("https://api.telegram.org/bot{$token}/sendMessage", [
-                'chat_id' => $userId,
+                'chat_id' => $chatId,
                 'text' => $text,
                 'parse_mode' => 'HTML',
             ]);
@@ -86,56 +70,67 @@ class TelegramService
     }
 
     /**
-     * @param string $telegramId
-     * @param string $telegramUsername
-     * @param string $firstName
-     * @param string $lastName
-     * @return User|null
+     * @param array $attributes
+     * @return User
      */
-    public function createOrUpdateUser(
-        string $telegramId,
-        string $telegramUsername,
-        string $firstName,
-        string $lastName
-    ): ?User
+    public function createOrUpdateUser(array $attributes): User
     {
-        $usr = null;
-        try {
-            // Поищем поль-ля в БД, обновим не заполненные данные
-            $user = $this->userRepository->findWhere('telegram', $telegramUsername);
-            if (!$user) {
-                $user = $this->userRepository->findWhere('telegram_id', $telegramId);
-            }
-            if ($user) {
-                if (empty($user->name) && $firstName) {
-                    $user->name = $firstName;
-                }
-                if (empty($user->last_name) && $lastName) {
-                    $user->last_name = $lastName;
-                }
-                if (empty($user->telegram) && $telegramUsername) {
-                    $user->telegram = $telegramUsername;
-                }
-                if (empty($user->telegram_id) && $telegramId) {
-                    $user->telegram_id = $telegramId;
-                }
-                $user->save();
-                $usr = $user;
-            } else {
-                // Если поль-ля не нашлось в БД, сохранить данные как $from_tgbot_unknown = 1
-                $attributes['email'] = $this->emailGeneratorService->generateRandomEmail();
-                $attributes['password'] = $this->passwordGeneratorService->generateRandomPassword();
-                $attributes['telegram_id'] = $telegramId;
-                $attributes['telegram'] = $telegramUsername;
-                $attributes['name'] = $firstName;
-                $attributes['last_name'] = $lastName;
-                $attributes['from_tgbot_unknown'] = 1;
-
-                $usr = $this->userRepository->create($attributes);
-            }
-        } catch (Exception $e) {
-            Log::error('TelegramService::createOrUpdateUser(). ' . $e->getMessage());
+        $user = $this->userRepository->where('telegram', $attributes['telegram']);
+        if (!$user) {
+            $user = $this->userRepository->where('telegram_id', $attributes['telegram_id']);
         }
-        return $usr;
+        if ($user) {
+            $this->userRepository->updateOnlyEmpty($user, $attributes);
+            return $user;
+        }
+
+        $attributes['email'] = $this->emailGeneratorService->generateRandomEmail();
+        $attributes['password'] = $this->passwordGeneratorService->generateRandomPassword();
+        $attributes['from_tgbot_unknown'] = 1;
+
+        return $this->userRepository->create($attributes);
+    }
+
+    /**
+     * Формирует приветственное сообщение для пользователя.
+     */
+    private function buildWelcomeMessage(string $name, string $telegramId): string
+    {
+        $message = "Привет, {$name}!\n\n";
+        $message .= "Ваш Telegram ID: <code>{$telegramId}</code>\n\n";
+        $message .= "Я уведомлю вас, когда наберётся группа на курс, на который вы записаны, ";
+        $message .= "а также когда откроется оплата.\n\n";
+        $message .= "Спасибо за доверие!";
+
+        return $message;
+    }
+
+    /**
+     * Проверка достоверности данных при авторизации через ТГ
+     *
+     * @param array $data
+     * @return bool
+     */
+    public function checkHash(array $data): bool
+    {
+        if (!isset($data['hash'], $data['auth_date'])) {
+            return false;
+        }
+        if (time() - (int)$data['auth_date'] > 86400) {
+            return false;
+        }
+
+        $hash = $data['hash'];
+        unset($data['hash']);
+        ksort($data);
+
+        $dataCheckString = collect($data)
+            ->map(fn ($v, $k) => $k . '=' . (string) $v)
+            ->implode("\n");
+
+        $secretKey = hash('sha256', config('services.telegram.bot_token'), true);
+        $calculatedHash = hash_hmac('sha256', $dataCheckString, $secretKey);
+
+        return hash_equals($calculatedHash, $hash);
     }
 }
