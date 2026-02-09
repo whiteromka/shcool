@@ -1,9 +1,13 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const gridBackground = document.getElementById('gridBackground');
     const squareSize = 160;
 
+    // 👉 массив всех point
+    let points = [];
+
     function createGrid() {
         gridBackground.innerHTML = '';
+        points = [];
 
         const windowWidth = window.innerWidth;
         const windowHeight = window.innerHeight;
@@ -36,9 +40,34 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             gridBackground.appendChild(square);
+
+            // 👉 сохраняем point
+            points.push(point);
         }
     }
 
+    // helper для задержек
+    const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+    // анимация по очереди
+    async function animatePoints() {
+        for (const point of points) {
+            point.style.background = '#6bf20a';
+            point.style.boxShadow = '0 0 5px 2px rgba(51, 255, 0, 0.5)';
+
+            const square = point.parentElement;
+            if (square) {
+                // outline: 1px solid rgba(98, 255, 0, 0.11);
+                square.style.outline = '1px solid rgba(98, 255, 0, 0.11)';
+            }
+            await sleep(1000);
+        }
+    }
+    window.animatePoints = animatePoints;
+
     createGrid();
-    window.addEventListener('resize', createGrid);
+
+    // window.addEventListener('resize', createGrid);
+    // setTimeout(() => {
+    //     animatePoints();
+    // }, 2000);
 });

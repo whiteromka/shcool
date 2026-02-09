@@ -13,6 +13,7 @@
         <div class="col-6">
             <div class="cy-container">
                 <div class="cy-block">
+                    <div class="cy-block-pipka"></div>
                     <h2>12 3 3425</h2>
                 </div>
                 <div class="cy-block-body">

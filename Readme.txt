@@ -81,6 +81,8 @@ php artisan make:migration create_oauth_accounts_table // создать миг�
 docker compose exec app php artisan migrate            // накатить миграции
 docker compose exec app php artisan migrate:rollback   // откатить миграции
 
+php artisan make:controller UserController --resource
+
 
 
 ============ для локального теста Телеграм ===========

@@ -8,10 +8,11 @@
 
         <div class="col-sm-12 col-md-5 col-lg-4">
             <div class="cy-container">
-                <div class="cy-block-y">
-                    <h2>12 3 3425</h2>
+                <div class="cy-block cy-block-y">
+                    <div class="cy-block-pipka"></div>
+                    <h2>12 3 111</h2>
                 </div>
-                <div class="cy-block-body">
+                <div class="cy-block-body cy-block-body-y">
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquid
                         animi debitis delectus, deserunt dicta dolor doloremque ea excepturi expedita
                         facilis inventore laudantium minus, nesciunt non pariatur, quas qui saepe!

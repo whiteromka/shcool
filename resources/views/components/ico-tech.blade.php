@@ -120,7 +120,7 @@
     }
 </style>
 
-<div class="container-fluid">
+<div class="container-fluid pos-r">
     <div class="logos-container">
         <div class="logos-track" id="logosTrack"></div>
     </div>

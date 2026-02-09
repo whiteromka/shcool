@@ -37,10 +37,11 @@
 
         <div class="col-sm-12 col-lg-3">
             <div class="cy-container">
-                <div class="cy-block">
+                <div class="cy-block cy-block-p">
+                    <div class="cy-block-pipka"></div>
                     <h2>X-0001</h2>
                 </div>
-                <div class="cy-block-body">
+                <div class="cy-block-body cy-block-body-p">
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquid
                         animi debitis delectus, deserunt dicta dolor doloremque ea excepturi expedita
                         facilis inventore laudantium minus, nesciunt non pariatur, quas qui saepe!
@@ -51,10 +52,11 @@
             <br>
 
             <div class="cy-container">
-                <div class="cy-block">
+                <div class="cy-block cy-block-t">
+                    <div class="cy-block-pipka"></div>
                     <h2>X-0002</h2>
                 </div>
-                <div class="cy-block-body">
+                <div class="cy-block-body cy-block-body-t">
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquid
                         animi debitis delectus, deserunt dicta dolor doloremque ea excepturi expedita
                     </p>

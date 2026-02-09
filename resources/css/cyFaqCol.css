@@ -6,13 +6,12 @@
     --card-bg: #171723;
     --card-border: #2a2a3a;
     --text-color: #f0f0f5;
-    --text-muted: #a0a0b0;
+    --text-muted: #89898a;
     --accent-color: #00d4aa;
 }
 
 .slider-wrapper {
     width: 100%;
-    padding: 0 20px;
 }
 
 /* Стили для заголовка */
@@ -36,16 +35,15 @@
     font-style: normal;
     font-variation-settings: "wdth" 100;
     text-transform: uppercase;
-    font-size: 4rem;
+    font-size: 6rem;
 }
 
 .slider-header p {
     color: var(--text-muted);
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     max-width: 600px;
     margin: 0 auto;
     line-height: 1.6;
-    color: #f844d8;
 }
 
 .slider-header::after {
@@ -65,9 +63,31 @@
     position: relative;
     overflow: hidden;
     border-radius: 16px;
-    background: linear-gradient(145deg, #12121a, #0a0a10);
     padding: 2rem 0;
     margin-bottom: 1.5rem;
+    background: none;
+    box-shadow: none;
+}
+
+.slider-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    border-radius: 16px;
+    border-top: 1px solid #383838;
+    background: linear-gradient(145deg, #1d1d2a, #0a0a10);
+
+    mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        black 15%,
+        black 85%,
+        transparent 100%
+    );
     box-shadow:
         0 20px 50px rgba(0, 0, 0, 0.6),
         inset 0 1px 0 rgba(255, 255, 255, 0.05);
@@ -76,8 +96,8 @@
 /* Кастомные стили для Swiper */
 .swiper {
     width: 100%;
-    height: 350px;
-    padding: 10px 0 50px !important;
+    height: 400px;
+    padding: 20px 0 50px !important;
 }
 
 .swiper-wrapper {
