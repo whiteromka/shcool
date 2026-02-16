@@ -46,22 +46,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-//        if (app()->environment('production')) {
-//            URL::forceScheme('https');
-//        }
-
-        $vacancies = Vacancy::query()
-            ->orderByDesc('created_at')
-            ->orderByRaw('COALESCE(salary_to, salary_from, 0) DESC')
-            ->offset(0)
-            ->limit(6)
-            ->get();
-        $vacancies = $vacancies->all();
-
-
-        $userIp = $_SERVER['REMOTE_ADDR'] ?? '127.01.0.1';
-        $userIp = IPFormatter::format($userIp);
-        View::share('userIp', $userIp);
-        View::share('vacancies', $vacancies);
     }
 }

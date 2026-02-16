@@ -1,10 +1,17 @@
+@php
+    /** @var Collection $vacancies */
+    /** @var string $userIp */
+
+    use Illuminate\Support\Collection;
+@endphp
+
 @extends('layouts.main')
 
 @section('title', 'Групповые курсы по программированию')
 
 @section('content')
 {{-- Вступительный контейнер    --}}
-<x-cyber.main-first></x-cyber.main-first>
+<x-cyber.main-first :userIp="$userIp"></x-cyber.main-first>
 <br>
 <br>
 <br>
@@ -48,12 +55,10 @@
 <br>
 
 
-<x-nexus.vacancies></x-nexus.vacancies>
+<x-nexus.vacancies :vacancies="$vacancies"></x-nexus.vacancies>
 <br>
 <br>
 <br>
-
-
 
 <x-footer-dark></x-footer-dark>
 {{--    <x-footer></x-footer>--}}
