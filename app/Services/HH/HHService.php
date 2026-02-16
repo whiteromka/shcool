@@ -21,7 +21,7 @@ class HHService
     }
 
     /**
-     * Получить вакансии PHP с HeadHunter и сохранить в БД
+     * Получить вакансии PHP с hh.ru и сохранить в БД
      */
     public function fetchVacancies(): void
     {
@@ -32,7 +32,7 @@ class HHService
             'search_field' => 'name',
         ]);
 
-        // 2. Получаем данные
+        // Получаем данные
         $dataVacancies = $response->json();
         $this->saveVacancies($dataVacancies);
     }

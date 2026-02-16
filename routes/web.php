@@ -70,6 +70,5 @@ Route::get('/users/show/{user}', [UsersController::class, 'show'])->name('users.
 //    ->name('users.show');
 
 // Вакансии
-Route::get('/vacancies', [VacancyController::class, 'index']);
-Route::get('/vacancies/load-more', [VacancyController::class, 'loadMore'])
-    ->name('vacancies.load-more');
+Route::get('/vacancy/check', [VacancyController::class, 'check'])->name('vacancy.check');
+Route::get('/vacancy/load-more', [VacancyController::class, 'loadMore'])->name('vacancy.loadMore');

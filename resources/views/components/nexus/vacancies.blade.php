@@ -13,7 +13,7 @@
         </div>
 
         <div class="row" id="vacancies-container">
-            @include('vacancy._items', ['vacancies' => $vacancies])
+            {{-- на js прилетают вакансии --}}
         </div>
 
         <div class="row">
@@ -21,7 +21,7 @@
                 <button
                     class="btn btn-s btn--secondary"
                     id="loadMoreVacancies"
-                    data-offset="{{ count($vacancies) }}"
+                    data-offset="0"
                 >
                     <span class="btn__content">Еще вакансии</span>
                     <span class="btn__glitch"></span>
@@ -35,18 +35,42 @@
 @push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const button = document.getElementById('loadMoreVacancies');
+
         const container = document.getElementById('vacancies-container');
+        const button = document.getElementById('loadMoreVacancies');
+        let offset = parseInt(button.dataset.offset, 10);
         let loading = false;
 
+        function updateOffset(count) {
+            offset += count;
+            button.dataset.offset = offset;
+        }
+
+        // Проверка новых вакансий при загрузке
+        async function loadFirstVacancy() {
+            try {
+                const response = await fetch(
+                    '/vacancy/check',
+                    { headers: { 'X-Requested-With': 'XMLHttpRequest' } }
+                );
+                const data = await response.json();
+                if (data.count === 0) return;
+                container.insertAdjacentHTML('afterbegin', data.html);
+                updateOffset(data.count);
+            } catch (e) {
+                console.error('Ошибка загрузки вакансий', e);
+            }
+        }
+        loadFirstVacancy();
+
+        // Кнопка "Еще вакансии"
         button.addEventListener('click', async () => {
             if (loading) return;
             loading = true;
             button.disabled = true;
-            const offset = parseInt(button.dataset.offset, 10);
             try {
                 const response = await fetch(
-                    '/vacancies/load-more?offset=' + offset,
+                    '/vacancy/load-more?offset=' + offset,
                     { headers: { 'X-Requested-With': 'XMLHttpRequest' } }
                 );
                 const data = await response.json();
@@ -55,7 +79,7 @@
                     return;
                 }
                 container.insertAdjacentHTML('beforeend', data.html);
-                button.dataset.offset = offset + data.count;
+                updateOffset(data.count);
             } catch (e) {
                 console.error('Ошибка загрузки вакансий', e);
             } finally {
@@ -65,5 +89,6 @@
         });
     });
 </script>
+
 @endpush
 

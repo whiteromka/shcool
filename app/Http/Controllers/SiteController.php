@@ -14,11 +14,9 @@ class SiteController extends Controller
     // GET /
     public function index()
     {
-        $vacancies = $this->vacancyService->getLatest();
         $userIp = IPFormatter::format(request()->ip() ?? '127.0.0.1');
 
         return view('site.index', [
-            'vacancies' => $vacancies,
             'userIp' => $userIp,
         ]);
     }

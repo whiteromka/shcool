@@ -55,7 +55,7 @@
 <br>
 
 
-<x-nexus.vacancies :vacancies="$vacancies"></x-nexus.vacancies>
+<x-nexus.vacancies></x-nexus.vacancies>
 <br>
 <br>
 <br>

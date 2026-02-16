@@ -58,15 +58,11 @@ class Vacancy extends Model
         'salary_gross' => 'boolean',
         'responses_count' => 'integer',
         'key_skills' => 'array',
-        'published_at' => 'datetime:Y-m-d',
-        'archived_at' => 'datetime:Y-m-d',
     ];
 
-    protected function publishedAt(): Attribute
+    public function getShortPublishedAt(): string
     {
-        return Attribute::make(
-            get: fn ($value) => $value ? date('Y-m-d', strtotime($value)) : null,
-        );
+        return date('Y-m-d', strtotime($this->published_at));
     }
 
     protected function requirement(): Attribute

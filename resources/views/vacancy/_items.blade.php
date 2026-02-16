@@ -7,7 +7,7 @@
     <div class="col-12 col-md-6 px-1 d-flex vacancy-item">
         <div class="project-card w-100 d-flex flex-column">
             <div class="project-year">
-                {{ $item->published_at }} //
+                {{ $item->getShortPublishedAt() }} //
                 {{ $item->area_name }} //
                 <span class="salary">{{ $item->getPrettySalary() }}</span>
             </div>
