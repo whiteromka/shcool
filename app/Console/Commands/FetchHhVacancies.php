@@ -7,7 +7,6 @@ use Illuminate\Console\Command;
 use App\Services\HH\HHService;
 
 /**
- * docker compose exec app bash
  * команда: php artisan hh:fetch
  */
 class FetchHhVacancies extends Command

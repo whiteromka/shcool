@@ -1,4 +1,5 @@
 import './bootstrap';
+import "bootstrap/dist/js/bootstrap.js";
 import './cyBtn';
 import './bgCube';
 import './cyBrackets';

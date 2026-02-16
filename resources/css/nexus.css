@@ -519,7 +519,12 @@ a:hover {
     transition: border-color 0.3s;
     margin-bottom: 8px;
 }
-
+.vacancies-wrapper {
+    overflow: hidden;
+    max-height: none;
+    transition: max-height 0.45s ease;
+    will-change: max-height;
+}
 .project-card::before {
     content: '';
     position: absolute;

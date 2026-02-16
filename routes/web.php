@@ -4,21 +4,20 @@ use App\Http\Controllers\LkController;
 use App\Http\Controllers\Oauth\GithubController;
 use App\Http\Controllers\Oauth\GoogleController;
 use App\Http\Controllers\Oauth\YandexController;
+use App\Http\Controllers\SiteController;
 use App\Http\Controllers\TelegramAuthController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\TgbotController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\VacancyController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function (Illuminate\Http\Request $request) {
-    return view('welcome', [
-        'yandexClientId' => config('services.yandex.client_id'),
-        'githubClientId' => config('services.github.client_id'),
-        'clientIp' => $request->ip(),
-    ]);
-});
+Route::get('/', [SiteController::class, 'index'])->name('site.index');
+Route::get('/site/front', [SiteController::class, 'index'])->name('site.front');
+Route::get('/site/back', [SiteController::class, 'index'])->name('site.back');
+Route::get('/site/gamedev', [SiteController::class, 'index'])->name('site.gamedev');
 
 Route::get('/user/index', [UserController::class, 'index'])->name('user.index');
 Route::get('/user/test', [UserController::class, 'test'])->name('user.test');
@@ -69,3 +68,8 @@ Route::get('/users/show/{user}', [UsersController::class, 'show'])->name('users.
 //Route::get('/users/show/{id}', [UsersController::class, 'show'])
 //    ->whereNumber('id')
 //    ->name('users.show');
+
+// Вакансии
+Route::get('/vacancies', [VacancyController::class, 'index']);
+Route::get('/vacancies/load-more', [VacancyController::class, 'loadMore'])
+    ->name('vacancies.load-more');

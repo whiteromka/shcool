@@ -2,24 +2,6 @@
 {{--<div class="corner-decoration top-left" aria-hidden="true"></div>--}}
 {{--<div class="corner-decoration bottom-right" aria-hidden="true"></div>--}}
 
-<!-- ── NAVIGATION ── -->
-<div class="container-fluid px-0">
-    <nav class="nexus-nav" role="navigation" aria-label="Main navigation">
-        <div class="nav-logo">NEXUS</div>
-        <ul class="nav-links">
-            <li><a href="#about">Главная</a></li>
-            <li><a href="#services">Front</a></li>
-            <li><a href="#projects">Back</a></li>
-            <li><a href="#contact">Gamedev</a></li>
-        </ul>
-        <div class="nav-status">
-            <span class="dot" aria-hidden="true"></span>
-            System Online
-        </div>
-    </nav>
-</div>
-
-
 {{-- =========== HERO ============--}}
 <div class="container-fluid px-0">
     <section class="hero" id="hero">

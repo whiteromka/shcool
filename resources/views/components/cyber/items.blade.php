@@ -1,3 +1,4 @@
+<div class="" style="">
 <div class="container">
     <h2 class="h2-common">
         {{--        <span>0.01</span> <br>--}}
@@ -13,7 +14,8 @@
         <span> [][][]== ===</span>
     </div>
 </div>
-<div class="container-fluid bg-purple px-0">
+
+<div class="container-fluid px-0 bg-purple">
     <br>
     <div class="container cy-items-container">
         <div class="row">
@@ -83,6 +85,7 @@
     <br>
     <br>
 </div>
+</div>
 <div class="container-fluid bottom-ark bg-purple px-0">
     <div class="streaks">
         <span>== ===[][] == ==[] === [][][]</span>
@@ -94,3 +97,85 @@
 <br>
 <br>
 <br>
+
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cyItems = document.querySelectorAll('.cy-item');
+
+            cyItems.forEach(item => {
+                let headTimeout, bracketTimeout, blinkInterval, spanTimeout;
+
+                item.addEventListener('mouseenter', () => {
+                    const headRight = item.querySelector('.cy-item-head-right');
+                    const headSpan = headRight.querySelector('span');
+
+                    // Мерцание перед окончательным добавлением .bs-blue
+                    headTimeout = setTimeout(() => {
+                        let count = 0;
+                        blinkInterval = setInterval(() => {
+                            headRight.classList.toggle('bs-blue');
+                            count++;
+                            if (count >= 6) {
+                                clearInterval(blinkInterval);
+                                headRight.classList.add('bs-blue');
+
+                                // Через 0.1s добавляем класс span
+                                spanTimeout = setTimeout(() => {
+                                    if (headSpan) headSpan.classList.add('cy-item-head-right-hovered');
+                                }, 100);
+                            }
+                        }, 100);
+                    }, 400);
+
+                    // Динамические элементы
+                    const brackets = item.querySelectorAll('.cy-brackets-tl, .cy-brackets-tr, .cy-brackets-bl, .cy-brackets-br');
+                    brackets.forEach(b => b.style.backgroundColor = 'transparent');
+                    bracketTimeout = setTimeout(() => {
+                        brackets.forEach(b => b.style.backgroundColor = 'orange');
+                    }, 100);
+
+                    // Искусственный hover на кнопке
+                    const btnWrapper = item.parentElement.querySelector('.item-btn-wrapper');
+                    if (btnWrapper) {
+                        const cyberText = btnWrapper.querySelector('.js-cyber-text-animation');
+                        if (cyberText) {
+                            // Создаем событие mouseenter
+                            const enterEvent = new MouseEvent('mouseenter', { bubbles: true });
+                            cyberText.dispatchEvent(enterEvent);
+                        }
+                    }
+                });
+
+                item.addEventListener('mouseleave', () => {
+                    const headRight = item.querySelector('.cy-item-head-right');
+                    const headSpan = headRight.querySelector('span');
+
+                    clearTimeout(headTimeout);
+                    clearTimeout(bracketTimeout);
+                    clearTimeout(spanTimeout);
+                    clearInterval(blinkInterval);
+
+                    // Снимаем классы
+                    headRight.classList.remove('bs-blue');
+                    if (headSpan) headSpan.classList.remove('cy-item-head-right-hovered');
+
+                    const brackets = item.querySelectorAll('.cy-brackets-tl, .cy-brackets-tr, .cy-brackets-bl, .cy-brackets-br');
+                    brackets.forEach(b => b.style.backgroundColor = 'transparent');
+
+                    // Искусственный уход мыши с кнопки
+                    const btnWrapper = item.parentElement.querySelector('.item-btn-wrapper');
+                    if (btnWrapper) {
+                        const cyberText = btnWrapper.querySelector('.js-cyber-text-animation');
+                        if (cyberText) {
+                            const leaveEvent = new MouseEvent('mouseleave', { bubbles: true });
+                            cyberText.dispatchEvent(leaveEvent);
+                        }
+                    }
+                });
+            });
+        });
+
+    </script>
+@endpush
+

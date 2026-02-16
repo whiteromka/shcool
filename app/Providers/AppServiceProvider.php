@@ -51,12 +51,10 @@ class AppServiceProvider extends ServiceProvider
 //        }
 
         $vacancies = Vacancy::query()
-            ->whereDate('created_at', '2026-02-14')
-            ->where(function($query) {
-                $query->whereNotNull('salary_to')
-                    ->orWhereNotNull('salary_from');
-            })
-            ->orderBy('created_at', 'DESC')
+            ->orderByDesc('created_at')
+            ->orderByRaw('COALESCE(salary_to, salary_from, 0) DESC')
+            ->offset(0)
+            ->limit(6)
             ->get();
         $vacancies = $vacancies->all();
 
