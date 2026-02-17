@@ -26,6 +26,9 @@
     height: 100%;
     margin-left: 4px;
 }
+.item-btn-strokes > div.active {
+    background: red;
+}
 .item-btn {
     display: flex;
     justify-content: center;
