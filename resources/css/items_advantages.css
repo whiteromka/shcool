@@ -23,16 +23,12 @@
     padding-top: 20px;
 }
 .signal-light {
+    padding-top: 40px;
+    padding-bottom: 40px;
     border-top: 1px dotted rgba(0, 255, 229, 0.4);
     border-bottom: 1px dotted rgba(0, 255, 187, 0.4);
     box-shadow: inset 0 0 40px 10px rgba(93, 225, 207, 0.17);
     background: rgba(0, 255, 242, 0.05);
-    /*background: radial-gradient(*/
-    /*    ellipse at bottom center,*/
-    /*    rgba(0, 255, 242, 0.11) 0%,*/
-    /*    rgba(0, 180, 200, 0.10) 50%,*/
-    /*    rgba(0, 90, 120, 0.05) 65%*/
-    /*);*/
 }
 .signal-light:hover {
     border-top: 1px dotted rgba(0, 255, 229, 0.9);
@@ -56,9 +52,13 @@
 .cy-item{
     min-height: 400px;
     margin-top: 6px;
-    margin-bottom: 8px;
+    margin-bottom: 5px;
     border-top: 1px dotted rgba(0, 255, 212, 0.47);
     border-bottom: 1px dotted rgba(0, 255, 212, 0.47);
+}
+.cy-item:hover {
+    border-top: 1px dotted rgba(0, 255, 212, 0.87);
+    border-bottom: 1px dotted rgba(0, 255, 212, 0.87);
 }
 .bs-blue {
     box-shadow: 0 0 50px 2px rgba(21, 255, 243, 0.39);
@@ -82,6 +82,7 @@
     color: #fff;
     font-size: 16px;
     text-shadow: 0 0 3px rgba(255, 220, 79, 1);
+    border: 5px solid #494848;
 }
 .cy-item-head-right {
     flex: 1 1 auto;
@@ -111,14 +112,61 @@
 }
 
 .cy-item-body {
-    background: rgba(255, 0, 0, 0.24);
-    border: 1px solid red;
     background: rgba(7, 7, 7, 0.54);
     border: 1px dotted #000000;
     margin-top: 6px;
     min-height: 360px;
-    padding: 30px;
+    padding: 4px;
 }
+.cy-item-body p {
+    color: #bdbdbd;
+}
+.php-tabs-wrapper {
+    background: rgba(10, 10, 15, 0.15);
+    border: 1px solid var(--border-color);
+    backdrop-filter: blur(2px);
+    padding: 12px;
+}
+
+/* Tabs header */
+.cy-item-tabs {
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 12px;
+}
+.cy-item-tabs .nav-link {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    background: transparent !important;
+    border: none;
+    padding: 6px 10px;
+}
+
+.cy-item-tabs .nav-link:hover {
+    color: var(--accent-cyan);
+}
+
+.cy-item-tabs .nav-link.active {
+    color: var(--accent-cyan);
+    text-shadow: 0 0 6px rgba(0, 240, 255, 0.4);
+    border-bottom: 1px solid var(--accent-cyan);
+}
+
+/* Content */
+.cy-item-tabs-content {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-muted);
+    min-height: 80px;
+}
+
+.cy-item-tabs-content p {
+    margin: 0;
+}
+
 
 .top-ark {
     width: 85%;

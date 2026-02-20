@@ -22,15 +22,24 @@
     <div class="container-fluid px-0 signal-light">
         <div class="container cy-items-container" >
             <div class="row">
-                <?php $courses = [
-                    ['name' => 'Front', 'label' => 'JS', 'css' => 'bg-JS', 'crew' => 14],
-                    ['name' => 'Back', 'label' => 'PHP', 'css' => 'bg-PHP', 'crew' => 17],
-                    ['name' => 'Gamedev', 'label' => 'C#', 'css' => 'bg-DEFAULT', 'crew' => 2],
-                    ['name' => 'Foreign Lang', 'label' => 'En', 'css' => 'bg-DEFAULT', 'crew' => 25],
-                ]?>
+                @php $courses = [
+                    ['name' => 'Front', 'label' => 'JS', 'css' => 'bg-JS', 'crew' => 14, 'tabs' => [
+                            'speed'=>'1 PHP прост в освоении и позволяет быстро запускать проекты. Отличный выбор для старта в веб-разработке и быстрого прототипирования.',
+                            'ecosystem' => '1 Огромная экосистема: Laravel, Symfony, Yii. Тысячи пакетов и готовых решений для реальных проектов.',
+                            'practice' => '1 PHP используется в реальных продуктах и даёт быстрый выход на рынок труда. Минимум теории — максимум практики.'
+                    ]],
+                    ['name' => 'Back', 'label' => 'PHP', 'css' => 'bg-PHP', 'crew' => 17, 'tabs' => [
+                            'speed'=>'2 PHP прост в освоении и позволяет быстро запускать проекты. Отличный выбор для старта в веб-разработке и быстрого прототипирования.',
+                            'ecosystem' => '2 Огромная экосистема: Laravel, Symfony, Yii. Тысячи пакетов и готовых решений для реальных проектов.',
+                            'practice' => '2 PHP используется в реальных продуктах и даёт быстрый выход на рынок труда. Минимум теории — максимум практики.'
+                    ]],
+                    ['name' => 'Gamedev', 'label' => 'C#', 'css' => 'bg-DEFAULT', 'crew' => 2, 'tabs' => []],
+                    ['name' => 'Foreign Lang', 'label' => 'En', 'css' => 'bg-DEFAULT', 'crew' => 25, 'tabs' => []],
+                ];
+                @endphp
 
                 @foreach($courses as $k => $course)
-                    <div class="col-12 col-sm-6 col-xxl-3 mb-20">
+                    <div class="col-12 col-sm-6 col-xxl-3 mb-20 px-1">
                         <div class="pipki">
                             @for($i = 1; $i <= $course['crew']; $i++)
                                 <div class="pipka"></div>
@@ -46,24 +55,41 @@
                                 </div>
                             </div>
                             <div class="cy-item-body">
-                                @if($k !== 20)
-                                    <div class="badge-cell">
-                                        <div class="status-badge">
-                                            <div class="status-badge__hex glow-cyan">
-                                                <span class="status-badge__status">ACTIVE</span>
-                                                <span class="status-badge__value">2.99</span>
+
+                                <div class="php-tabs-wrapper">
+                                    {{-- Табы --}}
+                                    @if(count($course['tabs']))
+                                    <ul class="nav nav-tabs cy-item-tabs" id="{{$course['name']}}" role="tablist">
+                                        @php
+                                            $i = 1;
+                                            foreach ($course['tabs'] as $tabKey => $tab):
+                                        @endphp
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link {{ $i === 1 ? 'active' : ''}}"
+                                                    data-bs-toggle="tab"
+                                                    data-bs-target="#{{ $course['name'] }}-{{ $tabKey }}"
+                                                    type="button">
+                                                {{ $tabKey }}
+                                            </button>
+                                        </li>
+                                        @php
+                                            $i++;
+                                            endforeach;
+                                        @endphp
+                                    </ul>
+
+                                    {{-- Таб контент --}}
+                                    <div class="tab-content cy-item-tabs-content">
+                                        @php $first = true; @endphp
+                                        @foreach($course['tabs'] as $tabKey => $text)
+                                            <div class="tab-pane fade {{ $first ? 'show active' : '' }}" id="{{ $course['name'] }}-{{ $tabKey }}">
+                                                <p>{{ $text }}</p>
                                             </div>
-                                            <div class="badge-dots">
-                                                <div class="badge-dot badge-dot--cyan"></div>
-                                                <div class="badge-dot badge-dot--orange"></div>
-                                                <div class="badge-dot badge-dot--cyan"></div>
-                                                <div class="badge-dot badge-dot--orange"></div>
-                                            </div>
-                                        </div>
+                                            @php $first = false; @endphp
+                                        @endforeach
                                     </div>
-                                @else
-                                    <x-test.dino-game></x-test.dino-game>
-                                @endif
+                                    @endif
+                                </div>
                                 <br>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad alias aliquid nobis quas quos!
                                     Maxime nemo!</p>
@@ -242,8 +268,11 @@
                 }
 
                 // Красим кнопку по кускам
+                const btn = btnWrapper?.querySelector('.item-btn');
                 const strokes = btnWrapper?.querySelector('.item-btn-strokes');
-                const strokeDivs = strokes ? Array.from(strokes.children).reverse() : [];
+                let strokeDivs = strokes ? Array.from(strokes.children).reverse() : [];
+                strokeDivs.push(btn);
+                console.log(strokeDivs)
 
                 strokesStartTimeout = setTimeout(() => {
                     strokeDivs.forEach((div, i) => {
@@ -287,10 +316,14 @@
                 }
 
                 const strokes = btnWrapper?.querySelector('.item-btn-strokes');
+                const btn = btnWrapper?.querySelector('.item-btn');
                 if (strokes) {
                     strokes.querySelectorAll('div').forEach(div => {
                         div.classList.remove('active');
                     });
+                }
+                if (btn) {
+                    btn.classList.remove('active');
                 }
             });
         });

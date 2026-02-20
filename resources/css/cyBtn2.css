@@ -13,7 +13,7 @@
 */
 @import url("https://fonts.googleapis.com/css?family=Barlow|Tomorrow:400,700&display=swap");
 .item-btn-wrapper {
-    margin-top: 10px;
+    margin-top: 7px;
     display: flex;
     justify-content: end;
 }
@@ -49,6 +49,9 @@
     text-transform: uppercase;
     letter-spacing: 1px;
     font-size: 13px;
+}
+.item-btn-wrapper .active {
+    background: red;
 }
 
 .btn {
