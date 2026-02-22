@@ -47,6 +47,7 @@
     </div>
 </div>
 
+@push('scripts')
 <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
 <script>
     let size = 18;
@@ -330,3 +331,4 @@
         }
     });
 </script>
+@endpush

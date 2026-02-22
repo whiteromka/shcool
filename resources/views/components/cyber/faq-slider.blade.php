@@ -1,9 +1,26 @@
-<div class="container-fluid px-0">
+<div class="container">
+    <h2 class="h2-common">
+        Вопросы - ответы / <b style="color: orange">FAQ</b>
+    </h2>
+</div>
 
-    <div class="slider-wrapper">
-        <div class="slider-header"></div>
+<div class="container-fluid top-ark bg-pink px-0">
+    <div class="streaks">
+        <div class="streak-left streak-b"></div>
+        <div class="streak-left streak-b"></div>
+        <div class="streak-left streak-b"></div>
+        <span> [][][]== ===</span>
+    </div>
+</div>
 
-        <?php
+<div class="container-fluid px-0 bg-pink">
+    <br>
+</div>
+
+    <div class="container-fluid px-0">
+        <div class="slider-wrapper">
+            <div class="slider-header_"></div>
+            <?php
             $items = [
                 [
                     'col' => 'col-6',
@@ -44,7 +61,7 @@
                 [
                     'col' => 'col-6',
                     'q' => 'Сколько человек в группе?',
-                    'a' => 'Это зависит от сложности модуля, и количества желающих его пройти, и загрузки преподавателей. У каждого модуля есть индикаторы набора учеников в группы.'
+                    'a' => 'Это зависит от сложности модуля, количества желающих его пройти и загрузки преподавателей. У каждого модуля есть индикаторы набора учеников в группы.'
                 ],
                 [
                     'col' => 'col-6',
@@ -62,29 +79,40 @@
                     'a' => 'Да, к большинству уроков будет материал для самостоятельной практики. '
                 ],
             ];
-        ?>
+            ?>
+            <div class="slider-container">
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">
 
-        <div class="slider-container">
-            <div class="swiper mySwiper">
-                <div class="swiper-wrapper">
-
-                    @foreach($items as $k => $v)
-                        <div class="faq-service-card col-12 col-md-4 col-xxl-3 swiper-slide" style="display: block">
-                            <div class="faq-service-index">{{ sprintf("%02d", $k + 1) }}</div>
-                            <div class="faq-service-name">{{ $v['q'] }}</div>
-                            <p class="faq-service-desc">
-                                {{ $v['a'] }}
-                            </p>
-                            <span class="faq-service-tag">{{ sprintf("%02d", $k + 1) }} / {{ count($items) }}</span>
-                        </div>
-                    @endforeach
+                        @foreach($items as $k => $v)
+                            <div class="faq-service-card col-12 col-md-4 col-xxl-3 swiper-slide" style="display: block">
+                                <div class="faq-service-index">{{ sprintf("%02d", $k + 1) }}</div>
+                                <div class="faq-service-name">{{ $v['q'] }}</div>
+                                <p class="faq-service-desc">
+                                    {{ $v['a'] }}
+                                </p>
+                                <span class="faq-service-tag">{{ sprintf("%02d", $k + 1) }} / {{ count($items) }}</span>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
                 </div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
+                <div class="swiper-pagination_ swiper-pagination-progressbar_"></div>
             </div>
-            <div class="swiper-pagination swiper-pagination-progressbar"></div>
         </div>
-        <div class="hover-hint">Наведите для паузы • Перетаскивайте для прокрутки</div>
     </div>
 
+
+<div class="container-fluid px-0 bg-pink">
+    <br>
+</div>
+
+<div class="container-fluid bottom-ark bg-pink px-0">
+    <div class="streaks">
+        <span>== ===[][] == ==[] === [][][]</span>
+        <div class="streak-left streak-b"></div>
+        <div class="streak-left streak-b"></div>
+        <div class="streak-left streak-b"></div>
+    </div>
 </div>

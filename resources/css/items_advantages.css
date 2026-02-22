@@ -121,6 +121,9 @@
 .cy-item-body p {
     color: #bdbdbd;
 }
+.cy-item-body-main-text p {
+    padding: 5px 12px;
+}
 .php-tabs-wrapper {
     background: rgba(10, 10, 15, 0.15);
     border: 1px solid var(--border-color);
@@ -273,5 +276,3 @@
     line-height: 2.0;
     text-align: center;
 }
-
-

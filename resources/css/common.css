@@ -1,10 +1,10 @@
 :root {
-    --yellow-color: #ffd800;
+    --yellow-color: #ddbd06;
     --red-color: #c01b44;
     --black-color: #050a0e;
     --blue-color: #00f0ff;
     --purple-color_: #9713bc;
-    --purple-color: rgba(85, 0, 107, 0.87);
+    --purple-color: rgb(140, 19, 172);
     /*--white-color: #fafafa;*/
     --pink-color: #bb2c46;
 }
@@ -31,6 +31,7 @@
 .br-b { border: 2px solid #0b99ff; }  .br-b1 { border: 1px solid #0b99ff; }
 .br-t2 { border: 2px solid turquoise; }
 
+.fs-13, .fs-13 > li > button {font-size: 13px !important;}
 
 .pos-r {position: relative}
 .pos-a {position: absolute}

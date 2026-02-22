@@ -23,18 +23,18 @@
         <div class="container cy-items-container" >
             <div class="row">
                 @php $courses = [
-                    ['name' => 'Front', 'label' => 'JS', 'css' => 'bg-JS', 'crew' => 14, 'tabs' => [
+                    ['name' => 'Front', 'label' => 'JS', 'css' => 'bg-JS', 'crew' => 14, 'img' => 'img/site/fly_red.jpeg',  'tabs' => [
                             'speed'=>'1 PHP прост в освоении и позволяет быстро запускать проекты. Отличный выбор для старта в веб-разработке и быстрого прототипирования.',
                             'ecosystem' => '1 Огромная экосистема: Laravel, Symfony, Yii. Тысячи пакетов и готовых решений для реальных проектов.',
                             'practice' => '1 PHP используется в реальных продуктах и даёт быстрый выход на рынок труда. Минимум теории — максимум практики.'
                     ]],
-                    ['name' => 'Back', 'label' => 'PHP', 'css' => 'bg-PHP', 'crew' => 17, 'tabs' => [
+                    ['name' => 'Back', 'label' => 'PHP', 'css' => 'bg-PHP', 'crew' => 17, 'img' => 'img/site/robo1.jpeg', 'tabs' => [
                             'speed'=>'2 PHP прост в освоении и позволяет быстро запускать проекты. Отличный выбор для старта в веб-разработке и быстрого прототипирования.',
                             'ecosystem' => '2 Огромная экосистема: Laravel, Symfony, Yii. Тысячи пакетов и готовых решений для реальных проектов.',
                             'practice' => '2 PHP используется в реальных продуктах и даёт быстрый выход на рынок труда. Минимум теории — максимум практики.'
                     ]],
-                    ['name' => 'Gamedev', 'label' => 'C#', 'css' => 'bg-DEFAULT', 'crew' => 2, 'tabs' => []],
-                    ['name' => 'Foreign Lang', 'label' => 'En', 'css' => 'bg-DEFAULT', 'crew' => 25, 'tabs' => []],
+                    ['name' => 'Gamedev', 'label' => 'C#', 'css' => 'bg-DEFAULT', 'crew' => 2, 'img' => 'img/site/yellow.jpeg', 'tabs' => []],
+                    ['name' => 'Foreign Lang', 'label' => 'En', 'css' => 'bg-DEFAULT', 'crew' => 25, 'img' => 'img/site/neon_robo.jpeg', 'tabs' => []],
                 ];
                 @endphp
 
@@ -55,7 +55,9 @@
                                 </div>
                             </div>
                             <div class="cy-item-body">
-
+                                @if($course['img'])
+                                    <img src="{{ asset($course['img']) }}" class="img-fluid" alt="">
+                                @endif
                                 <div class="php-tabs-wrapper">
                                     {{-- Табы --}}
                                     @if(count($course['tabs']))
@@ -91,8 +93,11 @@
                                     @endif
                                 </div>
                                 <br>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad alias aliquid nobis quas quos!
-                                    Maxime nemo!</p>
+                                <div class="cy-item-body-main-text">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad alias aliquid nobis quas quos!
+                                        Maxime nemo!
+                                    </p>
+                                </div>
                             </div>
                         </div>
 

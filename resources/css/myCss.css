@@ -270,6 +270,8 @@
         0 100%,        /* Левый нижний */
         0 0px         /* Левый верхний срез */
     );
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
 }
 .cy-block > h2{ font-family: "Tektur", sans-serif; }
 .cy-block-y {
@@ -323,8 +325,12 @@
         0 calc(100% - 25px)     /* Левый нижний срез под 45° */
     );
     box-shadow: inset 0 0 40px 10px rgba(225, 93, 116, 0.19);
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
 }
-.cy-block-body p {font-family: "Jura", sans-serif;}
+.cy-block-body p {
+    font-size: 15px;
+}
 .cy-block-body-y {
     box-shadow: inset 0 0 40px 10px rgba(225, 199, 93, 0.19);
 }

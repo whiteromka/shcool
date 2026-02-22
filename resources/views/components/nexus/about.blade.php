@@ -21,18 +21,25 @@
                 </div>
                 <div class="meta-item">
                     <div class="meta-label">number of modules</div>
-                    <div class="meta-value">более <span class="accent">20</span> модулей</div>
+                    <div class="meta-value">более <span class="accent">10</span> модулей</div>
                 </div>
             </div>
             <div class="info-body">
                 <p>
-                    <span class="accent">NEXUS COLLECTIVE</span> operates at the intersection of advanced systems engineering and digital design. We architect neural networks, construct distributed platforms, and engineer cybernetic interfaces for organizations navigating the connected age.
+                    <span class="accent">NEXUS COLLECTIVE</span>
+                    Мы небольшая команда энтузиастом достигших определенного успеха каждый в своем деле.
+                    Программирование, дизайн, иностранные языки, создание игр.
+                    Нам есть что рассказать и чем поделится! Если вы только начинаете свою карьеру в IT записывайтесь на
+                    пробные, бесплатные уроки. Если формат вам подходит давайте учится вместе!
                 </p>
                 <p>
-                    Our operatives specialize in high-throughput data architectures, real-time processing systems, and human-machine interfaces that push the boundary between the organic and the digital. Every system we build is designed for <span class="accent">resilience, speed, and scale</span>.
+                   Кто мы? Посмотреть информацию подробную информацию о нас можно на странице <a href="#">Преподаватели</a>
                 </p>
                 <p>
-                    From secure communications infrastructure to AI-driven analytics platforms, we deliver solutions that operate at the edge of what is technically possible.
+                    Почему эти именно эти языки программирования? Мы сами являемся адептами этих именно этих технологий.
+                    Это устоявшиеся и проверенные временем языки программирования которые особенно востребованы на рынке РФ и ближнего зарубежья.
+                    По-настоящему доступные и простые технологии с которых проще начать свой путь в IT.
+                    Конкуренция за рабочие места у php программистов меньше чем у python разработчиков, это значит будет проще найти работу!
                 </p>
             </div>
         </div>

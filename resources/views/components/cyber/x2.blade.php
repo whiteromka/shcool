@@ -1,11 +1,10 @@
 <div class="container">
     <h2 class="h2-common">
-{{--        <span>0.01</span> <br>--}}
-        Что мы предлагаем
+       что то с че то
     </h2>
 </div>
 
-<div class="container-fluid top-ark bg-yellow px-0">
+<div class="container-fluid top-ark bg-pink px-0">
     <div class="streaks">
         <div class="streak-left streak-b"></div>
         <div class="streak-left streak-b"></div>
@@ -14,10 +13,7 @@
     </div>
 </div>
 
-<div class="container-fluid bg-yellow px-0">
-
-{{--    <x-telegram.login></x-telegram.login>--}}
-
+<div class="container-fluid bg-pink px-0">
     <x-cyber.matrix></x-cyber.matrix>
 
     <div class="container">
@@ -33,18 +29,18 @@
                 ['name' => 'Code review', 'descr' => 'Проверка кода преподавателем с разбором ошибок'],
             ];?>
             @foreach($advantages as $advantage)
-            <div class="col-md-6 col-lg-4 col-xl-3">
-                <div>
-                    <br>
-                    <br>
-                    <div class="advantage">
-                        <div class="js-cy-brackets bg-opas-dark_" data-color="red" data-width="2" data-size="8">
-                            <span> {{ $advantage['name'] }} </span>
+                <div class="col-md-6 col-lg-4 col-xl-4">
+                    <div>
+                        <br>
+                        <br>
+                        <div class="advantage">
+                            <div class="js-cy-brackets bg-opas-dark_" data-color="white" data-width="2" data-size="9">
+                                <span> {{ $advantage['name'] }} </span>
+                            </div>
                         </div>
+                        <p class="advantage-descr p-lr-10"> {!! $advantage['descr'] !!}  </p>
                     </div>
-                    <p class="advantage-descr p-lr-10"> {!! $advantage['descr'] !!}  </p>
                 </div>
-            </div>
             @endforeach
         </div>
         <div class="row">
@@ -53,7 +49,7 @@
     </div>
 </div>
 
-<div class="container-fluid bottom-ark bg-yellow px-0">
+<div class="container-fluid bottom-ark bg-pink px-0">
     <div class="streaks">
         <span>== ===[][] == ==[] === [][][]</span>
         <div class="streak-left streak-b"></div>

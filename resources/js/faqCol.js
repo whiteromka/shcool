@@ -1,20 +1,17 @@
 // resources/js/swiper-faq.js
+
 import Swiper from 'swiper';
-// Если нужно импортировать дополнительные модули
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 
-// Используем модули
-Swiper.use([Navigation, Pagination, Autoplay]);
+document.addEventListener('DOMContentLoaded', function () {
 
-// Инициализация после загрузки DOM
-document.addEventListener('DOMContentLoaded', function() {
-    // Проверяем, есть ли на странице слайдер
-    const swiperContainer = document.querySelector('.mySwiper');
-    if (!swiperContainer) return;
+    const container = document.querySelector('.mySwiper');
+    if (!container) return;
 
-    // Инициализация Swiper
-    const swiper = new Swiper('.mySwiper', {
-        // Основные настройки
+    new Swiper(container, {
+
+        modules: [Navigation, Pagination, Autoplay],
+
         slidesPerView: 'auto',
         spaceBetween: 30,
         centeredSlides: true,
@@ -22,52 +19,26 @@ document.addEventListener('DOMContentLoaded', function() {
         loop: true,
         speed: 1800,
 
-        // Автовоспроизведение с паузой при наведении
         autoplay: {
             delay: 7000,
             disableOnInteraction: true,
             pauseOnMouseEnter: true,
         },
 
-        // Прогресс-бар
         pagination: {
-            el: '.swiper-pagination',
+            el: container.querySelector('.swiper-pagination'),
             type: 'progressbar',
         },
 
-        // Навигация
         navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
+            nextEl: container.querySelector('.swiper-button-next'),
+            prevEl: container.querySelector('.swiper-button-prev'),
         },
 
-        // Брейкпоинты для адаптивности
         breakpoints: {
-            320: {
-                spaceBetween: 20,
-                slidesPerView: 1,
-            },
-            768: {
-                spaceBetween: 25,
-                slidesPerView: 'auto',
-            },
-            992: {
-                spaceBetween: 30,
-                slidesPerView: 'auto',
-            }
-        },
-
-        // События
-        // on: {
-        //     init: function () {
-        //         console.log('FAQ Swiper инициализирован');
-        //     },
-        //     slideChange: function () {
-        //         console.log('FAQ слайд изменен на:', this.activeIndex);
-        //     }
-        // }
+            320: { slidesPerView: 1, spaceBetween: 20 },
+            768: { slidesPerView: 'auto', spaceBetween: 25 },
+            992: { slidesPerView: 'auto', spaceBetween: 30 }
+        }
     });
-
-    // Экспортируем объект Swiper для возможного использования в других местах
-    window.faqSwiper = swiper;
 });
