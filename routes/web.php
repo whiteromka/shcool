@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\BusinessRequestController;
 use App\Http\Controllers\LkController;
 use App\Http\Controllers\Oauth\GithubController;
 use App\Http\Controllers\Oauth\GoogleController;
 use App\Http\Controllers\Oauth\YandexController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\TelegramAuthController;
 use App\Http\Controllers\TestController;
@@ -72,3 +74,11 @@ Route::get('/users/show/{user}', [UsersController::class, 'show'])->name('users.
 // Вакансии
 Route::get('/vacancy/check', [VacancyController::class, 'check'])->name('vacancy.check');
 Route::get('/vacancy/load-more', [VacancyController::class, 'loadMore'])->name('vacancy.loadMore');
+
+// Business request
+Route::get('/business-request/create', [BusinessRequestController::class, 'create'])->name('businessRequest.create');
+Route::post('/business-request/store', [BusinessRequestController::class, 'store'])->name('businessRequest.store');
+
+// Reviews
+Route::get('/review/create', [ReviewController::class, 'create'])->name('review.create');
+Route::post('/review/store', [ReviewController::class, 'store'])->name('review.store');
