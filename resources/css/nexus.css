@@ -464,6 +464,10 @@ a:hover {
     color: var(--accent-cyan);
     text-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
 }
+.course-module {
+    margin-bottom: 2px;
+    min-height: 400px;
+}
 
 .service-index {
     font-family: var(--font-heading);
