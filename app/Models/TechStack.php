@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 class TechStack extends Model
 {
     protected $fillable = [
+        'id',
         'name',
         'description'
     ];

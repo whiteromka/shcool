@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\TechStackService;
+
 class TechStackController extends Controller
 {
+    public function __construct(
+        private readonly TechStackService $techStackService
+    ) {}
+
+    // GET tech-stack/info/
     public function info(int $id)
     {
-        $data = [
-            '1' => ['name' => 'javascript', 'description' => 'This is JavaScript'],
-            '2' => 'popopopopopopopo',
-            '3' => 'hjhjhjhjhjhjhjhjh'
-        ];
-        $res = $data[$id];
+        $res = $this->techStackService->getById($id);
         return response()->json(['res' => $res]);
     }
 }
