@@ -22,23 +22,31 @@
                     <div class="section-divider" aria-hidden="true"></div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="cy-block-main align-items-center" style="font-size: 20px; min-height: 120px">
-                        <div class="d-block d-md-none text-center">
-                        <span data-cy-timer="1000" class="font-tektur tt-up mb-0 js-cyber-text-once">
-                            @foreach($name as $letter)
-                                <span data-target="{{ $letter }}">{{ $letter }}</span>
-                            @endforeach
-                        </span>
-                        </div>
-                    <div class="d-none d-md-block text-center">
-                        <span data-cy-timer="1000" class="font-tektur tt-up mb-0 js-cyber-text-once">
-                         @foreach($name as $letter)
-                                <span data-target="{{ $letter }}">{{ $letter }}</span>
-                            @endforeach
+            <div class="col-md-6 col-xl-4 ms-auto" style="perspective: 1200px; transform-style: preserve-3d; border-left: 1px dotted #00b0db">
+                <div class="profile-main-panel js-cy-brackets" data-color="white" data-size="8">
+                    <h3 class="username tt-up">
+                        {{ $user->getFullNameOrEmail()}}
+                    </h3>
+                    <p>{{ $user->telegram}}</p>
+                    <p>{{ $user->email }}</p>
+                    <p>{{ $user->phone }}</p>
+
+                    <div class="profile-main-panel-code-wrap">
+                        <br>
+                        <span class="js-cyber-text-animation cy-char p-lr-20 w-250 br-t1 d-block ta-c bg-black" style="display: inline-block">
+                                <span
+                                data-target="0">1</span><span data-target="2">$</span><span
+                                data-target=" ">G</span><span data-target=".">L</span><span
+                                data-target="0">Y</span><span data-target="2">%</span><span
+                                data-target=" ">5</span><span data-target="0">N</span><span
+                                data-target="2">8</span><span data-target=" ">D</span><span
+                                data-target=".">Y</span><span data-target="0">Z</span><span
+                                data-target="2">9</span><span data-target=" ">A</span><span
+                                data-target="2">O</span><span data-target="2">O</span><span
+                                data-target="3">%</span><span data-target=" ">W</span><span
+                                data-target=".">V</span><span data-target="0">&gt;</span><span data-target="2">P</span>
                         </span>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -46,7 +54,7 @@
 
         @if(session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session('success') }}
+                {!! session('success') !!}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
@@ -95,14 +103,12 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="telegram" class="form-label">Telegram <span class="orange">Важно! укажите ваш настоящий аккаунт</span>
-                                        </label>
+                                        @php
+                                        $warn = empty($user->telegram) ? '<span class="orange">Важно! укажите ваш настоящий аккаунт</span>' : '';
+                                        @endphp
+                                        <label for="telegram" class="form-label">Telegram <?= $warn?></label>
                                         <input type="text" id="telegram" name="telegram"
                                                value="{{ old('telegram', $user->telegram) }}" placeholder="@username">
-                                        <span class="orange">
-                                    Пожалуйста, напишите нашему боту в ТГ @<?= config('services.telegram.bot_username') ?>
-                                    "привет", это позволит нам уведомить вас о начале занятий и возможности оплатить курс!
-                                </span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -130,7 +136,7 @@
         <br>
         <br>
         <div class="data-panel">
-            <div class="data-panel__header">
+            <div class="data-panel__header p-12">
                 <div class="data-panel__dot"></div>
                 <span class="data-panel__title">Дополнительные данные</span>
                 <div class="data-panel__line"></div>

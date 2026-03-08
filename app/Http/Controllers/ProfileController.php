@@ -33,8 +33,9 @@ class ProfileController extends Controller
     {
         /** @var User $user */
         $user = auth()->user();
-
         $userData = $request->userData();
+        $telegramChanged = isset($userData['telegram']) && $userData['telegram'] !== $user->telegram;
+
         if (!empty($userData)) {
             $user->update($userData);
         }
@@ -44,6 +45,11 @@ class ProfileController extends Controller
             $profile->update($request->profileData());
         }
 
-        return redirect()->route('profile.index')->with('success', 'Профиль успешно обновлён');
+        $message = 'Профиль успешно обновлён';
+        if ($telegramChanged && !empty($userData['telegram'])) {
+            $message .= '. Пожалуйста, напишите нашему боту в Telegram <b>@school_test_123_bot</b> "привет", это позволит нам уведомить вас о начале занятий и возможности оплатить курс!';
+        }
+
+        return redirect()->route('profile.index')->with('success', $message);
     }
 }

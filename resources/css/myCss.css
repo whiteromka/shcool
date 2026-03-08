@@ -660,3 +660,38 @@ body {
     letter-spacing: 1px;
     background: rgba(5, 243, 255, 0.25);
 }
+.profile-main-panel {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    transform: rotateY(-30deg) rotateX(12deg) translateZ(0);
+    transition: all 3s cubic-bezier(0.23, 1, 0.32, 1);
+    padding: 20px;
+    padding-top: 30px;
+    background: #bb2c46;
+    min-height: 200px;
+    letter-spacing: 1px;
+}
+.profile-main-panel:hover {
+    transform: rotateY(0deg) rotateX(0deg) translateZ(20px);
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+.profile-main-panel .username {
+    border-left: 1px solid white;
+    background: rgba(246, 246, 246, 0.07);
+    padding-left: 20px;
+    transform: translateZ(30px);
+    font-family: "Tektur", sans-serif;
+    color: black;
+}
+.profile-main-panel p {
+    /*padding-left: 30px;*/
+    /*transform: translateZ(30px);*/
+    font-size: 13px;
+    margin: 0;
+    font-family: "Share Tech Mono", monospace;
+}
+
+
+
