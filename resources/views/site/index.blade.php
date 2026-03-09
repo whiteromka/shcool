@@ -131,5 +131,5 @@
 <br>
 <br>
 
-<x-nexus></x-nexus>
+{{--<x-nexus></x-nexus>--}}
 @endsection

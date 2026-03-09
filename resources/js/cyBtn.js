@@ -225,7 +225,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 clearInterval(flashInterval);
 
                 // Показываем сообщение о действии
-                const actionText = "EXECUTING";
+                const actionText = "";
                 chars.forEach((char, index) => {
                     setTimeout(() => {
                         if (index < actionText.length) {
