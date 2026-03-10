@@ -33,9 +33,10 @@ class SiteController extends Controller
     public function back()
     {
         /** @var User $user */
-        $user = Auth::user()->load('activeModules');
+        $user = Auth::user();
         $userModuleIds = [];
         if ($user) {
+            $user->load('activeModules');
             $userModuleIds = $user->activeModules->pluck('module_id')->toArray();
         }
 

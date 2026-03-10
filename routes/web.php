@@ -90,5 +90,5 @@ Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index
 Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
 
 // ActiveModule
-Route::get('active-module/join/{module_id}', [ActiveModuleController::class, 'join'])->name('active-module.join')->middleware('auth');
-Route::get('active-module/leave/{module_id}', [ActiveModuleController::class, 'leave'])->name('active-module.leave')->middleware('auth');
+Route::post('active-module/join/{module_id}', [ActiveModuleController::class, 'join'])->name('active-module.join')->middleware('auth');
+Route::post('active-module/leave/{module_id}', [ActiveModuleController::class, 'leave'])->name('active-module.leave')->middleware('auth');

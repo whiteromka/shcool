@@ -93,37 +93,31 @@
                         <div class="d-flex justify-content-end">
 
                             @if(in_array($module->id, $userModuleIds))
-                                <div href="{{ route('active-module.leave', ['module_id' => $module->id]) }}"
-                                   class="btn btn-s btn--success btn--secondary_ c-d"
-                                >
+                                <div class="btn btn-s btn--success c-d">
                                     <span class="btn__content">Вы записаны</span>
                                     <span class="btn__glitch_"></span>
                                     <span class="btn__label_">r25</span>
                                 </div>
 
-                                <a href="{{ route('active-module.leave', ['module_id' => $module->id]) }}"
-                                   class="btn btn-s btn--secondary">
+                                <button data-module-id="{{ $module->id }}"
+                                   data-action="leave"
+                                   class="btn btn-s btn--secondary module-action-btn"
+                                >
                                     <span class="btn__content">Выписаться</span>
                                     <span class="btn__glitch"></span>
                                     <span class="btn__label">r25</span>
-                                </a>
+                                </button>
                             @else
-                                <a href="{{ route('active-module.join', ['module_id' => $module->id]) }}"
-                                   class="btn btn-s btn--secondary">
+                                <button data-module-id="{{ $module->id }}"
+                                   data-action="join"
+                                   class="btn btn-s module-action-btn"
+                                >
                                     <span class="btn__content">Записаться бесплатно</span>
                                     <span class="btn__glitch"></span>
                                     <span class="btn__label">r25</span>
-                                </a>
+                                </button>
                             @endif
 
-                            {{--                                <div class="police-btn-wrap">--}}
-                            {{--                                    <a class="blue disabled_">--}}
-                            {{--                                        Записаны--}}
-                            {{--                                    </a>--}}
-                            {{--                                    <a class="red disabled_">--}}
-                            {{--                                        Отписаться--}}
-                            {{--                                    </a>--}}
-                            {{--                                </div>--}}
                         </div>
                     </div>
                 </div>
@@ -138,7 +132,8 @@
 
 @push('scripts')
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        // Функция для навешивания обработчиков hover на карточки
+        function attachHoverHandlers() {
             const serviceCards = document.querySelectorAll('.service-card');
 
             serviceCards.forEach(card => {
@@ -198,6 +193,86 @@
                     });
                 });
             });
+        }
+
+        // Функция для навешивания обработчиков на кнопки
+        function attachModuleActionHandlers() {
+            const moduleActionButtons = document.querySelectorAll('.module-action-btn');
+
+            moduleActionButtons.forEach(button => {
+                button.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const moduleId = this.dataset.moduleId;
+                    const action = this.dataset.action;
+
+                    if (!moduleId || !action) {
+                        console.error('Invalid button data');
+                        return;
+                    }
+
+                    // Блокируем кнопку на время запроса
+                    this.disabled = true;
+                    this.classList.add('disabled');
+
+                    // Определяем URL и метод
+                    const url = action === 'join'
+                        ? '/active-module/join/' + moduleId
+                        : '/active-module/leave/' + moduleId;
+
+                    // Отправляем AJAX запрос
+                    fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content ?? ''
+                        },
+                        credentials: 'same-origin'
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            return response.text().then(html => {
+                                // Находим в ответе контейнер с компонентами и заменяем
+                                const parser = new DOMParser();
+                                const doc = parser.parseFromString(html, 'text/html');
+                                const newComponent = doc.querySelector('.container .section_');
+
+                                if (newComponent) {
+                                    const currentComponent = document.querySelector('.container .section_');
+                                    if (currentComponent) {
+                                        currentComponent.replaceWith(newComponent);
+
+                                        // Переназначаем обработчики событий на новые кнопки и карточки
+                                        attachModuleActionHandlers();
+                                        attachHoverHandlers();
+                                    }
+                                }
+                            });
+                        } else if (response.status === 401) {
+                            window.location.href = '/login';
+                        } else {
+                            return response.json().then(data => {
+                                alert(data.message || 'Произошла ошибка');
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Произошла ошибка при выполнении операции');
+                    })
+                    .finally(() => {
+                        // Разблокируем кнопку (на случай если замена не произошла)
+                        this.disabled = false;
+                        this.classList.remove('disabled');
+                    });
+                });
+            });
+        }
+
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function () {
+            attachHoverHandlers();
+            attachModuleActionHandlers();
         });
     </script>
 @endpush

@@ -524,6 +524,7 @@ a.base-link:hover {
 }
 .service-techs {
     margin-top: auto;
+    margin-bottom: 12px;
 }
 .service-tag {
     display: inline-block;
