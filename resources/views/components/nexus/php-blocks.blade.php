@@ -91,33 +91,7 @@
 
                     <div>
                         <div class="d-flex justify-content-end">
-
-                            @if(in_array($module->id, $userModuleIds))
-                                <div class="btn btn-s btn--success c-d">
-                                    <span class="btn__content">Вы записаны</span>
-                                    <span class="btn__glitch_"></span>
-                                    <span class="btn__label_">r25</span>
-                                </div>
-
-                                <button data-module-id="{{ $module->id }}"
-                                   data-action="leave"
-                                   class="btn btn-s btn--secondary module-action-btn"
-                                >
-                                    <span class="btn__content">Выписаться</span>
-                                    <span class="btn__glitch"></span>
-                                    <span class="btn__label">r25</span>
-                                </button>
-                            @else
-                                <button data-module-id="{{ $module->id }}"
-                                   data-action="join"
-                                   class="btn btn-s module-action-btn"
-                                >
-                                    <span class="btn__content">Записаться бесплатно</span>
-                                    <span class="btn__glitch"></span>
-                                    <span class="btn__label">r25</span>
-                                </button>
-                            @endif
-
+                            <livewire:module-button :module-id="$module->id" :is-user-joined="in_array($module->id, $userModuleIds)" :key="'module-' . $module->id" />
                         </div>
                     </div>
                 </div>
@@ -180,98 +154,6 @@
                         }
                     });
                 });
-            });
-
-            // Обработчик клика по кнопке
-            async function handleModuleAction(e) {
-                e.preventDefault();
-
-                const moduleId = this.dataset.moduleId;
-                const action = this.dataset.action;
-
-                if (!moduleId || !action) return;
-
-                this.disabled = true;
-                this.classList.add('disabled');
-
-                try {
-                    const response = await fetch(`/active-module/${action}/${moduleId}`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-Requested-With': 'XMLHttpRequest',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content ?? ''
-                        },
-                        credentials: 'same-origin'
-                    });
-
-                    if (response.status === 401) {
-                        window.location.href = '/login';
-                        return;
-                    }
-
-                    const data = await response.json();
-
-                    if (!data.success) {
-                        alert(data.message || 'Произошла ошибка');
-                        return;
-                    }
-
-                    updateModuleButtons(moduleId, data.action);
-
-                } catch (error) {
-                    console.error('Error:', error);
-                    alert('Произошла ошибка при выполнении операции');
-                } finally {
-                    this.disabled = false;
-                    this.classList.remove('disabled');
-                }
-            }
-
-            // Обновление кнопок для модуля
-            function updateModuleButtons(moduleId, action) {
-                const card = document.querySelector(`[data-module-id="${moduleId}"]`)?.closest('.service-card');
-                if (!card) return;
-
-                const buttonsContainer = card.querySelector('.d-flex');
-                if (!buttonsContainer) return;
-
-                if (action === 'joined') {
-                    buttonsContainer.innerHTML = `
-                        <div class="btn btn-s btn--success c-d">
-                            <span class="btn__content">Вы записаны</span>
-                            <span class="btn__glitch_"></span>
-                            <span class="btn__label_">r25</span>
-                        </div>
-                        <button data-module-id="${moduleId}"
-                                data-action="leave"
-                                class="btn btn-s btn--secondary module-action-btn">
-                            <span class="btn__content">Выписаться</span>
-                            <span class="btn__glitch"></span>
-                            <span class="btn__label">r25</span>
-                        </button>
-                    `;
-                } else {
-                    buttonsContainer.innerHTML = `
-                        <button data-module-id="${moduleId}"
-                                data-action="join"
-                                class="btn btn-s module-action-btn">
-                            <span class="btn__content">Записаться бесплатно</span>
-                            <span class="btn__glitch"></span>
-                            <span class="btn__label">r25</span>
-                        </button>
-                    `;
-                }
-
-                const newButton = buttonsContainer.querySelector('.module-action-btn');
-                if (newButton) {
-                    newButton.addEventListener('click', handleModuleAction);
-                }
-            }
-
-            // Инициализация обработчиков на кнопках
-            document.querySelectorAll('.module-action-btn').forEach(button => {
-                button.addEventListener('click', handleModuleAction);
             });
         });
     </script>

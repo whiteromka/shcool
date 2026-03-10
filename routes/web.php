@@ -88,7 +88,3 @@ Route::get('/tech-stack/info/{id}', [TechStackController::class, 'info'])->name(
 // Profile
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index')->middleware('auth');
 Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
-
-// ActiveModule
-Route::post('active-module/join/{module_id}', [ActiveModuleController::class, 'join'])->name('active-module.join')->middleware('auth');
-Route::post('active-module/leave/{module_id}', [ActiveModuleController::class, 'leave'])->name('active-module.leave')->middleware('auth');
