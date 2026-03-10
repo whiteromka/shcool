@@ -38,7 +38,6 @@ class SiteController extends Controller
         if ($user) {
             $userModuleIds = $user->activeModules->pluck('module_id')->toArray();
         }
-        // тут нужно как то жадную загрузку применить
 
         return view('site.back', [
             'modules' => $this->moduleService->getBackModules(),

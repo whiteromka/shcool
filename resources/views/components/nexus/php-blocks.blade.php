@@ -93,13 +93,13 @@
                         <div class="d-flex justify-content-end">
 
                             @if(in_array($module->id, $userModuleIds))
-                                <a href="{{ route('active-module.leave', ['module_id' => $module->id]) }}"
-                                   class="btn btn-s btn--success btn--secondary_"
+                                <div href="{{ route('active-module.leave', ['module_id' => $module->id]) }}"
+                                   class="btn btn-s btn--success btn--secondary_ c-d"
                                 >
                                     <span class="btn__content">Вы записаны</span>
-                                    <span class="btn__glitch"></span>
-                                    <span class="btn__label">r25</span>
-                                </a>
+                                    <span class="btn__glitch_"></span>
+                                    <span class="btn__label_">r25</span>
+                                </div>
 
                                 <a href="{{ route('active-module.leave', ['module_id' => $module->id]) }}"
                                    class="btn btn-s btn--secondary">

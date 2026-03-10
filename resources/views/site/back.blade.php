@@ -156,7 +156,6 @@
     </div>
     <div style="height: 150px"></div>
 
-
     <x-nexus.php-blocks :modules="$modules" :userModuleIds="$userModuleIds"></x-nexus.php-blocks>
 
     <div class="container">

@@ -95,6 +95,7 @@
 .tt-up {text-transform: uppercase}
 
 .c-p {cursor: pointer}
+.c-d {cursor: default}
 
 .d-f-c {
     display: flex;
