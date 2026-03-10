@@ -114,6 +114,21 @@
     background-color: #00fbff;
 }
 
+.btn--success {
+    background-color: var(--black-color);
+}
+
+.btn--success .btn__content {
+    background-color: #00fbff;
+    color: var(--black-color);
+}
+.btn--success .btn__glitch {
+    background-color: #00fbff;
+}
+.btn--success .btn__label {
+    background-color: #00fbff;
+}
+
 .btn__label {
     font-size: .40rem;
     position: absolute;
@@ -271,3 +286,79 @@
         opacity: 1;
     }
 }
+
+/*====== police-btn  =====*/
+.police-btn-wrap {
+    display: flex;
+    gap: 10px;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.police-btn-wrap a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 30px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+    font-family: "Tektur", sans-serif;
+    font-weight: 300;
+}
+
+/* Blue button - Записаться */
+.police-btn-wrap a.blue {
+    background: rgba(59, 237, 246, 0.15);
+    color: #60ebfa;
+    border-color: rgba(59, 246, 237, 0.3);
+    border-right: none;
+}
+
+.police-btn-wrap a.blue:hover {
+    background: #10bdad;
+    color: white;
+    border-color: #3bedf6;
+    box-shadow: 0 0 30px rgba(59, 227, 246, 0.23),
+    0 0 60px rgba(59, 243, 246, 0.3);
+}
+
+/* Red button - Отписаться */
+.police-btn-wrap a.red {
+    background: rgba(239, 68, 68, 0.15);
+    color: #f87171;
+    border-color: rgba(239, 68, 68, 0.3);
+    border-left: none;
+}
+
+.police-btn-wrap a.red:hover {
+    background: #ef4444;
+    color: white;
+    border-color: #ef4444;
+    box-shadow: 0 0 30px rgba(239, 68, 68, 0.6),
+    0 0 60px rgba(239, 68, 68, 0.3);
+}
+.police-btn-wrap a.disabled {
+    border-color: #535353;
+    color: #606060;
+    background: #1a1a1a;
+    box-shadow: none;
+}
+.police-btn-wrap a.disabled:hover {
+    border-color: #535353;
+    color: #606060;
+    background: #1a1a1a;
+    box-shadow: none;
+}
+
+

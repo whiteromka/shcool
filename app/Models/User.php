@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
@@ -33,6 +34,7 @@ use Illuminate\Support\Carbon;
  *
  * @property-read Collection|OauthAccount[] $oauthAccounts
  * @property-read Profile|null $profile
+ * @property-read Collection|ActiveModule[] $activeModules
  */
 class User extends Authenticatable
 {
@@ -112,5 +114,15 @@ class User extends Authenticatable
     public function profile(): HasOne
     {
         return $this->hasOne(Profile::class);
+    }
+
+    /**
+     * Связь с активными модулями (many-to-many)
+     */
+    public function activeModules(): BelongsToMany
+    {
+        return $this->belongsToMany(ActiveModule::class, 'active_module_to_user')
+            ->withPivot('joined_at')
+            ->withTimestamps();
     }
 }

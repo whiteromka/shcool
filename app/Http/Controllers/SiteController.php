@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\IPFormatter;
+use App\Models\User;
 use App\Services\ModuleService;
+use Illuminate\Support\Facades\Auth;
 
 class SiteController extends Controller
 {
@@ -30,8 +32,17 @@ class SiteController extends Controller
     // GET /site/back
     public function back()
     {
+        /** @var User $user */
+        $user = Auth::user()->load('activeModules');
+        $userModuleIds = [];
+        if ($user) {
+            $userModuleIds = $user->activeModules->pluck('module_id')->toArray();
+        }
+        // тут нужно как то жадную загрузку применить
+
         return view('site.back', [
             'modules' => $this->moduleService->getBackModules(),
+            'userModuleIds' => $userModuleIds,
         ]);
     }
 

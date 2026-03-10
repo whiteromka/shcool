@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActiveModuleController;
 use App\Http\Controllers\BusinessRequestController;
 use App\Http\Controllers\LkController;
 use App\Http\Controllers\Oauth\GithubController;
@@ -84,3 +85,7 @@ Route::post('/review/store', [ReviewController::class, 'store'])->name('review.s
 // Profile
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index')->middleware('auth');
 Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
+
+// ActiveModule
+Route::get('active-module/join/{module_id}', [ActiveModuleController::class, 'join'])->name('active-module.join')->middleware('auth');
+Route::get('active-module/leave/{module_id}', [ActiveModuleController::class, 'leave'])->name('active-module.leave')->middleware('auth');

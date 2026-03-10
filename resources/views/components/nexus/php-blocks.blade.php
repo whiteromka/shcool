@@ -2,6 +2,7 @@
     use Illuminate\Database\Eloquent\Collection;
 
     /** @var Collection $modules */
+    /** @var int[] $userModuleIds */
 @endphp
 
 <div class="container">
@@ -15,7 +16,8 @@
         <div class="row mb-10">
             <div class="col-12">
                 <div class="js-cy-brackets warning " data-color="red" data-size="8" data-width="1">
-                    <span class="orange">Warning!</span> Первые уроки каждого модуля бесплатные! Для посещения последующих нужно будет оплатить модуль
+                    <span class="orange">Warning!</span> Первые уроки каждого модуля бесплатные! Для посещения
+                    последующих нужно будет оплатить модуль
                 </div>
             </div>
         </div>
@@ -31,36 +33,34 @@
                     <div class="service-index">
                         <div class="left"> 0<?= $i ?></div>
                         <div class="right">
-                          <div>
-                              <span><span class="orange_"><?= $module->lesson_price ?> RUR</span> за урок</span>
-                              <span><span class="cyan_"><?= $module->duration ?></span></span>
-                              <span><span class="cyan_"><?= $module->count_lessons ?></span> уроков</span>
-                              <span><span class="cyan_"><?= $module->level ?> / 10 </span> сложность</span>
-                          </div>
+                            <div>
+                                <span><span class="orange_"><?= $module->lesson_price ?> RUR</span> за урок</span>
+                                <span><span class="cyan_"><?= $module->duration ?></span></span>
+                                <span><span class="cyan_"><?= $module->count_lessons ?></span> уроков</span>
+                                <span><span class="cyan_"><?= $module->level ?> / 10 </span> сложность</span>
+                            </div>
                         </div>
                     </div>
                     <div class="service-name">
-                        <?= $module->name ?>
+                            <?= $module->name ?>
                         <span class="dark-gey"> / </span>
                         <span class="orange"> <?= $module->module_price ?> RUR </span>
                     </div>
 
-
-
                     <div class="php-tabs-wrapper_">
                         <ul class="nav nav-tabs cy-item-tabs" id="a{{ $i }}" role="tablist">
-
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#text{{ $i }}" type="button" aria-selected="true" role="tab">
+                                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#text{{ $i }}"
+                                        type="button" aria-selected="true" role="tab">
                                     Описание
                                 </button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link " data-bs-toggle="tab" data-bs-target="#topics{{ $i }}" type="button" aria-selected="false" tabindex="-1" role="tab">
+                                <button class="nav-link " data-bs-toggle="tab" data-bs-target="#topics{{ $i }}"
+                                        type="button" aria-selected="false" tabindex="-1" role="tab">
                                     Темы модуля
                                 </button>
                             </li>
-
                         </ul>
 
                         <div class="tab-content cy-item-tabs-content">
@@ -73,11 +73,11 @@
                             </div>
                             <div class="tab-pane fade " id="topics{{ $i }}" role="tabpanel">
                                 @php if (!empty($module->topics)) : @endphp
-                                    @php foreach($module->topics as $topic): @endphp
-                                    <ul class="ul-item-module">
-                                        <li class="li-item-module"> <span class="service-tag_"><?= $topic?></span></li>
-                                    </ul>
-                                    @php endforeach @endphp
+                                @php foreach($module->topics as $topic): @endphp
+                                <ul class="ul-item-module">
+                                    <li class="li-item-module"><span class="service-tag_"><?= $topic ?></span></li>
+                                </ul>
+                                @php endforeach @endphp
                                 @php endif @endphp
                             </div>
                         </div>
@@ -85,24 +85,45 @@
 
                     <div class="service-techs">
                         @php foreach($module->techs as $tech): @endphp
-                        <span class="service-tag"><?= $tech?></span>
+                        <span class="service-tag"><?= $tech ?></span>
                         @php endforeach @endphp
                     </div>
 
                     <div>
                         <div class="d-flex justify-content-end">
-{{--                            <button class="btn btn-s" >--}}
-{{--                                <span class="btn__content">Посмотреть темы</span>--}}
-{{--                                <span class="btn__glitch"></span>--}}
-{{--                                <span class="btn__label">00_xv</span>--}}
-{{--                            </button>--}}
 
-                            <button class="btn btn-s btn--secondary">
-                                <span class="btn__content">Записаться бесплатно</span>
-                                <span class="btn__glitch"></span>
-                                <span class="btn__label">r25</span>
-                            </button>
+                            @if(in_array($module->id, $userModuleIds))
+                                <a href="{{ route('active-module.leave', ['module_id' => $module->id]) }}"
+                                   class="btn btn-s btn--success btn--secondary_"
+                                >
+                                    <span class="btn__content">Вы записаны</span>
+                                    <span class="btn__glitch"></span>
+                                    <span class="btn__label">r25</span>
+                                </a>
 
+                                <a href="{{ route('active-module.leave', ['module_id' => $module->id]) }}"
+                                   class="btn btn-s btn--secondary">
+                                    <span class="btn__content">Выписаться</span>
+                                    <span class="btn__glitch"></span>
+                                    <span class="btn__label">r25</span>
+                                </a>
+                            @else
+                                <a href="{{ route('active-module.join', ['module_id' => $module->id]) }}"
+                                   class="btn btn-s btn--secondary">
+                                    <span class="btn__content">Записаться бесплатно</span>
+                                    <span class="btn__glitch"></span>
+                                    <span class="btn__label">r25</span>
+                                </a>
+                            @endif
+
+                            {{--                                <div class="police-btn-wrap">--}}
+                            {{--                                    <a class="blue disabled_">--}}
+                            {{--                                        Записаны--}}
+                            {{--                                    </a>--}}
+                            {{--                                    <a class="red disabled_">--}}
+                            {{--                                        Отписаться--}}
+                            {{--                                    </a>--}}
+                            {{--                                </div>--}}
                         </div>
                     </div>
                 </div>
@@ -117,7 +138,7 @@
 
 @push('scripts')
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const serviceCards = document.querySelectorAll('.service-card');
 
             serviceCards.forEach(card => {
@@ -125,7 +146,7 @@
                 let spanTimeouts = [];
                 let colorTimeout;
 
-                card.addEventListener('mouseenter', function() {
+                card.addEventListener('mouseenter', function () {
                     const rightDiv = card.querySelector('.right > div');
                     const spans = rightDiv ? rightDiv.querySelectorAll('span span') : [];
 
@@ -154,7 +175,7 @@
                     }, 400);
                 });
 
-                card.addEventListener('mouseleave', function() {
+                card.addEventListener('mouseleave', function () {
                     clearTimeout(hoverTimeout);
                     spanTimeouts.forEach(timeout => clearTimeout(timeout));
                     spanTimeouts = [];
