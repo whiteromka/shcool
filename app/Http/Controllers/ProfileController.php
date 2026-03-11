@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProfileUpdatePasswordRequest;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\User;
 use App\Services\ProfileService;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class ProfileController extends Controller
 {
@@ -14,7 +18,7 @@ class ProfileController extends Controller
     {}
 
     // GET /profile
-    public function index()
+    public function index(): Factory|View
     {
         /** @var User $user */
         $user = auth()->user();
@@ -29,7 +33,7 @@ class ProfileController extends Controller
     }
 
     // POST /profile
-    public function update(ProfileUpdateRequest $request)
+    public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         /** @var User $user */
         $user = auth()->user();
@@ -51,5 +55,26 @@ class ProfileController extends Controller
         }
 
         return redirect()->route('profile.index')->with('success', $message);
+    }
+
+    // GET /profile/update-password
+    public function updatePasswordView(): Factory|View
+    {
+        /** @var User $user */
+        $user = auth()->user();
+        return view('profile.updatePasswordView', ['user' => $user]);
+    }
+
+    // POST /profile/update-password
+    public function updatePassword(ProfileUpdatePasswordRequest $request): RedirectResponse
+    {
+        /** @var User $user */
+        $user = auth()->user();
+        $user->update([
+            'password' => $request->input('password'),
+            'password_verified' => 1,
+        ]);
+
+        return redirect()->route('profile.index')->with('success', 'Пароль успешно обновлён');
     }
 }

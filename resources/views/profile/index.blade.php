@@ -102,20 +102,13 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group">
+                                    <div class="form-group ">
                                         @php
-                                        $warn = empty($user->telegram) ? '<span class="orange">Важно! укажите ваш настоящий аккаунт</span>' : '';
+                                        $warn = empty($user->telegram) ? '<span class="font-tektur light-red ani-blink">Важно! укажите ваш настоящий аккаунт</span>' : '';
                                         @endphp
                                         <label for="telegram" class="form-label">Telegram <?= $warn?></label>
                                         <input type="text" id="telegram" name="telegram"
                                                value="{{ old('telegram', $user->telegram) }}" placeholder="@username">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="username" class="form-label">Username</label>
-                                        <input type="text" id="username" name="username"
-                                               value="{{ old('username', $user->username) }}">
                                     </div>
                                 </div>
                             </div>
@@ -123,7 +116,7 @@
                     </div>
 
                     <div class="d-flex justify-content-end">
-                        <button class="btn btn-s btn--secondary">
+                        <button class="btn btn-s btn--secondary_">
                             <span class="btn__content">Сохранить</span>
                             <span class="btn__glitch"></span>
                             <span class="btn__label">r25</span>
@@ -132,9 +125,9 @@
                 </form>
             </div>
         </div>
+        <br>
+        <br>
 
-        <br>
-        <br>
         <div class="data-panel">
             <div class="data-panel__header p-12">
                 <div class="data-panel__dot"></div>
@@ -265,7 +258,7 @@
                     </div>
 
                     <div class="d-flex justify-content-end">
-                        <button class="btn btn--secondary btn-s" id="loadMoreVacancies" data-offset="6">
+                        <button class="btn btn--secondary_ btn-s" id="loadMoreVacancies" data-offset="6">
                             <span class="btn__content">Сохранить</span>
                             <span class="btn__glitch"></span>
                             <span class="btn__label">xv-003</span>
@@ -274,6 +267,17 @@
                 </form>
             </div>
         </div>
+        <br>
+        <br>
+
+        <div class="d-flex justify-content-end">
+            <a href="{{ route('profile.update-password-view')  }}" class="btn btn-s btn--secondary">
+                <span class="btn__content">Сменить пароль</span>
+                <span class="btn__glitch"></span>
+                <span class="btn__label">r25</span>
+            </a>
+        </div>
+
     </div>
     <div style="margin-bottom: 150px"></div>
 @endsection

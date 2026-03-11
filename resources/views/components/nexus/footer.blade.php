@@ -23,11 +23,11 @@
                                 <div class="contact-method-label">Services</div>
                                 <div class="contact-method-value">
                                     <span>
-                                        <a href="https://www.codewars.com/">codewars</a>
+                                        <a href="https://www.codewars.com/" target="_blank">codewars</a>
                                         <br>
-                                        <a href="https://sql-academy.org">sql-academy</a>
+                                        <a href="https://sql-academy.org" target="_blank">sql-academy</a>
                                         <br>
-                                        <a href="https://getmentor.dev/">getmentor</a>
+                                        <a href="https://getmentor.dev/" target="_blank">getmentor</a>
                                     </span>
                                 </div>
                             </div>

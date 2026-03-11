@@ -87,7 +87,9 @@ a.base-link:hover {
     0% { transform: translateY(0); }
     100% { transform: translateY(-50%); }
 }
-
+.ani-blink {
+    animation: blink 2s infinite;
+}
 @keyframes blink {
     0%, 100% { opacity: 1; }
     50% { opacity: 0; }
@@ -797,7 +799,7 @@ a.base-link:hover {
     color: var(--text-primary);
 }
 input::placeholder, textarea::placeholder {
-    color: #424242;
+    color: #5f5f5f;
 }
 
 /* checkbox */
