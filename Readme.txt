@@ -109,3 +109,8 @@ Http::get("https://api.telegram.org/bot" . env('TELEGRAM_BOT_TOKEN') . "/getWebh
 
 
 https://uiverse.io/
+
+====
+QWEN
+mcp: context7
+"How do I use the new Next.js `after` function? use context7"
