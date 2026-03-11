@@ -41,7 +41,7 @@ class SiteController extends Controller
         }
 
         return view('site.back', [
-            'modules' => $this->moduleService->getBackModules(),
+            'modules' => $this->moduleService->getBackModulesWithActiveModulesAndUsers(),
             'userModuleIds' => $userModuleIds,
         ]);
     }

@@ -1,8 +1,6 @@
 <?php
 
-use App\Http\Controllers\ActiveModuleController;
 use App\Http\Controllers\BusinessRequestController;
-use App\Http\Controllers\LkController;
 use App\Http\Controllers\Oauth\GithubController;
 use App\Http\Controllers\Oauth\GoogleController;
 use App\Http\Controllers\Oauth\YandexController;
@@ -13,7 +11,6 @@ use App\Http\Controllers\TechStackController;
 use App\Http\Controllers\TelegramAuthController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\TgbotController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\VacancyController;
@@ -24,9 +21,6 @@ Route::get('/site/front', [SiteController::class, 'front'])->name('site.front');
 Route::get('/site/back', [SiteController::class, 'back'])->name('site.back');
 Route::get('/site/gamedev', [SiteController::class, 'gamedev'])->name('site.gamedev');
 Route::get('/site/english', [SiteController::class, 'english'])->name('site.english');
-
-Route::get('/user/index', [UserController::class, 'index'])->name('user.index');
-Route::get('/user/test', [UserController::class, 'test'])->name('user.test');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');

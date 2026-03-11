@@ -16,10 +16,20 @@ class ModuleService
         return $this->moduleRepository->getByType('back');
     }
 
+    /**
+     * Получить коллекцию модулей со связью с активными со связью с записавшимися пользователями
+     */
+    public function getBackModulesWithActiveModulesAndUsers(): Collection
+    {
+        return $this->moduleRepository->getBackModulesWithActiveModulesAndUsers();
+    }
+
+    /**
+     * Транкейтнуть modules и записать дефолтные данные
+     */
     public function seedModules(array $modulesData): void
     {
         $this->moduleRepository->truncate();
-
         foreach ($modulesData as $moduleData) {
             $this->moduleRepository->create($moduleData);
         }

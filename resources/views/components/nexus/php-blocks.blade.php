@@ -30,6 +30,11 @@
                     foreach($modules as $module):
                 @endphp
                 <div class="service-card course-module mb-1">
+
+                    @if($module->openActiveModule)
+                        Записалось: {{ $module->openActiveModule->users->count() }}
+                    @endif
+
                     <div class="service-index">
                         <div class="left"> 0<?= $i ?></div>
                         <div class="right">

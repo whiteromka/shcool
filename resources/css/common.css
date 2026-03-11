@@ -35,7 +35,7 @@
 .br-b { border: 2px solid #0b99ff; }  .br-b1 { border: 1px solid #0b99ff; }
 .br-t2 { border: 2px solid turquoise; }
 
-.fs-13, .fs-13 > li > button {font-size: 16px !important;}
+.fs-13, .fs-13 > li > button {font-size: 13px !important;}
 
 .pos-r {position: relative}
 .pos-a {position: absolute}

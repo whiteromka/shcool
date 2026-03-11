@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Carbon;
 
 /**
@@ -28,6 +30,8 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *
+ * @property-read ActiveModule|null $openActiveModule
+ * @property-read Collection|ActiveModule[] $activeModules
  * @property-read Collection|Technology[] $technologies
  */
 class Module extends Model
@@ -67,5 +71,22 @@ class Module extends Model
     {
         return $this->belongsToMany(Technology::class, 'module_technology')
             ->withTimestamps();
+    }
+
+    /**
+     * Связь с активными модулями (one-to-many)
+     */
+    public function activeModules(): HasMany
+    {
+        return $this->hasMany(ActiveModule::class, 'module_id');
+    }
+
+    /**
+     * Связь один к одному с активным модулем со статусом 'open'
+     */
+    public function openActiveModule(): HasOne
+    {
+        return $this->hasOne(ActiveModule::class, 'module_id')
+            ->where('status', ActiveModule::STATUS_OPEN);
     }
 }
