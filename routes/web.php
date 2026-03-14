@@ -49,21 +49,10 @@ Route::post('/tgbot/events', [TgbotController::class, 'events']);
 Route::get('/telegram-auth/auth', [TelegramAuthController::class, 'auth'])
     ->name('telegram-auth.auth');
 
-// LK
-Route::get('/user/lk', [UserController::class, 'lk'])
-    ->name('user.lk');
 // ===============================================================
 
 Route::resource('users', UsersController::class);
 Route::get('/users/show/{user}', [UsersController::class, 'show'])->name('users.show');
-//Route::get('/users/show/{id}', [UsersController::class, 'show'])->name('users.show');
-//Route::get('/users/show/{id}', [UsersController::class, 'show'])
-//    ->where('id', '[0-9]+')
-//    ->name('users.show');
-//
-//Route::get('/users/show/{id}', [UsersController::class, 'show'])
-//    ->whereNumber('id')
-//    ->name('users.show');
 
 // Вакансии
 Route::get('/vacancy/check', [VacancyController::class, 'check'])->name('vacancy.check');

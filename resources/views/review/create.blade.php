@@ -18,7 +18,6 @@
 
         <div class="row">
             <div class="col-md-6 col-xl-4 mt-3_ mx-auto">
-
                 <!-- Блок для вывода сообщения об успехе -->
                 @if(session('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -26,12 +25,10 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
-
                 <form method="POST" action="{{ route('review.store') }}" class="contact-form" aria-label="Contact form" >
                     @csrf
                     @php
                         $formFields = ['name', 'course', 'message'];
-
                         foreach ($formFields as $field):
                     @endphp
                     <div class="form-group">
@@ -46,7 +43,6 @@
                         @enderror
                     </div>
                     @php endforeach; @endphp
-
                     <div class="col-12 px-1 d-flex justify-content-end">
                         <button class="btn btn--secondary btn-s" id="loadMoreVacancies" data-offset="6">
                             <span class="btn__content">Отправить</span>

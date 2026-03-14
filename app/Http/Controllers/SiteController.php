@@ -18,8 +18,17 @@ class SiteController extends Controller
     {
         $userIp = IPFormatter::format(request()->ip() ?? '127.0.0.1');
 
+        /** @var User|null $user */
+        $user = auth()->user();
+        $activeModules = [];
+        if ($user) {
+            $user->load('activeModules.module');
+            $activeModules = $user->activeModules->pluck('module.name', 'module.id')->toArray();
+        }
+
         return view('site.index', [
             'userIp' => $userIp,
+            'activeModules' => $activeModules,
         ]);
     }
 

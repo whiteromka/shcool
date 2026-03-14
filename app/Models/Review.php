@@ -2,22 +2,41 @@
 
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Class Review
  *
  * @property int $id
- * @property string $name
- * @property string $course
+ * @property int $user_id
+ * @property int $stars
+ * @property string $status
+ * @property int|null $modules_id
  * @property string $message
  */
 class Review extends Model
 {
+    const STATUS_NEW = 'new';
+    const STATUS_APPROVED = 'approved';
+    const STATUS_REJECTED = 'rejected';
+
     protected $fillable = [
-        'name',
-        'course',
+        'user_id',
+        'stars',
+        'modules_id',
+        'status',
         'message'
     ];
 
     protected $table = 'reviews';
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function module(): BelongsTo
+    {
+        return $this->belongsTo(Module::class, 'modules_id');
+    }
 }

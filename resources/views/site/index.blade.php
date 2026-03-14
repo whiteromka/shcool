@@ -1,5 +1,6 @@
 @php
     /** @var string $userIp */
+    /** @var array $activeModules */
 @endphp
 
 @extends('layouts.main')
@@ -8,7 +9,7 @@
 
 @section('content')
 {{-- Вступительный контейнер    --}}
-<x-cyber.main-first :userIp="$userIp"></x-cyber.main-first>
+@include('components.cyber.main-first', ['userIp' => $userIp])
 <br>
 <br>
 <br>
@@ -18,18 +19,18 @@
 
 {{-- ========  ABOUT =========--}}
 <div style="height: 80px"></div>
-<x-nexus.about></x-nexus.about>
+@include('components.nexus.about')
 <div style="height: 150px"></div>
 
 {{--  Контейнер преимущества  --}}
-<x-cyber.advantages></x-cyber.advantages>
+@include('components.cyber.advantages')
 
 {{-- ====  Учебный процесс  ==== --}}
-<x-nexus.learning-process-blocks></x-nexus.learning-process-blocks>
+@include('components.nexus.learning-process-blocks')
 <div style="height: 100px"></div>
 
 {{--  FAQ на основе col из бутстрапа  --}}
-<x-cyber.faq-slider></x-cyber.faq-slider>
+@include('components.cyber.faq-slider')
 <div style="height: 150px"></div>
 
 
@@ -43,7 +44,6 @@
     </section>
 </div>
 <div class="container">
-
     <div>
         {{-- Табы --}}
         <ul class="nav nav-tabs cy-item-tabs fs-13" id="tech" role="tablist" style="display: flex; justify-content: center">
@@ -78,7 +78,7 @@
         <div class="tab-content cy-item-tabs-content">
             <div class="tab-pane fade show active" id="web">
                 {{-- Двойной контейнер с 3d визуализацией --}}
-                <p style="color: #646464">
+                <p class="grey">
                     В основном мы специализируемся на web технологиях фронтенд и бекенд.
                     Фронтенд - пользовательская часть приложения. Бекенд серверная сторона где хранятся данные и выполняется вся логика.
                     Так же у нас есть курс по gamedev(unity) и Английскому языку
@@ -96,21 +96,19 @@
                 <p>тут про gamedev</p>
             </div>
         </div>
-
     </div>
-
 </div>
 <div style="height: 150px"></div>
 
 {{-- Контейнер с курсами \ модулями (items)  --}}
-<x-cyber.courses></x-cyber.courses>
+@include('components.cyber.courses')
 <div style="height: 60px"></div>
 
 {{-- Вакансии --}}
-<x-nexus.vacancies></x-nexus.vacancies>
+@include('components.nexus.vacancies')
 <div style="height: 150px"></div>
 
-<x-cyber.x2></x-cyber.x2>
+@include('components.cyber.x2')
 <div style="height: 150px"></div>
 
 <div class="container">
@@ -127,7 +125,33 @@
 <x-cyber.simple-double></x-cyber.simple-double>
 <div style="height: 150px"></div>
 
-<x-footer-dark></x-footer-dark>
+<div class="container section">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="section-header">
+                <div class="section-label">Reviews</div>
+                <h2 class="section-title">Оставь отзыв</h2>
+                <div class="section-divider" aria-hidden="true"></div>
+            </div>
+        </div>
+    </div>
+
+{{--  Отзывы  --}}
+    <div class="row">
+        <div class="col-md-8">
+            <p class="grey">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium atque consequuntur corporis
+                deleniti dignissimos eaque eligendi illum itaque labore laborum, possimus praesentium quam tempore
+                ut velit. Ab aliquid ea eum magnam, necessitatibus neque nisi. Dolores minima nisi nulla rem veniam.
+            </p>
+        </div>
+        <div class="col-md-4">
+            @include('livewire.review-form', ['activeModules' => $activeModules])
+        </div>
+    </div>
+</div>
+
+@include('components.footer-dark')
 <br>
 <br>
 <br>
