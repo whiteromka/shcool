@@ -3,6 +3,7 @@
     $errors = $errors ?? [];
     $oldInput = $oldInput ?? [];
     $success = $success ?? false;
+    $captcha = $captcha ?? null;
 @endphp
 
 <div class="review-form-container">
@@ -57,6 +58,9 @@
         @if($errors['auth'] ?? false)
             <div class="invalid-feedback" style="display: block; margin-bottom: 10px;">{{ $errors['auth'][0] }}</div>
         @endif
+
+        {{-- Капча --}}
+        @include('partials.captcha', ['error' => $errors['captcha'] ?? null])
 
         <div class="d-flex align-items-center justify-content-end">
             @guest

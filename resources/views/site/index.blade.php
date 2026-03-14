@@ -122,7 +122,7 @@
 </div>
 
 {{-- Обычный двойной Контейнер --}}
-<x-cyber.simple-double></x-cyber.simple-double>
+@include('components.cyber.simple-double')
 <div style="height: 150px"></div>
 
 <div class="container section">
@@ -148,7 +148,7 @@
         <div class="col-md-4">
 
             <div class="review-form-container" id="review-form-container">
-                @include('partials.review-form', ['activeModules' => $activeModules])
+                @include('partials.review-form', ['activeModules' => $activeModules, 'captcha' => $captcha])
             </div>
 
             @push('scripts')
@@ -164,7 +164,6 @@
                             const form = e.target;
                             const submitBtn = form.querySelector('#review-submit-btn');
                             const btnContent = submitBtn?.querySelector('.btn__content');
-
                             if (!submitBtn || submitBtn.disabled) return;
 
                             // Блокировка кнопки
@@ -195,12 +194,57 @@
                             }
                         });
 
+                        // Обработчик обновления капчи (делегирование)
+                        container.addEventListener('click', function(e) {
+                            if (e.target.closest('#refresh-captcha')) {
+                                e.preventDefault();
+                                const btn = e.target.closest('#refresh-captcha');
+                                btn.disabled = true;
+                                btn.style.opacity = '0.5';
+
+                                fetch('/review/refresh-captcha', {
+                                    headers: {
+                                        'X-Requested-With': 'XMLHttpRequest',
+                                        'Accept': 'text/html'
+                                    }
+                                })
+                                .then(response => response.text())
+                                .then(html => {
+                                    const captchaGroup = document.getElementById('captcha-group');
+                                    if (captchaGroup) {
+                                        captchaGroup.innerHTML = html;
+                                    }
+                                    // Очищаем поле ввода капчи
+                                    const captchaInput = document.getElementById('captcha');
+                                    if (captchaInput) {
+                                        captchaInput.value = '';
+                                        captchaInput.classList.remove('is-invalid');
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Error refreshing captcha:', error);
+                                })
+                                .finally(() => {
+                                    btn.disabled = false;
+                                    btn.style.opacity = '1';
+                                });
+                            }
+                        });
+
                         // Очистка ошибок при вводе
                         container.addEventListener('input', function(e) {
                             const target = e.target;
                             if (target.tagName === 'SELECT' || target.tagName === 'TEXTAREA') {
                                 target.classList.remove('is-invalid');
                                 const errorEl = target.parentElement.querySelector('.invalid-feedback');
+                                if (errorEl) {
+                                    errorEl.style.display = 'none';
+                                }
+                            }
+                            // Очищаем ошибку капчи при вводе
+                            if (target.id === 'captcha') {
+                                target.classList.remove('is-invalid');
+                                const errorEl = document.querySelector('#captcha-group .invalid-feedback');
                                 if (errorEl) {
                                     errorEl.style.display = 'none';
                                 }

@@ -247,6 +247,18 @@
 .data-panel__body {
     padding: 12px;
 }
+.data-panel__header:hover .btn-collapse { outline: 1px solid orange;
+}
+.btn-collapse {
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 3px 11px;
+    color: orange;
+}
+.btn-collapse:hover {
+    color: white;
+}
+
 /* corner accents */
 .data-panel::before {
     content: '';

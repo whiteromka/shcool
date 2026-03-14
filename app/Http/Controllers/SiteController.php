@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\IPFormatter;
 use App\Models\User;
+use App\Services\CaptchaService;
 use App\Services\ModuleService;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,9 +27,12 @@ class SiteController extends Controller
             $activeModules = $user->activeModules->pluck('module.name', 'module.id')->toArray();
         }
 
+        // Генерируем капчу для формы отзывов
+        $captcha = CaptchaService::generate();
         return view('site.index', [
             'userIp' => $userIp,
             'activeModules' => $activeModules,
+            'captcha' => $captcha,
         ]);
     }
 

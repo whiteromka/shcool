@@ -64,6 +64,7 @@ Route::post('/business-request/store', [BusinessRequestController::class, 'store
 
 // Reviews
 Route::post('/review/store', [ReviewController::class, 'store'])->name('review.store');
+Route::get('/review/refresh-captcha', [ReviewController::class, 'refreshCaptcha'])->name('review.refresh-captcha');
 
 Route::get('/tech-stack/info/{id}', [TechStackController::class, 'info'])->name('techStack.info');
 

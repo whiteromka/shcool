@@ -106,10 +106,10 @@ class SeedModulesCommand extends Command
                 'name' => 'Framework Yii2',
                 'level' => 6,
                 'module_price' => 15000,
-                'lesson_price' => 500,
+                'lesson_price' => 420,
                 'count_lessons' => 36,
                 'duration' => '3 - 4 мес',
-                'techs' => ['php', 'oop', 'mvc', 'Yii2', 'mySql', 'composer', 'redis', 'docker', 'JS', 'AI', 'git'],
+                'techs' => ['php', 'oop', 'mvc', 'Yii2', 'mySql', 'composer', 'redis', 'docker', 'API', 'JS', 'AI', 'git'],
                 'topics' => [
                     'Контроллеры, модели, виды', 'Миграции', 'ActiveRecord', 'Работа с БД', 'Формы', 'Маршрутизация',
                     'Компоненты фреймворка', 'Дата провайдеры', 'Безопасность', 'Авторизация', 'Виджеты', 'REST API', 'GII'

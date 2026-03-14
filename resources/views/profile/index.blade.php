@@ -24,16 +24,16 @@
             </div>
             <div class="col-md-6 col-xl-4 ms-auto" style="perspective: 1200px; transform-style: preserve-3d; border-left: 1px dotted #00b0db">
                 <div class="profile-main-panel js-cy-brackets" data-color="white" data-size="8">
-                    <h3 class="username tt-up">
-                        {{ $user->getFullNameOrEmail()}}
-                    </h3>
-                    <p>{{ $user->telegram}}</p>
-                    <p>{{ $user->email }}</p>
-                    <p>{{ $user->phone }}</p>
+                    <h3 class="username tt-up">{{ $user->getFullNameOrEmail()}}</h3>
+
+                    <p><span class="{{ $user->telegram ? 'cyan' : 'red' }} width-85">Telegram:</span> {{ $user->telegram}}</p>
+                    <p><span class="{{ $user->email ? 'cyan' : 'red' }} width-85">Email:</span>{{ $user->email }}</p>
+                    <p><span class="{{ $user->phone ? 'cyan' : 'red' }} width-85">Phone:</span>{{ $user->phone }}</p>
 
                     <div class="profile-main-panel-code-wrap">
                         <br>
-                        <span class="js-cyber-text-animation cy-char p-lr-20 w-250 br-t1 d-block ta-c bg-black" style="display: inline-block">
+                        <span class="cyan width-85">code:</span>
+                        <span class="js-cyber-text-animation cy-char p-lr-20 w-250 br-t1 ta-c bg-black" style="display: inline-block">
                                 <span
                                 data-target="0">1</span><span data-target="2">$</span><span
                                 data-target=" ">G</span><span data-target=".">L</span><span
@@ -60,10 +60,11 @@
         @endif
 
         <div class="data-panel">
-            <div class="data-panel__header p-12">
+            <div class="data-panel__header p-12_">
                 <div class="data-panel__dot"></div>
                 <span class="data-panel__title">Основные данные</span>
                 <div class="data-panel__line"></div>
+                <span class="btn-collapse"> — </span>
             </div>
             <div class="data-panel__body data-stream">
                 <form action="{{ route('profile.update') }}" method="POST">
@@ -129,10 +130,11 @@
         <br>
 
         <div class="data-panel">
-            <div class="data-panel__header p-12">
+            <div class="data-panel__header">
                 <div class="data-panel__dot"></div>
                 <span class="data-panel__title">Дополнительные данные</span>
                 <div class="data-panel__line"></div>
+                <span class="btn-collapse"> — </span>
             </div>
             <div class="data-panel__body data-stream">
                 <form action="{{ route('profile.update') }}" method="POST">
