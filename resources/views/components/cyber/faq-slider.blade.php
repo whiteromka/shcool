@@ -85,7 +85,7 @@
                     <div class="swiper-wrapper">
 
                         @foreach($items as $k => $v)
-                            <div class="faq-service-card col-12 col-md-4 col-xxl-3 swiper-slide" style="display: block">
+                            <div class="faq-service-card col-12 col-md-4 col-xxl-3 px-0_ swiper-slide" style="display: block">
                                 <div class="faq-service-index">{{ sprintf("%02d", $k + 1) }}</div>
                                 <div class="faq-service-name">{{ $v['q'] }}</div>
                                 <p class="faq-service-desc">

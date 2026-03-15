@@ -56,18 +56,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const square = point.parentElement;
             if (square) {
-                // outline: 1px solid rgba(98, 255, 0, 0.11);
                 square.style.outline = '1px solid rgba(98, 255, 0, 0.11)';
             }
-            await sleep(1000);
+            await sleep(100);
         }
     }
     window.animatePoints = animatePoints;
 
     createGrid();
 
-    // window.addEventListener('resize', createGrid);
+    window.addEventListener('resize', createGrid);
     // setTimeout(() => {
     //     animatePoints();
-    // }, 2000);
+    // }, 100);
 });

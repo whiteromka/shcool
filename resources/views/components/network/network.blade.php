@@ -3,6 +3,12 @@
         position: relative;
         height: 500px;
     }
+    @media screen and (min-width: 1400px) {
+        .network-wrapper {
+            height: 600px;
+        }
+    }
+
     .network-wrapper:hover {
         box-shadow: inset 0 0 30px 1px rgba(25, 234, 223, 0.13);
         transition: box-shadow 0s ease;
@@ -50,11 +56,11 @@
 @push('scripts')
 <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
 <script>
-    let size = 18;
+    let size = 32;
     let colorBackground = "#fc0000";
     let colorBorder = "#45fff4";
     let borderWidth = 2;
-    let fontSize = 44;
+    let fontSize = 60;
     let fontColor = "#f9f9f9";
     let fontFace = "Orbitron, monospace"; // ToDo починить
 

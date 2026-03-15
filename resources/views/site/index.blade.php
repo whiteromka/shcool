@@ -130,7 +130,7 @@
         <div class="col-md-6">
             <div class="section-header">
                 <div class="section-label">Reviews</div>
-                <h2 class="section-title">Оставь отзыв</h2>
+                <h2 class="section-title">Отзывы</h2>
                 <div class="section-divider" aria-hidden="true"></div>
             </div>
         </div>
@@ -140,10 +140,11 @@
     <div class="row">
         <div class="col-md-8">
             <p class="grey">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium atque consequuntur corporis
-                deleniti dignissimos eaque eligendi illum itaque labore laborum, possimus praesentium quam tempore
-                ut velit. Ab aliquid ea eum magnam, necessitatibus neque nisi. Dolores minima nisi nulla rem veniam.
+                Друзья мы не хотим вводить вас в заблуждение и не станем сами себе писать тут фейковые хвалебные отзывы о нашей работе.
+                Мы никого не обманываем! Тут отображаются настоящие отзывы которые вы пишите о нашей деятельности, конструктивная критика приветствуется.
             </p>
+            <br><br><br><br>
+            <h2 class="font-tektur font-w-100 ta-c">нет отзывов</h2>
         </div>
         <div class="col-md-4">
 

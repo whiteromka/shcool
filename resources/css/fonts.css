@@ -26,6 +26,7 @@
 /*   font-style: normal;*/
 /*}*/
 
+
 .font-tektur {
     font-family: "Tektur", sans-serif;
     font-optical-sizing: auto;
@@ -51,4 +52,7 @@
 .font-tech-mono {
     font-family: "Share Tech Mono", monospace ;
 }
+
+.font-w-100 { font-weight: 100;}
+.font-w-600 { font-weight: 600;}
 
